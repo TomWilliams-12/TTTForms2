@@ -1,3 +1,6 @@
 venv
 .idea
 .devcontainer
+static
+__pycache__
+data
