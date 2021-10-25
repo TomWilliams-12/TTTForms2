@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'jsignature',
     'home',
     'crispy_forms',
+    'courses',
 ]
 
 MIDDLEWARE = [
