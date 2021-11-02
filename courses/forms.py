@@ -1,6 +1,5 @@
-from django.forms import ModelForm, DateField, widgets
+from django.forms import ModelForm, widgets
 from courses.models import Courses
-from accounts.models import Profile
 
 class CourseForm(ModelForm):
 
@@ -11,3 +10,5 @@ class CourseForm(ModelForm):
         widgets = {
             'start_date': widgets.DateInput(attrs={'type': 'date'}),
         }
+
+
