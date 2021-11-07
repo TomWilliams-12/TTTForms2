@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.deletion import SET_DEFAULT, SET_NULL
+from django.db.models.deletion import SET_NULL
 
 from accounts.models import Profile
 

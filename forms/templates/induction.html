@@ -1,9 +1,94 @@
-
-
+{% extends 'includes/base.html' %}
+{% block body %}
 {% load crispy_forms_tags %}
+{% load jsignature_filters %}
+{% load crispy_forms_tags %}
+  {{ induction.media }}
+  <div class="container-xl mt-5 ">
+  {{ induction.name | as_crispy_field }}
+  {{ induction.course_type | as_crispy_field }}
+  {{ induction.course_number | as_crispy_field }}
+  {{ induction.instructor | as_crispy_field }}
+  {{ induction.venue | as_crispy_field }}
+  {{ induction.start_date | as_crispy_field }}
+  {{ induction.finish_date | as_crispy_field }}
+  {{ induction.topsid | as_crispy_field }}
 
-
-  <div class="container mt-5 col-md-5">
-  {{ induction |crispy }}
+  <table class="table table-sm mt-3">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 85%;">Subject</th>
+            <th scope="col">Initial to confirm Understanding</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row" class="text-light bg-dark" colspan="2">Health and Safety</th>
+        </tr>
+        <tr>
+            <th>Fire Alarm/ Emergency Exits/ Evacuation Procedures</th>
+            <td>{{ induction.initial_1| as_crispy_field }} </td>
+        </tr>
+        <tr>
+            <th>General First Aid/ Accident Reporting</th>
+            <td>{{ induction.initial_2| as_crispy_field}} </td>
+        </tr>
+        <tr>
+            <th>Specific Hazards</th>
+            <td>{{ induction.initial_3| as_crispy_field }} </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-light bg-dark" colspan="2">On-Site Facilities</th>
+        </tr>
+        <tr>
+            <th>Toilets</th>
+            <td>{{ induction.initial_4| as_crispy_field}} </td>
+        </tr>
+        <tr>
+            <th>Refreshments/Lunch</th>
+            <td>{{ induction.initial_5| as_crispy_field }} </td>
+        </tr>
+        <tr>
+            <th>Smoking Area</th>
+            <td>{{ induction.initial_6| as_crispy_field }} </td>
+        </tr>
+        <tr>
+            <th>Complaints Procedure/ Mobile Phones/ Security of Belongings</th>
+            <td>{{ induction.initial_7| as_crispy_field }} </td>
+        </tr>
+        <tr>
+            <th>Timings and Breaks</th>
+            <td>{{ induction.initial_8| as_crispy_field }} </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-light bg-dark" colspan="2">Course Outline</th>
+        </tr>
+        <tr>
+            <th>Examination Process</th>
+            <td>{{ induction.initial_9| as_crispy_field }} </td>
+        </tr>
+    </tbody>
+</table>
+<div>
+  <p>Thomas Truck Training Ltd reserve the right to apply drug and alcohol testing for our staff and candidates.</p>
+  <p>Thomas Truck Training Ltd reserves the right to remove any person from the course who, in our opinion
+      has been suspected of the use of any substance that may affect the capability of a person to
+      operate mechanical handling equipment.</p>
+  <p>All candidates must inform Thomas Truck Training Ltd if they have any injury or ailment that may
+      hinder the safe operation of mechanical handling equipment. Failure to do so may result in
+      removal from the course / course result being void</p>
+  <p>by ticking the box below, I agree to the above conditions and to my details being entered onto the
+      Thomas Truck training Ltd & ITSSAR databases. I understand the data I have agreed to provide will
+      be used in accordance with the relevant legislation including the Data Protection Act (GDPR)</p>
 </div>
-
+{{ induction.candidate_checkbox| as_crispy_field }}
+<div class="esign mt-3">
+  <div class="row">
+      <div class="col-sm-6">
+          <h3>Candidate Signature</h3>
+      </div>
+  </div>
+  {{ induction.candidate_signature| as_crispy_field }}
+</div>
+</div>
+{% endblock %}

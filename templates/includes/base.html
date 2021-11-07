@@ -27,9 +27,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_course' %}">Courses</a>
                     </li>
-                    <li class="nav-item ml-auto">
-                       
-                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Customers
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="{% url 'customer' %}">Create Customer</a>
+                          <a class="dropdown-item" href="{% url 'customers' %}">View Customers</a>
+                        </div>
+                      </li>
                 </ul>
                 <div class="d-flex">
                     <a class="mr-4 btn btn-secondary " href="{% url 'logout' %}">Logout</a>
