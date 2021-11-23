@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'courses',
     'forms',
     'customers',
+    'form_apps.cbr',
 ]
 
 MIDDLEWARE = [
