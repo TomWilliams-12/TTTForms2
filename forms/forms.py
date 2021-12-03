@@ -4,11 +4,7 @@ from django.forms.fields import BooleanField, CharField, ChoiceField, DateField,
 from datetime import datetime
 from jsignature.forms import JSignatureField
 from jsignature.widgets import JSignatureWidget
-
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div
-from crispy_forms.bootstrap import InlineRadios
-
 
 
 class InductionForm(Form):
