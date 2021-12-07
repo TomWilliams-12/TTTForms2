@@ -88,11 +88,11 @@ for i in range(5):
     Cbr.add_to_class('d' + str(i + 1) + '_SA', models.CharField(max_length=1, blank=True, null=True))
 
 for i in range(25):
-    Cbr.add_to_class('associatedTest_' + str(i + 1) + '_mark', models.CharField(max_length=3, blank=True, null=True))
+    Cbr.add_to_class('mark_' + str(i + 1), models.CharField(max_length=3, blank=True, null=True))
     if i + 1 < 21:
-        Cbr.add_to_class('associatedTest_' + str(i + 1) + '_answer', models.CharField(max_length=3, blank=True, null=True))
+        Cbr.add_to_class('question_' + str(i + 1), models.CharField(max_length=3, blank=True, null=True))
     else:
-        Cbr.add_to_class('associatedTest_' + str(i + 1) + '_answer', models.CharField(max_length=300, blank=True, null=True))
+        Cbr.add_to_class('question_' + str(i + 1), models.CharField(max_length=300, blank=True, null=True))
 
 for i in range(19):
     Cbr.add_to_class('ot_' + str(i + 1), models.CharField(max_length=10, blank=True, null=True))

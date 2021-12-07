@@ -14,7 +14,7 @@ class InductionPage(View):
             ('Reach Refresher','Reach Refresher'),
             ('Reach Conversion','Reach Conversion'),
         )
-    
+
     def get(self, request):
         induction = InductionForm(self.choices, request=request)
         return render(request, 'induction.html', {'induction': induction})

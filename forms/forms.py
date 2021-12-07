@@ -34,11 +34,11 @@ class ReviewForm(Form):
         self.request = kwargs.pop("request")
         super(ReviewForm, self).__init__(*args, **kwargs)
         for i in range(9):
-            self.fields['review_%d' % (i + 1)] = ChoiceField(label='review_%d' % (i + 1), required=False, choices=review_choices,
+            self.fields['eval%d' % (i + 1)] = ChoiceField(label='eval%d' % (i + 1), required=False, choices=review_choices,
                 widget=forms.RadioSelect(attrs={'class': 'test'})
                 )
         for i in range(3):
-            self.fields['review_%d' % (i + 10)] = CharField(label='review_%d' % (i + 10), max_length=100, required=False, 
+            self.fields['eval%d' % (i + 10)] = CharField(label='eval%d' % (i + 10), max_length=100, required=False, 
             widget= forms.TextInput
                            (attrs={'class':'w-100'}))
         self.helper = FormHelper()

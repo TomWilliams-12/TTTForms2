@@ -13,6 +13,20 @@ class CbrForm(Form):
         super(CbrForm, self).__init__(*args, **kwargs)
         self.fields['companyName'].queryset = Customers.objects.all()
         self.fields['instructor2Name'].queryset = Profile.objects.all()
+        for i in range(7):
+            self.fields['md_' + str(i + 1)] = BooleanField(label='md_' + str(i + 1), required=False)
+        for i in range(23):
+            self.fields['check_' + str(i + 1) + '_cc'] = CharField(label='check_' + str(i + 1) + '_cc', required=False)
+            self.fields['check_' + str(i + 1) + '_cr'] = CharField(label='check_' + str(i + 1) + '_cr', required=False)
+        for i in range(5):
+            self.fields['d' + str(i + 1) + '_SD'] = CharField(label='d' + str(i + 1) + '_SD', required=False)
+            self.fields['d' + str(i + 1) + '_RTI'] = CharField(label='d' + str(i + 1) + '_RTI', required=False)
+            self.fields['d' + str(i + 1) + '_M'] = CharField(label='d' + str(i + 1) + '_M', required=False)
+            self.fields['d' + str(i + 1) + '_SA'] = CharField(label='d' + str(i + 1) + '_SA', required=False)
+        for i in range(19):
+            self.fields['ot_' + str(i + 1)] = CharField(label='ot_' + str(i + 1), required=False)
+
+        
 
     type = [('',''), ('Counterbalance', 'Counterbalance'), ('Reach', 'Reach')]
     group = [('',''), ('B1', 'B1'), ('B2', 'B2'), ('B3', 'B3'), ('B4', 'B4'),
