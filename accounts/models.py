@@ -44,5 +44,5 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['user_name', 'first_name']
 
     def __str__(self):
-        return self.user_name
+        return self.first_name
 

@@ -10,3 +10,6 @@ class Courses(models.Model):
     start_date = models.DateField(blank=True, null=True)
     instructor = models.ForeignKey(Profile, related_name='courseInstructor', on_delete=SET_NULL, null=True)
     venue = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.course_number

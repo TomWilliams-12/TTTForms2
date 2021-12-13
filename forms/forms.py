@@ -35,7 +35,7 @@ class ReviewForm(Form):
         super(ReviewForm, self).__init__(*args, **kwargs)
         for i in range(9):
             self.fields['eval%d' % (i + 1)] = ChoiceField(label='eval%d' % (i + 1), required=False, choices=review_choices,
-                widget=forms.RadioSelect(attrs={'class': 'test'})
+                widget=forms.RadioSelect
                 )
         for i in range(3):
             self.fields['eval%d' % (i + 10)] = CharField(label='eval%d' % (i + 10), max_length=100, required=False, 

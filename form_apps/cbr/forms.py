@@ -1,89 +1,465 @@
 from django import forms
-from django.forms import Form, widgets, ModelMultipleChoiceField
-from django.forms.fields import BooleanField, CharField, ChoiceField, DateField, IntegerField, TimeField
-from datetime import datetime
-from jsignature.forms import JSignatureField
-from jsignature.widgets import JSignatureWidget
+from django.forms import widgets, ModelForm
+from .models import Cbr 
 from crispy_forms.helper import FormHelper
-from models import Customers, Cbr, Profile
 
-class CbrForm(Form):
+class CbrForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop("request")
         super(CbrForm, self).__init__(*args, **kwargs)
-        self.fields['companyName'].queryset = Customers.objects.all()
-        self.fields['instructor2Name'].queryset = Profile.objects.all()
-        for i in range(7):
-            self.fields['md_' + str(i + 1)] = BooleanField(label='md_' + str(i + 1), required=False)
-        for i in range(23):
-            self.fields['check_' + str(i + 1) + '_cc'] = CharField(label='check_' + str(i + 1) + '_cc', required=False)
-            self.fields['check_' + str(i + 1) + '_cr'] = CharField(label='check_' + str(i + 1) + '_cr', required=False)
-        for i in range(5):
-            self.fields['d' + str(i + 1) + '_SD'] = CharField(label='d' + str(i + 1) + '_SD', required=False)
-            self.fields['d' + str(i + 1) + '_RTI'] = CharField(label='d' + str(i + 1) + '_RTI', required=False)
-            self.fields['d' + str(i + 1) + '_M'] = CharField(label='d' + str(i + 1) + '_M', required=False)
-            self.fields['d' + str(i + 1) + '_SA'] = CharField(label='d' + str(i + 1) + '_SA', required=False)
-        for i in range(19):
-            self.fields['ot_' + str(i + 1)] = CharField(label='ot_' + str(i + 1), required=False)
+        self.helper = FormHelper()
+        self.fields['eval_10'].form_show_label = False
 
-        
-
-    type = [('',''), ('Counterbalance', 'Counterbalance'), ('Reach', 'Reach')]
-    group = [('',''), ('B1', 'B1'), ('B2', 'B2'), ('B3', 'B3'), ('B4', 'B4'),
+    class Meta:
+        model = Cbr
+        fields = '__all__'
+        exclude = ()
+        labels = {
+            'candidate_Initial': '',
+            'candidate_Signature': '',
+            'candidate_Checkbox': '',
+            'candidateTopsId': 'Tops ID',
+            'candidate_DOB': 'Date of Birth',
+            'candidate_NIN': 'National Insurance No.',
+            'machine_Make_Model': 'Machine Make/Model',
+            'machine_Capacity': 'Capacity in Kgs',
+            'machine_Load_Centre': 'Load Centre in mm',
+            'machine_Test_Lift_Height': 'Test lift height in mm',
+            'courseTypeN': 'Novice',
+            'courseTypeE': 'Experienced',
+            'courseTypeC': 'Conversion',
+            'courseTypeSF': 'Safety Refresher',
+            'd1_SD': 'd1_sd',
+            'd2_SD': 'd2_sd',
+            'd3_SD': 'd3_sd',
+            'd4_SD': 'd4_sd',
+            'd5_SD': 'd5_sd',
+            'd1_RTI': 'd1_rti',
+            'd2_RTI': 'd2_rti',
+            'd3_RTI': 'd3_rti',
+            'd4_RTI': 'd4_rti',
+            'd5_RTI': 'd5_rti',
+            'd1_M': 'd1_m',
+            'd2_M': 'd2_m',
+            'd3_M': 'd3_m',
+            'd4_M': 'd4_m',
+            'd5_M': 'd5_m',
+            'd1_SA': 'd1_sa',
+            'd2_SA': 'd2_sa',
+            'd3_SA': 'd3_sa',
+            'd4_SA': 'd4_sa',
+            'd5_SA': 'd5_sa',
+            'pre_Use_Test': '',
+            'overall_Result': '',
+            'instructor_Comments': '',
+            'instructor_2': '',
+            'penalty_1': 'penalty_1',
+            'penalty_2': 'penalty_2',
+            'penalty_3': 'penalty_3',
+            'penalty_4': 'penalty_4',
+            'penalty_5': 'penalty_5',
+            'penalty_6': 'penalty_6',
+            'penalty_7': 'penalty_7',
+            'penalty_8': 'penalty_8',
+            'penalty_9': 'penalty_9',
+            'penalty_10': 'penalty_10',
+            'penalty_11': 'penalty_11',
+            'penalty_12': 'penalty_12',
+            'penalty_13': 'penalty_13',
+            'penalty_14': 'penalty_14',
+            'penalty_15': 'penalty_15',
+            'penalty_16': 'penalty_16',
+            'penalty_17': 'penalty_17',
+            'penalty_18': 'penalty_18',
+            'penalty_19': 'penalty_19',
+            'penalty_20': 'penalty_20',
+            'penalty_21': 'penalty_21',
+            'penalty_22': 'penalty_22',
+            'penalty_23': 'penalty_23',
+            'penalty_24': 'penalty_24',
+            'penalty_25': 'penalty_25',
+            'penalty_26': 'penalty_26',
+            'penalty_27': 'penalty_27',
+            'penalty_28': 'penalty_28',
+            'penalty_29': 'penalty_29',
+            'penalty_30': 'penalty_30',
+            'penalty_31': 'penalty_31',
+            'penalty_32': 'penalty_32',
+            'penalty_33': 'penalty_33',
+            'penalty_34': 'penalty_34',
+            'penalty_35': 'penalty_35',
+            'penalty_36': 'penalty_36',
+            'penalty_37': 'penalty_37',
+            'md_1': 'md_1',
+            'md_2': 'md_2',
+            'md_3': 'md_3',
+            'md_4': 'md_4',
+            'md_5': 'md_5',
+            'md_6': 'md_6',
+            'md_7': 'md_7',
+            'restriction_Detail': '',
+            'check_1_cc': 'check_1_cc',
+            'check_2_cc': 'check_2_cc',
+            'check_3_cc': 'check_3_cc',
+            'check_4_cc': 'check_4_cc',
+            'check_5_cc': 'check_5_cc',
+            'check_6_cc': 'check_6_cc',
+            'check_7_cc': 'check_7_cc',
+            'check_8_cc': 'check_8_cc',
+            'check_9_cc': 'check_9_cc',
+            'check_10_cc': 'check_10_cc',
+            'check_11_cc': 'check_11_cc',
+            'check_12_cc': 'check_12_cc',
+            'check_13_cc': 'check_13_cc',
+            'check_14_cc': 'check_14_cc',
+            'check_15_cc': 'check_15_cc',
+            'check_16_cc': 'check_16_cc',
+            'check_17_cc': 'check_17_cc',
+            'check_18_cc': 'check_18_cc',
+            'check_19_cc': 'check_19_cc',
+            'check_20_cc': 'check_20_cc',
+            'check_21_cc': 'check_21_cc',
+            'check_22_cc': 'check_22_cc',
+            'check_23_cc': 'check_23_cc',
+            'check_1_cr': 'check_1_cr',
+            'check_2_cr': 'check_2_cr',
+            'check_3_cr': 'check_3_cr',
+            'check_4_cr': 'check_4_cr',
+            'check_5_cr': 'check_5_cr',
+            'check_6_cr': 'check_6_cr',
+            'check_7_cr': 'check_7_cr',
+            'check_8_cr': 'check_8_cr',
+            'check_9_cr': 'check_9_cr',
+            'check_10_cr': 'check_10_cr',
+            'check_11_cr': 'check_11_cr',
+            'check_12_cr': 'check_12_cr',
+            'check_13_cr': 'check_13_cr',
+            'check_14_cr': 'check_14_cr',
+            'check_15_cr': 'check_15_cr',
+            'check_16_cr': 'check_16_cr',
+            'check_17_cr': 'check_17_cr',
+            'check_18_cr': 'check_18_cr',
+            'check_19_cr': 'check_19_cr',
+            'check_20_cr': 'check_20_cr',
+            'check_21_cr': 'check_21_cr',
+            'check_22_cr': 'check_22_cr',
+            'check_23_cr': 'check_23_cr',
+            'mark_1': 'mark_1',
+            'mark_2': 'mark_2',
+            'mark_3': 'mark_3',
+            'mark_4': 'mark_4',
+            'mark_5': 'mark_5',
+            'mark_6': 'mark_6',
+            'mark_7': 'mark_7',
+            'mark_8': 'mark_8',
+            'mark_9': 'mark_9',
+            'mark_10': 'mark_10',
+            'mark_11': 'mark_11',
+            'mark_12': 'mark_12',
+            'mark_13': 'mark_13',
+            'mark_14': 'mark_14',
+            'mark_15': 'mark_15',
+            'mark_16': 'mark_16',
+            'mark_17': 'mark_17',
+            'mark_18': 'mark_18',
+            'mark_19': 'mark_19',
+            'mark_20': 'mark_20',
+            'mark_21': 'mark_21',
+            'mark_22': 'mark_22',
+            'mark_23': 'mark_23',
+            'mark_24': 'mark_24',
+            'mark_25': 'mark_25',
+            'question_1': 'question_1',
+            'question_2': 'question_2',
+            'question_3': 'question_3',
+            'question_4': 'question_4',
+            'question_5': 'question_5',
+            'question_6': 'question_6',
+            'question_7': 'question_7',
+            'question_8': 'question_8',
+            'question_9': 'question_9',
+            'question_10': 'question_10',
+            'question_11': 'question_11',
+            'question_12': 'question_12',
+            'question_13': 'question_13',
+            'question_14': 'question_14',
+            'question_15': 'question_15',
+            'question_16': 'question_16',
+            'question_17': 'question_17',
+            'question_18': 'question_18',
+            'question_19': 'question_19',
+            'question_20': 'question_20',
+            'question_21': 'question_21',
+            'question_22': 'question_22',
+            'question_23': 'question_23',
+            'question_24': 'question_24',
+            'question_25': 'question_25',
+            'ot_12_L': 'ot_12_l',
+            'ot_12_M': 'ot_12_m',
+            'ot_12_H': 'ot_12_h',
+            'ot_13_L': 'ot_13_l',
+            'ot_13_M': 'ot_13_m',
+            'ot_13_H': 'ot_13_h',
+            'ot_14_L': 'ot_14_l',
+            'ot_14_M': 'ot_14_m',
+            'ot_14_H': 'ot_14_h',
+            'ot_17_T': 'ot_17_t',
+            'ot_17_P': 'ot_17_p',
+            'ot_18_T': 'ot_18_t',
+            'ot_18_P': 'ot_18_p',
+            'ot_19_T': 'ot_19_t',
+            'ot_19_P': 'ot_19_p',
+            'ot_19_PU': 'ot_19_pu',
+            'ot_1': 'ot_1',
+            'ot_2': 'ot_2',
+            'ot_3': 'ot_3',
+            'ot_4': 'ot_4',
+            'ot_5': 'ot_5',
+            'ot_6': 'ot_6',
+            'ot_7': 'ot_7',
+            'ot_8': 'ot_8',
+            'ot_9': 'ot_9',
+            'ot_10': 'ot_10',
+            'ot_11': 'ot_11',
+            'ot_12': 'ot_12',
+            'ot_13': 'ot_13',
+            'ot_14': 'ot_14',
+            'ot_15': 'ot_15',
+            'ot_16': 'ot_16',
+            'ot_17': 'ot_17',
+            'ot_18': 'ot_18',
+            'ot_19': 'ot_19',
+            'eval_1': 'eval_1',
+            'eval_2': 'eval_2',
+            'eval_3': 'eval_3',
+            'eval_4': 'eval_4',
+            'eval_5': 'eval_5',
+            'eval_6': 'eval_6',
+            'eval_7': 'eval_7',
+            'eval_8': 'eval_8',
+            'eval_9': 'eval_9',
+            'eval_10': '',
+            'eval_11': '',
+            'eval_12': '',
+        }
+        choices = (
+            ('',''),
+            ('Counterbalance Novice','Counterbalance Novice'),
+            ('Counterbalance Experienced','Counterbalance Experienced'),
+            ('Counterbalance Refresher','Counterbalance Refresher'),
+            ('Counterbalance Conversion','Counterbalance Conversion'),
+            ('Reach Novice','Reach Novice'),
+            ('Reach Experienced','Reach Experienced'),
+            ('Reach Refresher','Reach Refresher'),
+            ('Reach Conversion','Reach Conversion'),
+        )
+        group = [('',''), ('B1', 'B1'), ('B2', 'B2'), ('B3', 'B3'), ('B4', 'B4'),
             ('D1', 'D1'), ('D2', 'D2'), ('D3', 'D3'), ('G2', 'G2')]
-    motive_power = [('',''), ('Electric', 'Electric'), ('Diesel', 'Diesel'), ('LPG', 'LPG')]
-    course_duration = [('',''), ('5','5'), ('6','6'), ('7.5','7.5'), ('15','15'), ('22.5','22.5'), ('30','30'), ('37.5','37.5')]
-    models = [('',''), ('Jungheinrich EFGDF16','Jungheinrich EFGDF16'), ('YALE ERP16 ATF','YALE ERP16 ATF'), 
+        models = [('',''), ('Jungheinrich EFGDF16','Jungheinrich EFGDF16'), ('YALE ERP16 ATF','YALE ERP16 ATF'), 
             ('Jungheinrich ETM14','Jungheinrich ETM14'), ('CAT NR14K','CAT NR14K')]
-    training_ratio = [('1-1-1', '1-1-1'), ('2-1-1', '2-1-1'), ('3-1-1', '3-1-1')]
-
-    candidateDOB = DateField(label='Candidate DOB', required=False, widget=widgets.DateInput(attrs={'type': 'date'}))
-    candidateTopsId = CharField(label='Tops ID', max_length=15, required=True)
-    candidateNIN = CharField(label='National Insurance Number', max_length=10, required=False)
-    machineType = ChoiceField(label='', choices=type, required=False)
-    machineGroup = ChoiceField(label='', choices=group, required=False)
-    machineMakeModel = CharField(label='', max_length=100, required=False)
-    machineCapacity = CharField(label='', max_length=100, required=False)
-    machineLoadCentre = IntegerField(label='', required=False)
-    machineTestLiftHeight = CharField(label='', max_length=10, required=False)
-    machineAttachments = CharField(label='', max_length=20, required=False)
-    machineMotivePower = CharField(label='', max_length=10, required=False)
-    companyName = ModelMultipleChoiceField(queryset=None, null=True)
-    courseTypeN = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    courseTypeE = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    courseTypeC = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    courseTypeSF = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    courseTrainingRatio = ChoiceField(label='', max_length=10, required=False, choices=training_ratio)
-    courseDuration = ChoiceField(label='', max_length=10, required=False, choices=course_duration)
-    basicSkills =DateField(label='', required=False, widget=widgets.DateInput(attrs={'type': 'date'}))
-    theory = DateField(label='', required=False, widget=widgets.DateInput(attrs={'type': 'date'}))
-    preUse = DateField(label='', required=False, widget=widgets.DateInput(attrs={'type': 'date'}))
-    refresherTest = DateField(label='', required=False, widget=widgets.DateInput(attrs={'type': 'date'}))
-    familiarisation = DateField(label='', required=False, widget=widgets.DateInput(attrs={'type': 'date'}))
-    specificJob = DateField(label='', required=False, widget=widgets.DateInput(attrs={'type': 'date'}))
-    finalGrading = CharField(label='', max_length=10, required=False)
-    basicSkillsTest = CharField(label='', max_length=10, required=False)
-    theoryTest = CharField(label='', max_length=10, required=False)
-    preUseTest = CharField(label='', max_length=10, required=False)
-    overallResult = CharField(label='', max_length=10, required=False)
-    instructorComments = CharField(label='', max_length=1000, required=False)
-    instructor2Name = ModelMultipleChoiceField(queryset=None, null=True)
-
-    restrictionDetail = CharField(label='', max_length=500, required=False)
-    testPaperReference = CharField(label='', max_length=10, required=False)
-    ot_12_L = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_12_M = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_12_H = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_13_L = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_13_M = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_13_H = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_14_L = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_14_M = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_14_H = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_17_T = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_17_P = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_18_T = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_18_P = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_19_PU = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_19_T = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
-    ot_19_P = BooleanField(label="", required=False, widget=widgets.CheckboxInput())
+        motive_power = [('',''), ('Electric', 'Electric'), ('Diesel', 'Diesel'), ('LPG', 'LPG')]
+        training_ratio = [('',''), ('1-1-1', '1-1-1'), ('2-1-1', '2-1-1'), ('3-1-1', '3-1-1')]
+        course_duration = [('',''), ('5','5'), ('6','6'), ('7.5','7.5'), ('15','15'), ('22.5','22.5'), ('30','30'), ('37.5','37.5')]
+        operator_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D'), ('E', 'E')]
+        test_results = [('',''), ('Pass', 'Pass'), ('Referral', 'Referral')]
+        check_choices = [('',''), (u'\u2713;', u'\u2713'), ('X', 'X'), ('N/A', 'N/A')]
+        ot_choices = [('',''), (u'\u2713;', u'\u2713'), ('N/A', 'N/A')]
+        question_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D')]
+        mark_choices = [('',''), ('0', '0'), ('4', '4')]
+        mark_choices1 = [('',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
+        
+        widgets = {
+            'course_Type': forms.Select(choices=choices),
+            'start_Date': widgets.DateInput(attrs={'type': 'date'}),
+            'finish_Date': widgets.DateInput(attrs={'type': 'date'}),
+            'venue': forms.Select(choices=(('',''), ('TTT','TTT'), ('On-Site','On-Site'))),
+            'candidate_Checkbox': widgets.CheckboxInput(attrs={'style':'width:40px;height:40px;float:none;'}),
+            'candidate_DOB': widgets.DateInput(attrs={'type': 'date'}),
+            'machine_Type': forms.Select(choices=(('',''), ('Counterbalance', 'Counterbalance'), ('Reach', 'Reach'))),
+            'machine_Group': forms.Select(choices=group),
+            'machine_Make_Model': forms.Select(choices=models),
+            'machine_Motive_Power': forms.Select(choices=motive_power),
+            'courseTypeN': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'courseTypeE': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'courseTypeC': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'courseTypeSF': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'training_Ratio': forms.Select(choices=training_ratio),
+            'course_Duration': forms.Select(choices=course_duration),
+            'basic_Skills': widgets.DateInput(attrs={'type':'date'}),
+            'theory': widgets.DateInput(attrs={'type':'date'}),
+            'pre_Use': widgets.DateInput(attrs={'type':'date'}),
+            'refresher_Test': widgets.DateInput(attrs={'type':'date'}),
+            'familiarisation': widgets.DateInput(attrs={'type':'date'}),
+            'specific_Job': widgets.DateInput(attrs={'type':'date'}),
+            'd1_SD': forms.Select(choices=operator_choices),
+            'd2_SD': forms.Select(choices=operator_choices),
+            'd3_SD': forms.Select(choices=operator_choices),
+            'd4_SD': forms.Select(choices=operator_choices),
+            'd5_SD': forms.Select(choices=operator_choices),
+            'd1_RTI': forms.Select(choices=operator_choices),
+            'd2_RTI': forms.Select(choices=operator_choices),
+            'd3_RTI': forms.Select(choices=operator_choices),
+            'd4_RTI': forms.Select(choices=operator_choices),
+            'd5_RTI': forms.Select(choices=operator_choices),
+            'd1_M': forms.Select(choices=operator_choices),
+            'd2_M': forms.Select(choices=operator_choices),
+            'd3_M': forms.Select(choices=operator_choices),
+            'd4_M': forms.Select(choices=operator_choices),
+            'd5_M': forms.Select(choices=operator_choices),
+            'd1_SA': forms.Select(choices=operator_choices),
+            'd2_SA': forms.Select(choices=operator_choices),
+            'd3_SA': forms.Select(choices=operator_choices),
+            'd4_SA': forms.Select(choices=operator_choices),
+            'd5_SA': forms.Select(choices=operator_choices),
+            'final_Grading': forms.Select(choices=operator_choices),
+            'pre_Use_Test': forms.Select(choices=test_results),
+            'overall_Result': forms.Select(choices=test_results),
+            'start_Time': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+            'finish_Time': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+            'md_1': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'md_2': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'md_3': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'md_4': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'md_5': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'md_6': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'md_7': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_1_cc': forms.Select(choices=check_choices),
+            'check_2_cc': forms.Select(choices=check_choices),
+            'check_3_cc': forms.Select(choices=check_choices),
+            'check_4_cc': forms.Select(choices=check_choices),
+            'check_5_cc': forms.Select(choices=check_choices),
+            'check_6_cc': forms.Select(choices=check_choices),
+            'check_7_cc': forms.Select(choices=check_choices),
+            'check_8_cc': forms.Select(choices=check_choices),
+            'check_9_cc': forms.Select(choices=check_choices),
+            'check_10_cc': forms.Select(choices=check_choices),
+            'check_11_cc': forms.Select(choices=check_choices),
+            'check_12_cc': forms.Select(choices=check_choices),
+            'check_13_cc': forms.Select(choices=check_choices),
+            'check_14_cc': forms.Select(choices=check_choices),
+            'check_15_cc': forms.Select(choices=check_choices),
+            'check_16_cc': forms.Select(choices=check_choices),
+            'check_17_cc': forms.Select(choices=check_choices),
+            'check_18_cc': forms.Select(choices=check_choices),
+            'check_19_cc': forms.Select(choices=check_choices),
+            'check_20_cc': forms.Select(choices=check_choices),
+            'check_21_cc': forms.Select(choices=check_choices),
+            'check_22_cc': forms.Select(choices=check_choices),
+            'check_23_cc': forms.Select(choices=check_choices),
+            'check_1_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_2_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_3_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_4_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_5_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_6_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_7_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_8_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_9_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_10_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_11_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_12_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_13_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_14_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_15_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_16_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_17_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_18_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_19_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_20_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_21_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_22_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'check_23_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
+            'mark_1': forms.Select(choices=mark_choices),
+            'mark_2': forms.Select(choices=mark_choices),
+            'mark_3': forms.Select(choices=mark_choices),
+            'mark_4': forms.Select(choices=mark_choices),
+            'mark_5': forms.Select(choices=mark_choices),
+            'mark_6': forms.Select(choices=mark_choices),
+            'mark_7': forms.Select(choices=mark_choices),
+            'mark_8': forms.Select(choices=mark_choices),
+            'mark_9': forms.Select(choices=mark_choices),
+            'mark_10': forms.Select(choices=mark_choices),
+            'mark_11': forms.Select(choices=mark_choices),
+            'mark_12': forms.Select(choices=mark_choices),
+            'mark_13': forms.Select(choices=mark_choices),
+            'mark_14': forms.Select(choices=mark_choices),
+            'mark_15': forms.Select(choices=mark_choices),
+            'mark_16': forms.Select(choices=mark_choices),
+            'mark_17': forms.Select(choices=mark_choices),
+            'mark_18': forms.Select(choices=mark_choices),
+            'mark_19': forms.Select(choices=mark_choices),
+            'mark_20': forms.Select(choices=mark_choices),
+            'mark_21': forms.Select(choices=mark_choices1),
+            'mark_22': forms.Select(choices=mark_choices1),
+            'mark_23': forms.Select(choices=mark_choices1),
+            'mark_24': forms.Select(choices=mark_choices1),
+            'mark_25': forms.Select(choices=mark_choices1),
+            'question_1': forms.Select(choices=question_choices),
+            'question_2': forms.Select(choices=question_choices),
+            'question_3': forms.Select(choices=question_choices),
+            'question_4': forms.Select(choices=question_choices),
+            'question_5': forms.Select(choices=question_choices),
+            'question_6': forms.Select(choices=question_choices),
+            'question_7': forms.Select(choices=question_choices),
+            'question_8': forms.Select(choices=question_choices),
+            'question_9': forms.Select(choices=question_choices),
+            'question_10': forms.Select(choices=question_choices),
+            'question_11': forms.Select(choices=question_choices),
+            'question_12': forms.Select(choices=question_choices),
+            'question_13': forms.Select(choices=question_choices),
+            'question_14': forms.Select(choices=question_choices),
+            'question_15': forms.Select(choices=question_choices),
+            'question_16': forms.Select(choices=question_choices),
+            'question_17': forms.Select(choices=question_choices),
+            'question_18': forms.Select(choices=question_choices),
+            'question_19': forms.Select(choices=question_choices),
+            'question_20': forms.Select(choices=question_choices),
+            'question_21': forms.Textarea(attrs={'rows':3}),
+            'question_22': forms.Textarea(attrs={'rows':3}),
+            'question_23': forms.Textarea(attrs={'rows':3}),
+            'question_24': forms.Textarea(attrs={'rows':3}),
+            'question_25': forms.Textarea(attrs={'rows':3}),
+            'ot_12_L': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_12_M': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_12_H': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_13_L': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_13_M': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_13_H': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_14_L': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_14_M': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_14_H': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_17_T': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_17_P': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_18_T': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_18_P': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_19_T': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_19_P': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_19_PU': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
+            'ot_1': forms.Select(choices=ot_choices),
+            'ot_2': forms.Select(choices=ot_choices),
+            'ot_3': forms.Select(choices=ot_choices),
+            'ot_4': forms.Select(choices=ot_choices),
+            'ot_5': forms.Select(choices=ot_choices),
+            'ot_6': forms.Select(choices=ot_choices),
+            'ot_7': forms.Select(choices=ot_choices),
+            'ot_8': forms.Select(choices=ot_choices),
+            'ot_9': forms.Select(choices=ot_choices),
+            'ot_10': forms.Select(choices=ot_choices),
+            'ot_11': forms.Select(choices=ot_choices),
+            'ot_12': forms.Select(choices=ot_choices),
+            'ot_13': forms.Select(choices=ot_choices),
+            'ot_14': forms.Select(choices=ot_choices),
+            'ot_15': forms.Select(choices=ot_choices),
+            'ot_16': forms.Select(choices=ot_choices),
+            'ot_17': forms.Select(choices=ot_choices),
+            'ot_18': forms.Select(choices=ot_choices),
+            'ot_19': forms.Select(choices=ot_choices),
+            'eval_1': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_2': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_3': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_4': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_5': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_6': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_7': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_8': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            'eval_9': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
+            }

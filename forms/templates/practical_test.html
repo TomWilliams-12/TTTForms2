@@ -1,37 +1,35 @@
-{% extends 'includes/base.html' %}
-{% block body %}
     {% load crispy_forms_tags %}
     {% load my_filters %}
     <div class="container-xl mt-5">
         <div class='row'>
             <div class='col-4'>
-                {{ practical.set_time | as_crispy_field }}
+                {{ form.set_Time | as_crispy_field }}
             </div>
             <div class='col-4'>
-                {{ practical.start_time | as_crispy_field }}
+                {{ form.start_Time | as_crispy_field }}
             </div>
             <div class='col-4'>
-                {{ practical.finish_time | as_crispy_field }}
+                {{ form.finish_Time | as_crispy_field }}
             </div>
             <div class='row mt-3'>
-                <p class="col-3">d. Duration</p>
-                <p class="col-3" id="duration"></p>
-                <p class="col-3">Excess time = d-a</p>
-                <p class="col-3" id="excessTime"></p>
+                <p class="col-sm-3">d. Duration</p>
+                <p class="col-sm-3" id="duration"></p>
+                <p class="col-sm-3">Excess time = d-a</p>
+                <p class="col-sm-3" id="excessTime"></p>
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-6">
-                <table class="table-responsive">
+            <div class="col-6 table-responsive">
+                <table class="">
                     <thead>
                         <tr>
-                            <th scope="col" style="width:5%;">No.</th>
-                            <th scope="col" style="width:10%;">Criteria Observed</th>
-                            <th scope="col" style="width:5%;">-</th>
-                            <th scope="col" style="width:5%;">+</th>
-                            <th scope="col" style="width:5%;">Faults</th>
-                            <th scope="col" style="width:2%;">Pen</th>
-                            <th scope="col" style="width:5%;">Award</th>
+                            <th scope="col" style="width: 15%;" >No.</th>
+                            <th scope="col" >Criteria Observed</th>
+                            <th scope="col" >-</th>
+                            <th scope="col" >+</th>
+                            <th scope="col" >Faults</th>
+                            <th scope="col" >Pen</th>
+                            <th scope="col" >Award</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +47,7 @@
                                     <td id="fault-0" class="faults"></td>
                                     <td class="penalty pen1 carryForward">{{ v.pen }}</td>
                                     {% with 'penalty_'|add:v.num as field %}
-                                    <td>{{ practical|get_form_field:field }}</td>
+                                    <td>{{ form|get_form_field:field }}</td>
                                     {% endwith %}
                             {% endif %}
                         {% endfor %}
@@ -61,17 +59,17 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-6">
-                <table class="table-responsive">
+            <div class="col-6 table-responsive">
+                <table>
                     <thead>
                         <tr>
-                            <th scope="col" style="width:5%;">No.</th>
-                            <th scope="col" style="width:10%;">Criteria Observed</th>
-                            <th scope="col" style="width:5%;">-</th>
-                            <th scope="col" style="width:5%;">+</th>
-                            <th scope="col" style="width:5%;">Faults</th>
-                            <th scope="col" style="width:5%;">Pen</th>
-                            <th scope="col" style="width:5%;">Award</th>
+                            <th scope="col">No.</th>
+                            <th scope="col">Criteria Observed</th>
+                            <th scope="col">-</th>
+                            <th scope="col">+</th>
+                            <th scope="col">Faults</th>
+                            <th scope="col">Pen</th>
+                            <th scope="col">Award</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,7 +87,7 @@
                                     <td id="fault-0" class="faults"></td>
                                     <td class="penalty pen1 carryForward">{{ v.pen }}</td>
                                     {% with 'penalty_'|add:v.num as field %}
-                                    <td>{{ practical|get_form_field:field }}</td>
+                                    <td>{{ form|get_form_field:field }}</td>
                                     {% endwith %}
                             {% endif %}
                         {% endfor %}
@@ -111,20 +109,18 @@
             </div>
         </div>
         <div class="row">
-            <p class="col text-center mt-4"><b>Mandatory Disqualification</b></p>
+            <p class="col-12 text-center mt-4"><b>Mandatory Disqualification</b>(tick appropriate box and record comments on page 1)</p>
         </div>
         <div>
-            <div class="d-flex flex-row row">
+            <div class="row">
                 {% for item in md %}
                 {% with forloop.counter|stringformat:"s" as x %}
                 {% with 'md_'|add:x as y %}
-                    <div class="p2 col-3">{{ item }}</div>
-                    <div class="p2 col-1">{{ practical|get_form_field:y }}</div>
+                    <div class="p2 col-sm-3">{{ item }}</div>
+                    <div class="p2 col-sm-1">{{ form|get_form_field:y }}</div>
                 {% endwith %}
                 {% endwith %}
                 {% endfor %}
             </div>
         </div>
     </div>
-
-{% endblock %}
