@@ -1,5 +1,6 @@
 {% extends 'includes/base.html' %}
 {% block body %}
+    {% load static %}
     {% load crispy_forms_tags %}
     {% load my_filters %}
     {% include 'induction.html' with induction=form %}
@@ -15,7 +16,7 @@
                 <div class="form-group">
                     <label for="candidate_name" class="">Name</label>
                     <div class="">
-                        <input type="text" maxlength="20" class="textinput textInput form-control" id="candidate_name">
+                        <input type="text" maxlength="20" class="textinput textInput form-control candidate_Name" id="candidate_name" disabled>
                     </div>
                 </div>
             </div>
@@ -26,7 +27,7 @@
                 <div class="form-group">
                     <label for="tops_id" class="">Tops ID</label>
                     <div class="">
-                        <input type="text" maxlength="20" class="textinput textInput form-control" id="tops_id">
+                        <input type="text" maxlength="20" class="textinput textInput form-control tops_ID" disabled>
                     </div>
                 </div>
             </div>
@@ -122,7 +123,7 @@
                 <div class="form-group">
                     <label for="startdate" class="">Start Date</label>
                     <div class="">
-                        <input type="date" class="textinput textInput form-control startDateAutofill" id="startdate">
+                        <input type="date" class="textinput textInput form-control start_Date">
                     </div>
                 </div>
             </div>
@@ -130,7 +131,7 @@
                 <div class="form-group">
                     <label for="enddate" class="">End Date</label>
                     <div class="">
-                        <input type="date" class="textinput textInput form-control endDateAutofill" id="enddate">
+                        <input type="date" class="textinput textInput form-control end_Date">
                     </div>
                 </div>
             </div>
@@ -505,5 +506,10 @@
         </div>
         {% include 'review.html' with form=form %}
     </div>
-    
+    <script>
+        window.addEventListener('load', (event) => {
+            startDateAutofill();
+    });
+    </script>
+    <script src="{% static 'cbr/main.js' %}"></script>
 {% endblock %}

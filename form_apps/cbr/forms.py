@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import widgets, ModelForm
+from django.forms import widgets, ModelForm, IntegerField
 from .models import Cbr 
 from crispy_forms.helper import FormHelper
 
@@ -7,7 +7,6 @@ class CbrForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CbrForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.fields['eval_10'].form_show_label = False
 
     class Meta:
         model = Cbr
@@ -264,13 +263,53 @@ class CbrForm(ModelForm):
         check_choices = [('',''), (u'\u2713;', u'\u2713'), ('X', 'X'), ('N/A', 'N/A')]
         ot_choices = [('',''), (u'\u2713;', u'\u2713'), ('N/A', 'N/A')]
         question_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D')]
-        mark_choices = [('',''), ('0', '0'), ('4', '4')]
-        mark_choices1 = [('',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
+        mark_choices = [('0',''), ('0', '0'), ('4', '4')]
+        mark_choices1 = [('0',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
         
         widgets = {
+            'candidate_Name': forms.TextInput(attrs = {'onchange' : "updateCandidateName();"}),
+            'candidate_Initial': forms.TextInput(attrs = {'placeholder':'Initials' ,'onchange' : "initialAll();"}),
+            'candidateTopsId': forms.TextInput(attrs = {'onchange' : "updateTopsID();"}),
             'course_Type': forms.Select(choices=choices),
-            'start_Date': widgets.DateInput(attrs={'type': 'date'}),
-            'finish_Date': widgets.DateInput(attrs={'type': 'date'}),
+            'start_Date': widgets.DateInput(attrs={'type': 'date', 'onchange' : "startDateAutofill();"}),
+            'finish_Date': widgets.DateInput(attrs={'type': 'date', 'onchange' : "endDateAutofill();"}),
+            'penalty_1': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_2': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_3': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_4': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_5': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_6': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_7': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_8': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_9': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_10': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_11': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_12': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_13': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_14': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_15': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_16': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_17': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_18': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_19': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
+            'penalty_20': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_21': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_22': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_23': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_24': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_25': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_26': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_27': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_28': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_29': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_30': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_31': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_32': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_33': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_34': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_35': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_36': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
+            'penalty_37': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
             'venue': forms.Select(choices=(('',''), ('TTT','TTT'), ('On-Site','On-Site'))),
             'candidate_Checkbox': widgets.CheckboxInput(attrs={'style':'width:40px;height:40px;float:none;'}),
             'candidate_DOB': widgets.DateInput(attrs={'type': 'date'}),
@@ -314,7 +353,7 @@ class CbrForm(ModelForm):
             'pre_Use_Test': forms.Select(choices=test_results),
             'overall_Result': forms.Select(choices=test_results),
             'start_Time': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
-            'finish_Time': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+            'finish_Time': forms.TimeInput(format='%H:%M', attrs={'type': 'time', 'onchange' : "calculateDuration();"}),
             'md_1': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'md_2': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'md_3': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
@@ -368,31 +407,31 @@ class CbrForm(ModelForm):
             'check_21_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'check_22_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'check_23_cr': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
-            'mark_1': forms.Select(choices=mark_choices),
-            'mark_2': forms.Select(choices=mark_choices),
-            'mark_3': forms.Select(choices=mark_choices),
-            'mark_4': forms.Select(choices=mark_choices),
-            'mark_5': forms.Select(choices=mark_choices),
-            'mark_6': forms.Select(choices=mark_choices),
-            'mark_7': forms.Select(choices=mark_choices),
-            'mark_8': forms.Select(choices=mark_choices),
-            'mark_9': forms.Select(choices=mark_choices),
-            'mark_10': forms.Select(choices=mark_choices),
-            'mark_11': forms.Select(choices=mark_choices),
-            'mark_12': forms.Select(choices=mark_choices),
-            'mark_13': forms.Select(choices=mark_choices),
-            'mark_14': forms.Select(choices=mark_choices),
-            'mark_15': forms.Select(choices=mark_choices),
-            'mark_16': forms.Select(choices=mark_choices),
-            'mark_17': forms.Select(choices=mark_choices),
-            'mark_18': forms.Select(choices=mark_choices),
-            'mark_19': forms.Select(choices=mark_choices),
-            'mark_20': forms.Select(choices=mark_choices),
-            'mark_21': forms.Select(choices=mark_choices1),
-            'mark_22': forms.Select(choices=mark_choices1),
-            'mark_23': forms.Select(choices=mark_choices1),
-            'mark_24': forms.Select(choices=mark_choices1),
-            'mark_25': forms.Select(choices=mark_choices1),
+            'mark_1': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_2': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_3': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_4': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_5': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_6': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_7': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_8': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_9': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_10': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_11': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_12': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_13': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_14': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_15': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_16': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_17': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_18': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_19': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_20': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
+            'mark_21': forms.Select(choices=mark_choices1, attrs={'class': 'atMark'}),
+            'mark_22': forms.Select(choices=mark_choices1, attrs={'class': 'atMark'}),
+            'mark_23': forms.Select(choices=mark_choices1, attrs={'class': 'atMark'}),
+            'mark_24': forms.Select(choices=mark_choices1, attrs={'class': 'atMark'}),
+            'mark_25': forms.Select(choices=mark_choices1, attrs={'class': 'atMark'}),
             'question_1': forms.Select(choices=question_choices),
             'question_2': forms.Select(choices=question_choices),
             'question_3': forms.Select(choices=question_choices),

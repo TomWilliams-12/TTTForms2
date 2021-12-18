@@ -54,7 +54,7 @@
                         <tr>
                             <th scope="row" class="text-light bg-dark text-center" colspan="6">Carry Forward</th>
                             <td id="carryForwardTotal"></td>
-                            <td class="d-none"><div id="carryForwardDyn">{{ carryForward }}</div></td>
+                            <td class="d-none"><div id="carryForwardDyn">{{ carry_forward }}</div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -85,7 +85,7 @@
                                     <td><div class="minusBtn btn" >-</div></td>
                                     <td><div class="plusBtn btn" >+</div></td>
                                     <td id="fault-0" class="faults"></td>
-                                    <td class="penalty pen1 carryForward">{{ v.pen }}</td>
+                                    <td class="penalty pen1 ">{{ v.pen }}</td>
                                     {% with 'penalty_'|add:v.num as field %}
                                     <td>{{ form|get_form_field:field }}</td>
                                     {% endwith %}
