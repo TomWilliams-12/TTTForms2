@@ -271,6 +271,8 @@ class CbrForm(ModelForm):
             'candidate_Initial': forms.TextInput(attrs = {'placeholder':'Initials' ,'onchange' : "initialAll();"}),
             'candidateTopsId': forms.TextInput(attrs = {'onchange' : "updateTopsID();"}),
             'course_Type': forms.Select(choices=choices),
+            'instructor': forms.Select(attrs={'onchange' : "instructorCall();"}),
+            'instructor_2': forms.Select(attrs={'onchange' : "instructor2Call();"}),
             'start_Date': widgets.DateInput(attrs={'type': 'date', 'onchange' : "startDateAutofill();"}),
             'finish_Date': widgets.DateInput(attrs={'type': 'date', 'onchange' : "endDateAutofill();"}),
             'penalty_1': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),

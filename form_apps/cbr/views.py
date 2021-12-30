@@ -133,7 +133,9 @@ class CbrPage(View):
         '19': {'num': '19*', 'low': False, 'med': False, 'high': False, 'pre': True, 'theory': True, 'practical': True, 'crit': 'Testing', 'ref': 'N/E/SR'},
     }
     def get(self, request):
-        form = CbrForm(initial={'start_Date': datetime.today(), 'instructor': self.request.user})
+        instructor = self.request.user
+        form = CbrForm(initial={'start_Date': datetime.today(), 'instructor': instructor})
+
         return render(request, 'cbr.html', {
             'form': form,
             'operatorContent': self.operatorContent,
@@ -145,4 +147,5 @@ class CbrPage(View):
             'checks2': self.checks2,
             'operator_training': self.operator_training,
             'eval': self.eval,
+            'instructor': instructor,
             })

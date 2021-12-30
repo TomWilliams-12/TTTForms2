@@ -3,6 +3,7 @@
     {% load static %}
     {% load crispy_forms_tags %}
     {% load my_filters %}
+    {% load jsignature_filters %}
     {% include 'induction.html' with induction=form %}
     <div class="container-xl mt-5 mb-3">
         <div class="row">
@@ -258,39 +259,39 @@
                 Inst/Examiner(1) Name:
             </div>
             <div class="instructorName col-sm-2">
-                <!-- INSERT INSTRUCTOR NAME HERE -->
+                {{ instructor.first_name }} {{ instructor.last_name }}
             </div>
             <div class="col-sm-2">
                 Examiner Signature:
             </div>
             <div class="instructorSig col-sm-2">
-                <!-- INSERT INSTRUCTOR SIGNATURE HERE -->
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
             </div>
             <div class="col-sm-1">
                 Reg No:
             </div>
             <div class="instructorReg col-sm-2">
-                <!-- INSERT INSTRUCTOR REG HERE -->
+                {{ instructor.reg }}
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-sm-2">
                 Inst/Examiner(2) Name:
             </div>
-            <div class="instructorName col-sm-2">
+            <div class="col-sm-2">
                 {{ form.instructor_2 | as_crispy_field }}
             </div>
             <div class="col-sm-2">
                 Examiner Signature:
             </div>
-            <div class="instructorSig col-sm-2">
+            <div class="instructor2Sig col-sm-2">
                 <!-- INSERT INSTRUCTOR SIGNATURE HERE -->
+                <img src="" class="instructor2Signature" />
             </div>
             <div class="col-sm-1">
                 Reg No:
             </div>
-            <div class="instructorReg col-sm-2">
-                <!-- INSERT INSTRUCTOR REG HERE -->
+            <div class="instructor2Reg col-sm-2">
             </div>
         </div>
         <div class="row mt-4">
