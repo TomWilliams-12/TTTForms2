@@ -49,6 +49,15 @@ function endDateAutofill(){
     }
 }
 
+// Autofill the venue
+function venueAutofill(){
+    let venue = document.getElementById('id_venue').value;
+    let venueAutofill = document.querySelectorAll('.venueAutofill');
+    for (let i = 0; i < venueAutofill.length; i++){
+        venueAutofill[i].value = venue;
+    }
+}
+
 
 //Calculate the percentage for the Theory Test
 let marks = document.querySelectorAll('.atMark');
@@ -212,6 +221,21 @@ function getExcess(){
     }
 }
 
+// SHOW/HIDE INSTRUCTOR SIGNATURE
+function instructorSign(){
+    let signatures = document.querySelectorAll('.otSig');
+    let selects = document.querySelectorAll('.otSelect');
+
+    for(let i =0; i < signatures.length; i++){
+        if (selects[i].value == 'tick'){
+            signatures[i].classList.remove('d-none');
+        } else {
+            signatures[i].classList.add('d-none');
+        }
+    }
+}
+
+
 async function instructorCall(){
     let name = document.getElementById('id_instructor').value;
     console.log(name)
@@ -250,18 +274,29 @@ async function instructor2Call(){
 
     let signature = document.querySelectorAll('.instructor2Signature');
     for(let i = 0; i < signature.length; i++){
-        $.ajax({
-            type: "POST",
-            url: "~/pythoncode.py",
-            data: { param: text}
-          }).done(function( o ) {
-             // do something
-          });
-        signature[i].src = "data:image/png;base64," + sig;
+        signature[i].src = data.signature;
     }
 
     let reg = document.querySelectorAll('.instructor2Reg');
     for(let i = 0; i < reg.length; i++){
         reg[i].innerHTML = data.reg;
+    }
+}
+
+
+async function get_customer(){
+    let name = document.getElementById('id_company_Name').value;
+    let url = 'http://127.0.0.1:8000/getcustomer/' + name;
+    const response = await fetch(url);
+    let data = await response.json();
+
+    let contact = document.querySelectorAll('.company_contact')
+    for(let i = 0; i < contact.length; i++){
+        contact[i].value = data.company_contact;
+    }
+
+    let address = document.querySelectorAll('.company_address')
+    for(let i = 0; i < address.length; i++){
+        address[i].value = data.company_address;
     }
 }

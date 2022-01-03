@@ -7,6 +7,15 @@ class CbrForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CbrForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.fields['eval_1'].required = False
+        self.fields['eval_2'].required = False
+        self.fields['eval_3'].required = False
+        self.fields['eval_4'].required = False
+        self.fields['eval_5'].required = False
+        self.fields['eval_6'].required = False
+        self.fields['eval_7'].required = False
+        self.fields['eval_8'].required = False
+        self.fields['eval_9'].required = False
 
     class Meta:
         model = Cbr
@@ -260,8 +269,8 @@ class CbrForm(ModelForm):
         course_duration = [('',''), ('5','5'), ('6','6'), ('7.5','7.5'), ('15','15'), ('22.5','22.5'), ('30','30'), ('37.5','37.5')]
         operator_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D'), ('E', 'E')]
         test_results = [('',''), ('Pass', 'Pass'), ('Referral', 'Referral')]
-        check_choices = [('',''), (u'\u2713;', u'\u2713'), ('X', 'X'), ('N/A', 'N/A')]
-        ot_choices = [('',''), (u'\u2713;', u'\u2713'), ('N/A', 'N/A')]
+        check_choices = [('',''), ('tick', u'\u2713'), ('X', 'X'), ('N/A', 'N/A')]
+        ot_choices = [('',''), ('tick', u'\u2713'), ('N/A', 'N/A')]
         question_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D')]
         mark_choices = [('0',''), ('0', '0'), ('4', '4')]
         mark_choices1 = [('0',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
@@ -273,6 +282,7 @@ class CbrForm(ModelForm):
             'course_Type': forms.Select(choices=choices),
             'instructor': forms.Select(attrs={'onchange' : "instructorCall();"}),
             'instructor_2': forms.Select(attrs={'onchange' : "instructor2Call();"}),
+            'company_Name': forms.Select(attrs={'onchange' : "get_customer();"}),
             'start_Date': widgets.DateInput(attrs={'type': 'date', 'onchange' : "startDateAutofill();"}),
             'finish_Date': widgets.DateInput(attrs={'type': 'date', 'onchange' : "endDateAutofill();"}),
             'penalty_1': widgets.NumberInput(attrs={'class': 'award carryForward', 'disabled': 'disabled'}),
@@ -312,7 +322,7 @@ class CbrForm(ModelForm):
             'penalty_35': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
             'penalty_36': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
             'penalty_37': widgets.NumberInput(attrs={'class': 'award', 'disabled': 'disabled'}),
-            'venue': forms.Select(choices=(('',''), ('TTT','TTT'), ('On-Site','On-Site'))),
+            'venue': forms.Select(choices=(('',''), ('TTT','TTT'), ('On-Site','On-Site')), attrs = {'onchange' : "venueAutofill();"}),
             'candidate_Checkbox': widgets.CheckboxInput(attrs={'style':'width:40px;height:40px;float:none;'}),
             'candidate_DOB': widgets.DateInput(attrs={'type': 'date'}),
             'machine_Type': forms.Select(choices=(('',''), ('Counterbalance', 'Counterbalance'), ('Reach', 'Reach'))),
@@ -475,25 +485,25 @@ class CbrForm(ModelForm):
             'ot_19_T': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'ot_19_P': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'ot_19_PU': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
-            'ot_1': forms.Select(choices=ot_choices),
-            'ot_2': forms.Select(choices=ot_choices),
-            'ot_3': forms.Select(choices=ot_choices),
-            'ot_4': forms.Select(choices=ot_choices),
-            'ot_5': forms.Select(choices=ot_choices),
-            'ot_6': forms.Select(choices=ot_choices),
-            'ot_7': forms.Select(choices=ot_choices),
-            'ot_8': forms.Select(choices=ot_choices),
-            'ot_9': forms.Select(choices=ot_choices),
-            'ot_10': forms.Select(choices=ot_choices),
-            'ot_11': forms.Select(choices=ot_choices),
-            'ot_12': forms.Select(choices=ot_choices),
-            'ot_13': forms.Select(choices=ot_choices),
-            'ot_14': forms.Select(choices=ot_choices),
-            'ot_15': forms.Select(choices=ot_choices),
-            'ot_16': forms.Select(choices=ot_choices),
-            'ot_17': forms.Select(choices=ot_choices),
-            'ot_18': forms.Select(choices=ot_choices),
-            'ot_19': forms.Select(choices=ot_choices),
+            'ot_1': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_2': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_3': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_4': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_5': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_6': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_7': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_8': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_9': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_10': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_11': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_12': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_13': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_14': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_15': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_16': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_17': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_18': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
+            'ot_19': forms.Select(choices=ot_choices, attrs={'class': 'otSelect', 'onchange' : "instructorSign();"}),
             'eval_1': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
             'eval_2': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),
             'eval_3': forms.RadioSelect(attrs={'style':'width:25px;height:25px;float:none;'}),

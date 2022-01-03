@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from .forms import CbrForm
 
@@ -149,3 +149,10 @@ class CbrPage(View):
             'eval': self.eval,
             'instructor': instructor,
             })
+    
+    def post(self, request):
+        cbrForm = CbrForm(request.POST)
+
+        if cbrForm.is_valid():
+            cbrForm.save()
+            return redirect('/')

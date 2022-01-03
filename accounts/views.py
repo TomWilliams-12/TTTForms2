@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from accounts.forms import EditProfile, ProfileForm
-from django.contrib.auth import authenticate, login
+from jsignature.utils import draw_signature
 
 
 def register(request):
@@ -10,7 +10,11 @@ def register(request):
         profile_form = ProfileForm(request.POST)
 
         if profile_form.is_valid():
-            profile_form.save()
+            signature_c = profile_form.cleaned_data.get('signature')
+            if signature_c:
+            # as an image
+                signature = draw_signature(signature_c)
+                profile_form.save()
 
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/')

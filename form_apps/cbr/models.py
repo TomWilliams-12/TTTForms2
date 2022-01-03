@@ -94,13 +94,13 @@ for i in range(25):
 
 for i in range(19):
     Cbr.add_to_class('ot_' + str(i + 1), models.CharField(max_length=10, blank=True, null=True))
-review_choices = (
+review_choices = [
         ('review_1','1'),
         ('review_2','2'),
         ('review_3','3'),
         ('review_4','4'),
         ('review_5','5'),
-        )
+    ]
 for i in range(12):
     if i < 9:
         Cbr.add_to_class('eval_' + str(i + 1), models.CharField(choices=review_choices, max_length=10, blank=False, null=True, default=0))
