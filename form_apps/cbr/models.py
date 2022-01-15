@@ -7,6 +7,9 @@ from customers.models import Customers
 from jsignature.fields import JSignatureField
 
 class Cbr(models.Model):
+    def __str__(self):
+            return 'CB/R'
+
     form = GenericRelation(Forms)
     candidate_Name = models.CharField(max_length=50)
     course_Type = models.CharField(max_length=50, blank=True, null=True)
@@ -17,7 +20,7 @@ class Cbr(models.Model):
     instructor = models.ForeignKey(Profile, related_name='instructor', on_delete=models.SET_NULL, null=True, blank=True)
     candidate_Initial = models.CharField(max_length=5, blank=True, null=True)
     candidate_Checkbox = models.BooleanField()
-    candidate_Signature = JSignatureField(blank=True, null=True)
+    signature = JSignatureField(blank=True, null=True)
     candidate_DOB = models.DateField(blank=True, null=True)
     candidateTopsId = models.CharField(max_length=20, blank=True, null=True)
     candidate_NIN = models.CharField(max_length=9, blank=True, null=True)

@@ -1,4 +1,3 @@
-console.log("JS Loaded");
 // Automate Candidate name inputs from
 function updateCandidateName(){
     let candidateName = document.querySelector('#id_candidate_Name').value;
@@ -205,7 +204,6 @@ function updateTotalPenalties(mod, i){
            award[i].value = 0;
         }
         totalPenalties += parseInt(award[i].value);
-        console.log(totalPenalties);
     }
     tp.innerHTML = parseInt(totalPenalties) + excess;
     tpc.innerHTML = parseInt(totalPenalties) + excess;
@@ -299,4 +297,17 @@ async function get_customer(){
     for(let i = 0; i < address.length; i++){
         address[i].value = data.company_address;
     }
+}
+
+function onload(){
+    startDateAutofill();
+    endDateAutofill();
+    initialAll();
+    updateTopsID();
+    updateCandidateName();
+    onLoadUpdateTotalPenalties();
+    venueAutofill();
+    calculateDuration();
+    instructorSign();
+    percentageCalculator();
 }

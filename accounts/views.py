@@ -12,7 +12,6 @@ def register(request):
         if profile_form.is_valid():
             signature_c = profile_form.cleaned_data.get('signature')
             if signature_c:
-            # as an image
                 signature = draw_signature(signature_c)
                 profile_form.save()
 

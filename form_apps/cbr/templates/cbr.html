@@ -285,12 +285,19 @@
             </div>
             <div class="instructor2Sig col-sm-2">
                 <!-- INSERT INSTRUCTOR SIGNATURE HERE -->
-                <img src="" class="instructor2Signature" />
+                {% if form.instance.id %}
+                    <img src="{{ instructor_2.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
+                {% else %}
+                <img src="" class="instructorSignature" style="width: 100px;" />
+                {% endif %}
             </div>
             <div class="col-sm-1">
                 Reg No:
             </div>
             <div class="instructor2Reg col-sm-2">
+                {% if form.instance.id %}
+                    {{ instructor_2.reg }}
+                {% endif %}
             </div>
         </div>
         <div class="row mt-4">
@@ -299,6 +306,9 @@
             </div>
             <div class="candidateSig col-sm-2">
                 <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.id %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
             </div>
         </div>
         <div class="row mt-4">
@@ -324,18 +334,23 @@
             </div>
             <div class="instructorName col-sm-2">
                 <!-- INSERT INSTRUCTOR NAME HERE -->
+                {{ instructor.first_name }} {{ instructor.last_name }}
             </div>
             <div class="col-sm-2">
                 Examiner Signature:
             </div>
             <div class="instructorSig col-sm-2">
                 <!-- INSERT INSTRUCTOR SIGNATURE HERE -->
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
             </div>
             <div class="col-sm-2">
                 Candidate Signature:
             </div>
             <div class="candidateSig col-sm-2">
                 <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.id %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
             </div>
         </div>
         <div class="row mt-3">
@@ -398,18 +413,23 @@
             </div>
             <div class="instructorName col-sm-2">
                 <!-- INSERT INSTRUCTOR NAME HERE -->
+                {{ instructor.first_name }} {{ instructor.last_name }}
             </div>
             <div class="col-sm-2">
                 Examiner Signature:
             </div>
             <div class="instructorSig col-sm-2">
                 <!-- INSERT INSTRUCTOR SIGNATURE HERE -->
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
             </div>
             <div class="col-sm-2">
                 Candidate Signature:
             </div>
             <div class="candidateSig col-sm-2">
                 <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.id %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
             </div>
         </div>
         {% include 'theory_test.html' with theory=form %}
@@ -419,18 +439,23 @@
             </div>
             <div class="instructorName col-sm-2">
                 <!-- INSERT INSTRUCTOR NAME HERE -->
+                {{ instructor.first_name }} {{ instructor.last_name }}
             </div>
             <div class="col-sm-2">
                 Examiner Signature:
             </div>
             <div class="instructorSig col-sm-2">
                 <!-- INSERT INSTRUCTOR SIGNATURE HERE -->
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
             </div>
             <div class="col-sm-2">
                 Candidate Signature:
             </div>
             <div class="candidateSig col-sm-2">
                 <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.id %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
             </div>
         </div>
         <div class="row mt-4">
@@ -508,10 +533,19 @@
     </div>
     <input type="submit" class="btn btn-outline-secondary mt-5 mb-5" value="Submit" />
 </form>
-    <script>
+    {% if form.instance.id %}
+    <script> 
         window.addEventListener('load', (event) => {
-            startDateAutofill();
+            onload();
+            get_customer(); 
+    });
+    </script> 
+    {% else %}
+    <script> 
+        window.addEventListener('load', (event) => {
+            onload();  
     });
     </script>
+    {% endif %}
     <script src="{% static 'cbr/main.js' %}"></script>
 {% endblock %}
