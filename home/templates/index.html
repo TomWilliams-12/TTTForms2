@@ -14,6 +14,35 @@
     </fieldset>
 </div>
 
+{% if request.user.is_auditor %}
+<div class="m-3 w-auto ">
+    <fieldset class="border p-3" >
+        <legend class ='float-none w-auto'>Audit Forms</legend>
+        <div class="d-flex justify-content-between row">
+            <table class="table-responsive">
+                <tr>
+                    <th>Name</th>
+                    <th>Course Type</th>
+                    <th>Instructor</th>
+                    <th>Company Name</th>
+                    <th>Tops ID</th>
+                    <th>Certificate</th>
+                </tr>
+                {% for form in forms %}
+                    <tr>
+                        <td><a href="cbr/{{ form.id }}">{{ form.candidate_Name }}</a></td>
+                        <td>{{ form }}</td>
+                        <td>{{ form.instructor }}</td>
+                        <td>{{ form.company_Name }}</td>
+                        <td>{{ form.candidateTopsId }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </fieldset>
+    </div>
+{% else %}
 <div class="m-3 w-auto ">
     <fieldset class="border p-3" >
         <legend class ='float-none w-auto'>Open Forms</legend>
@@ -41,5 +70,7 @@
         </div>
     </fieldset>
 </div>
+{% endif %}
+
 
 {% endblock %}

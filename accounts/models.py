@@ -35,6 +35,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=50)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_auditor= models.BooleanField(default=False)
     reg = models.CharField(max_length=10, blank=True, null=True)
     signature = JSignatureField(blank=True, null=True)
 

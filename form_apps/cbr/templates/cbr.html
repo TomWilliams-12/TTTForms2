@@ -285,7 +285,7 @@
             </div>
             <div class="instructor2Sig col-sm-2">
                 <!-- INSERT INSTRUCTOR SIGNATURE HERE -->
-                {% if form.instance.id %}
+                {% if form.instance.instructor_2 %}
                     <img src="{{ instructor_2.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
                 {% else %}
                 <img src="" class="instructorSignature" style="width: 100px;" />
@@ -306,7 +306,7 @@
             </div>
             <div class="candidateSig col-sm-2">
                 <!-- INSERT CANDIDATE SIGNATURE HERE -->
-                {% if form.instance.id %}
+                {% if form.instance.signature %}
                     <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
                 {% endif %}
             </div>
@@ -348,7 +348,7 @@
             </div>
             <div class="candidateSig col-sm-2">
                 <!-- INSERT CANDIDATE SIGNATURE HERE -->
-                {% if form.instance.id %}
+                {% if form.instance.signature %}
                     <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
                 {% endif %}
             </div>
@@ -427,7 +427,7 @@
             </div>
             <div class="candidateSig col-sm-2">
                 <!-- INSERT CANDIDATE SIGNATURE HERE -->
-                {% if form.instance.id %}
+                {% if form.instance.signature %}
                     <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
                 {% endif %}
             </div>
@@ -531,6 +531,31 @@
         </div>
         {% include 'review.html' with form=form %}
     </div>
+    <div class="d-flex row">
+        <div class="col-sm-1">
+            <h6 class="align-self-center">Completed:</h6>
+        </div>
+        <div class="col-sm-1">
+            {{ form.completed }}
+        </div>
+        <div class="col-sm-2">
+            <h6 class="align-self-center">Audit Notes:</h6>
+        </div>
+        <div class="col-sm-8">
+            {{ form.audit_Notes }}
+        </div>
+    </div>
+    {% if request.user.is_auditor %}
+    <div class="d-flex row">
+        <div class="col-sm-1">
+            <h6 class="align-self-center">Audit Completed:</h6>
+        </div>
+        <div class="col-sm-1">
+            {{ form.audit_Completed }}
+        </div>
+    </div>
+    {% endif %}
+    
     <input type="submit" class="btn btn-outline-secondary mt-5 mb-5" value="Submit" />
 </form>
     {% if form.instance.id %}

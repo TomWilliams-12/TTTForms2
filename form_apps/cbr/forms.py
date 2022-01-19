@@ -278,6 +278,9 @@ class CbrForm(ModelForm):
         mark_choices1 = [('0',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
         
         widgets = {
+            'completed': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),
+            'audit_Completed': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),
+            'audit_Notes': forms.Textarea(attrs={'rows':3, 'class': 'w-100'}),
             'candidate_Name': forms.TextInput(attrs = {'onchange' : "updateCandidateName();"}),
             # 'signature': JSignatureWidget(attrs = {'onchange' : "candidate_sign();"}),
             'candidate_Initial': forms.TextInput(attrs = {'placeholder':'Initials' ,'onchange' : "initialAll();"}),

@@ -6,7 +6,10 @@ from form_apps.cbr.models import Cbr
 class Home(View):
     def get(self, request):
         user = request.user
-        forms = Cbr.objects.filter(instructor=user.id)
+        if user.is_auditor:
+            forms = Cbr.objects.filter(audit_Completed=False)
+        else:
+            forms = Cbr.objects.filter(instructor=user.id).filter(completed=False)
         if request.user.is_authenticated:
             return render(request, 'index.html', {'forms': forms})
         else:

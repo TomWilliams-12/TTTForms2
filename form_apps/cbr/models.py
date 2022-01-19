@@ -10,6 +10,11 @@ class Cbr(models.Model):
     def __str__(self):
             return 'CB/R'
 
+    completed = models.BooleanField(default=False)
+    audit_Notes = models.CharField(max_length=500, blank=True, null=True)
+    audit_Completed = models.BooleanField(default=False)
+    has_Certificate = models.BooleanField(default=False)
+
     form = GenericRelation(Forms)
     candidate_Name = models.CharField(max_length=50)
     course_Type = models.CharField(max_length=50, blank=True, null=True)

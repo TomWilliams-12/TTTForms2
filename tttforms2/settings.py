@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'forms',
     'customers',
     'form_apps.cbr',
+    'audit',
 ]
 
 MIDDLEWARE = [
