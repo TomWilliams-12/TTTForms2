@@ -1,0 +1,50 @@
+{% load crispy_forms_tags %}
+{% load my_filters %}
+  <div class="container-xl mt-5">
+    <h3>Course Evaluation Sheet</h3>
+    <p>Thank you for attending this course. Thomas Truck Training values the opinions of our clients. Please tick a box to indicate your views: 1 being poor, 5 being excellent</p>
+    <table class='table'>
+      <tr>
+        <td colspan="2"></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      {% for q in eval %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ q }}</td>
+          {% with forloop.counter|stringformat:"s" as x %}
+          {% with 'eval_'|add:x as question %}
+          {% with form|get_form_field:question as radios %}
+          {% if forloop.counter > 9 %}
+              <td colspan="5">{{ radios | as_crispy_field}}</td>
+          {% else %}
+            {% for radio in radios %}
+              <td class="radio">{{ radio.tag }}</td>
+            {% endfor %}
+          {% endif %}
+          {% endwith %}
+          {% endwith %}
+          {% endwith %}
+        </tr>
+      {% endfor %}
+      <tr>
+        <td>11</td>
+        <td>What part of the training session will you use most at work?</td>
+        <td colspan="5">{{ form.eval_10 | as_crispy_field}}</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>What part of the training session did you most enjoy?</td>
+        <td colspan="5">{{ form.eval_11 | as_crispy_field}}</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>Generally, is there anything you wish to comment on regarding your training period with us?</td>
+        <td colspan="5">{{ form.eval_12 | as_crispy_field}}</td>
+      </tr>
+    </table>
+</div>

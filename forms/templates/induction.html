@@ -1,0 +1,89 @@
+  {{ induction.media }}
+  {% load crispy_forms_tags %}
+  <div class="container-xl mt-5 ">
+  {{ induction.candidate_Name | as_crispy_field }}
+  {{ induction.course_Type | as_crispy_field }}
+  {{ induction.course_Number | as_crispy_field }}
+  {{ induction.instructor | as_crispy_field }}
+  {{ induction.venue | as_crispy_field }}
+  {{ induction.start_Date | as_crispy_field }}
+  {{ induction.finish_Date | as_crispy_field }}
+  {{ induction.candidateTopsId | as_crispy_field }}
+
+  <table class="table table-sm mt-3">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 85%;">Subject</th>
+            <th scope="col">Initial to confirm Understanding</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row" class="text-light bg-dark" colspan="2">Health and Safety</th>
+        </tr>
+        <tr>
+            <th>Fire Alarm/ Emergency Exits/ Evacuation Procedures</th>
+            <td>{{ induction.candidate_Initial| as_crispy_field }} </td>
+        </tr>
+        <tr>
+            <th>General First Aid/ Accident Reporting</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+        <tr>
+            <th>Specific Hazards</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-light bg-dark" colspan="2">On-Site Facilities</th>
+        </tr>
+        <tr>
+            <th>Toilets</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+        <tr>
+            <th>Refreshments/Lunch</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+        <tr>
+            <th>Smoking Area</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+        <tr>
+            <th>Complaints Procedure/ Mobile Phones/ Security of Belongings</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+        <tr>
+            <th>Timings and Breaks</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-light bg-dark" colspan="2">Course Outline</th>
+        </tr>
+        <tr>
+            <th>Examination Process</th>
+            <td><input type="text" maxlength="5" class="textinput textInput form-control form-control initials" disabled> </td>
+        </tr>
+    </tbody>
+</table>
+<div>
+  <p>Thomas Truck Training Ltd reserve the right to apply drug and alcohol testing for our staff and candidates.</p>
+  <p>Thomas Truck Training Ltd reserves the right to remove any person from the course who, in our opinion
+      has been suspected of the use of any substance that may affect the capability of a person to
+      operate mechanical handling equipment.</p>
+  <p>All candidates must inform Thomas Truck Training Ltd if they have any injury or ailment that may
+      hinder the safe operation of mechanical handling equipment. Failure to do so may result in
+      removal from the course / course result being void</p>
+  <p>by ticking the box below, I agree to the above conditions and to my details being entered onto the
+      Thomas Truck training Ltd & ITSSAR databases. I understand the data I have agreed to provide will
+      be used in accordance with the relevant legislation including the Data Protection Act (GDPR)</p>
+</div>
+{{ induction.candidate_Checkbox| as_crispy_field }}
+<div class="esign mt-3">
+  <div class="row">
+      <div class="col-sm-6">
+          <h3>Candidate Signature</h3>
+      </div>
+  </div>
+  {{ induction.signature }}
+</div>
+</div>

@@ -1,0 +1,86 @@
+    {% load crispy_forms_tags %}
+    {% load my_filters %}
+    <div class="container-xl mt-5">
+        <div class="row">
+            <p class="col text-center"><b>Associated Knowledge Test Paper Answer Section</b></p>
+        </div>
+        <div class="row">
+            <p class="col"> Operational &amp; Safety Multi Choice</p>
+            <p class="col"> Open Questions</p>
+        </div>
+        <div class="row">
+            <table class="table-responsive col-2">
+                <thead>
+                    <tr>
+                        <td>Qu.</td>
+                        <td>A, B, C or D</td>
+                        <td>Mark</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in 10|times %}
+                        <tr>
+                            {% with i|add:1|stringformat:"s" as x %}
+                            {% with 'question_'|add:x as question %}
+                            {% with 'mark_'|add:x as mark %}
+                                <td>{{ x }}.</td>
+                                <td>{{ theory|get_form_field:question }}</td>
+                                <td>{{ theory|get_form_field:mark }}</td>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="table-responsive col-2">
+                <thead>
+                    <tr>
+                        <td>Qu.</td>
+                        <td>A, B, C or D</td>
+                        <td>Mark</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in 10|times %}
+                        <tr>
+                            {% with i|add:11|stringformat:"s" as x %}
+                            {% with 'question_'|add:x as question %}
+                            {% with 'mark_'|add:x as mark %}
+                                <td>{{ x }}.</td>
+                                <td>{{ theory|get_form_field:question }}</td>
+                                <td>{{ theory|get_form_field:mark }}</td>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="table-responsive table-striped col-8">
+                <thead>
+                    <tr>
+                        <td style="width:10%;" class="text-end align-text-top">Test Paper Reference</td>
+                        <td style="width:10%;">{{ theory.test_reference }}</td>
+                        <td style="width:5%;">Result</td>
+                        <td style="width:5%;" class="percentageCalculator align-text-top"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in 5|times %}
+                    <tr>
+                        {% with i|add:21|stringformat:"s" as x %}
+                        {% with 'question_'|add:x as question %}
+                        {% with 'mark_'|add:x as mark %}
+                            <td class="text-end align-text-top">{{ x }}.</td>
+                            <td colspan="2">{{ theory|get_form_field:question }}</td>
+                            <td>{{ theory|get_form_field:mark }}</td>
+                        {% endwith %}
+                        {% endwith %}
+                        {% endwith %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>

@@ -1,0 +1,126 @@
+    {% load crispy_forms_tags %}
+    {% load my_filters %}
+    <div class="container-xl mt-5">
+        <div class='row'>
+            <div class='col-4'>
+                {{ form.set_Time | as_crispy_field }}
+            </div>
+            <div class='col-4'>
+                {{ form.start_Time | as_crispy_field }}
+            </div>
+            <div class='col-4'>
+                {{ form.finish_Time | as_crispy_field }}
+            </div>
+            <div class='row mt-3'>
+                <p class="col-sm-3">d. Duration</p>
+                <p class="col-sm-3" id="duration"></p>
+                <p class="col-sm-3">Excess time = d-a</p>
+                <p class="col-sm-3" id="excessTime"></p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-6 table-responsive">
+                <table class="">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 15%;" >No.</th>
+                            <th scope="col" >Criteria Observed</th>
+                            <th scope="col" >-</th>
+                            <th scope="col" >+</th>
+                            <th scope="col" >Faults</th>
+                            <th scope="col" >Pen</th>
+                            <th scope="col" >Award</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k, v in test.items %}
+                            {% if v.t == True %}
+                                <tr>
+                                    <th scope="row" class="text-light bg-dark text-center" colspan="7">{{ v.crit }}</th>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <th scope="row">{{ v.num }}</th>
+                                    <td>{{ v.crit }}</td>
+                                    <td><div class="minusBtn btn" >-</div></td>
+                                    <td><div class="plusBtn btn" >+</div></td>
+                                    <td id="fault-0" class="faults"></td>
+                                    <td class="penalty pen1 carryForward">{{ v.pen }}</td>
+                                    {% with 'penalty_'|add:v.num as field %}
+                                    <td>{{ form|get_form_field:field }}</td>
+                                    {% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th scope="row" class="text-light bg-dark text-center" colspan="6">Carry Forward</th>
+                            <td id="carryForwardTotal"></td>
+                            <td class="d-none"><div id="carryForwardDyn">{{ carry_forward }}</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6 table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Criteria Observed</th>
+                            <th scope="col">-</th>
+                            <th scope="col">+</th>
+                            <th scope="col">Faults</th>
+                            <th scope="col">Pen</th>
+                            <th scope="col">Award</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k, v in test2.items %}
+                            {% if v.t == True %}
+                                <tr>
+                                    <th scope="row" class="text-light bg-dark text-center" colspan="7">{{ v.crit }}</th>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <th scope="row">{{ v.num }}</th>
+                                    <td>{{ v.crit }}</td>
+                                    <td><div class="minusBtn btn" >-</div></td>
+                                    <td><div class="plusBtn btn" >+</div></td>
+                                    <td id="fault-0" class="faults"></td>
+                                    <td class="penalty pen1 ">{{ v.pen }}</td>
+                                    {% with 'penalty_'|add:v.num as field %}
+                                    <td>{{ form|get_form_field:field }}</td>
+                                    {% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <th scope="row" class="text-light bg-dark text-center" colspan="6">Time Penalties</th>
+                            <td id="timePenalties" class=""></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-light bg-dark text-center" colspan="6">Total Penalties</th>
+                            <td id="totalPenalties"></td>
+                        </tr>
+                        {% for item in disclaimers %}
+                            <tr>
+                                <td colspan="7">{{ item }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <p class="col-12 text-center mt-4"><b>Mandatory Disqualification</b>(tick appropriate box and record comments on page 1)</p>
+        </div>
+        <div>
+            <div class="row">
+                {% for item in md %}
+                {% with forloop.counter|stringformat:"s" as x %}
+                {% with 'md_'|add:x as y %}
+                    <div class="p2 col-sm-3">{{ item }}</div>
+                    <div class="p2 col-sm-1">{{ form|get_form_field:y }}</div>
+                {% endwith %}
+                {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>

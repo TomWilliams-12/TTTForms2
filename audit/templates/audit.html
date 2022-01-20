@@ -1,0 +1,28 @@
+{% extends 'includes/base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row mt-4">
+        <table class="table-responsive">
+            <tr>
+                <th>Name</th>
+                <th>Course Type</th>
+                <th>Instructor</th>
+                <th>Company Name</th>
+                <th>Tops ID</th>
+                <th>Certificate</th>
+            </tr>
+            {% for form in forms %}
+                <tr>
+                    <td><a href="cbr/{{ form.id }}">{{ form.candidate_Name }}</a></td>
+                    <td>{{ form }}</td>
+                    <td>{{ form.instructor }}</td>
+                    <td>{{ form.company_Name }}</td>
+                    <td>{{ form.candidateTopsId }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
