@@ -1,0 +1,12 @@
+venv
+.venv
+.idea
+.devcontainer
+__pycache__
+data
+/static
+.ebextensions
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
