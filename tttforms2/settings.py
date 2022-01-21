@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#f=@yl29ey9hv2!$m438rj#*z^nzmr0%*qck=_^$y^ss(db$ab
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=1))
 
-ALLOWED_HOSTS = ['tttforms2-env.eba-wyv2r5zu.eu-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['tttforms-dev.eu-west-2.elasticbeanstalk.com']
 
 
 # Application definition
