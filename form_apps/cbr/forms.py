@@ -280,6 +280,7 @@ class CbrForm(ModelForm):
         widgets = {
             'completed': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),
             'audit_Completed': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),
+            'has_Certificate': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),
             'audit_Notes': forms.Textarea(attrs={'rows':3, 'class': 'w-100'}),
             'candidate_Name': forms.TextInput(attrs = {'onchange' : "updateCandidateName();"}),
             # 'signature': JSignatureWidget(attrs = {'onchange' : "candidate_sign();"}),
