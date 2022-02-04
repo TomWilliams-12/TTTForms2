@@ -1,0 +1,16 @@
+{% extends 'includes/base.html' %}
+{% block body %}
+    {% load static %}
+    {% load crispy_forms_tags %}
+    {% load my_filters %}
+    {% load jsignature_filters %}
+    <form method="post">
+        {% csrf_token %}
+        {% include 'induction.html' with induction=form %}
+        {% include 'practical_test.html' with form=form %}
+        {% include 'theory_test.html' with theory=form %}
+        {% include 'review.html' with form=form %}
+
+        <input type="submit" class="btn btn-outline-secondary mt-5 mb-5" value="Submit" />
+    </form>
+    {% endblock %}

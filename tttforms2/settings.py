@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'forms',
     'customers',
     'form_apps.cbr',
+    'form_apps.mewp',
     'audit',
+    'xhtml2pdf',
 ]
 
 MIDDLEWARE = [

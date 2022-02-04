@@ -6,7 +6,7 @@
         <legend class ='float-none w-auto'>New Forms</legend>
         <div class="d-flex row justify-content-center">
             <a href="{{ 'cbr' }}" class="btn btn-outline-secondary col-sm-2 m-1">Counterbalance</a>
-            <a href="#" class="btn btn-outline-secondary col-sm-2 m-1">MEWP</a>
+            <a href="{{ 'mewp' }}" class="btn btn-outline-secondary col-sm-2 m-1">MEWP</a>
             <a href="#" class="btn btn-outline-secondary col-sm-2 m-1">Overhead Crane</a>
             <a href="#" class="btn btn-outline-secondary col-sm-2 m-1">Abrasive Wheels</a>
             <a href="#" class="btn btn-outline-secondary col-sm-2 m-1">PPT</a>
@@ -26,22 +26,51 @@
                     <th>Instructor</th>
                     <th>Company Name</th>
                     <th>Tops ID</th>
-                    <th>Certificate</th>
                 </tr>
                 {% for form in forms %}
                     <tr>
-                        <td><a href="cbr/{{ form.id }}">{{ form.candidate_Name }}</a></td>
-                        <td>{{ form }}</td>
-                        <td>{{ form.instructor }}</td>
-                        <td>{{ form.company_Name }}</td>
-                        <td>{{ form.candidateTopsId }}</td>
-                        <td></td>
+                        <td><a href="{{ form.form_type }}/{{ form.form_type.id }}">{{ form.form_type.candidate_Name }}</a></td>
+                        <td>{{ form.form_type.course_type }}</td>
+                        <td>{{ form.form_type.instructor }}</td>
+                        <td>{{ form.form_type.company_Name }}</td>
+                        <td>{{ form.form_type.candidateTopsId }}</td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
     </fieldset>
-    </div>
+</div>
+<div class="m-3 w-auto ">
+    <fieldset class="border p-3" >
+        <legend class ='float-none w-auto'>Create Certificates</legend>
+        <div class="d-flex justify-content-between row">
+            <table class="table-responsive">
+                <tr>
+                    <th>Name</th>
+                    <th>Course Type</th>
+                    <th>Instructor</th>
+                    <th>Company Name</th>
+                    <th>Create Certificate</th>
+                </tr>
+                {% for form in create_certificates %}
+                    <tr>
+                        <td><a href="{{ form.form_type }}/{{ form.form_type.id }}">{{ form.form_type.candidate_Name }}</a></td>
+                        <td>{{ form.form_type.course_type }}</td>
+                        <td>{{ form.form_type.instructor }}</td>
+                        <td>{{ form.form_type.company_Name }}</td>
+                        <td>
+                            <form method="post" action="/create-certificate/">
+                                <input type="text" class='d-none' value="{{ form.id }}" name="form_id" />
+                                <button type="submit" class="btn btn-outline-secondary">Create Certificate</button>
+                                {% csrf_token %}
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </fieldset>
+</div>
 {% else %}
 <div class="m-3 w-auto ">
     <fieldset class="border p-3" >
@@ -59,10 +88,10 @@
                 <tbody>
                     {% for form in forms %}
                     <tr>
-                        <td>{{ form }}</td>
-                        <td><a href="cbr/{{ form.id }}">{{ form.candidate_Name }}</a></td>
-                        <td>{{ form.start_Date }}</td>
-                        <td>{{ form.finish_Date }}</td>
+                        <td>{{ form.form_type.course_type }}</td>
+                        <td><a href="{{ form.form_type }}/{{ form.id }}">{{ form.form_type.candidate_Name }}</a></td>
+                        <td>{{ form.form_type.start_Date }}</td>
+                        <td>{{ form.form_type.finish_Date }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

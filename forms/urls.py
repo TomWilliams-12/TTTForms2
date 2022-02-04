@@ -3,8 +3,8 @@ from . import views
 
 
 urlpatterns = [
-    path('induction', views.InductionPage.as_view(), name="induction"),
-    path('review', views.ReviewPage.as_view(), name="review"),
-    path('practical', views.PracticalPage.as_view(), name="practical"),
-    path('theory', views.TheoryPage.as_view(), name="theory"),
+    path('create-certificate/', views.CreateCertificate.as_view(), name="create-certificate"),
+    path('certificates/', views.CertificateListView.as_view(), name="certificates"),
+    path('certificates/<slug:pk>/', views.Certificate.as_view(), name="certificate"),
+    path('certificates/<slug:pk>/pdf', views.PDFCertificate.as_view(), name="pdfcertificate"),
 ]

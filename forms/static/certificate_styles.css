@@ -1,0 +1,86 @@
+body {
+    background: rgb(204,204,204);
+  }
+  page {
+    background: white;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+  }
+  page[size="A4"] {
+    width: 21cm;
+    height: 29.7cm;
+  }
+  .border-main{
+      border: 3px solid #2E74B5;
+  }
+  
+  .border-sec{
+      border: 2px solid #2E74B5;
+      padding: 10px;
+      margin: 3px;
+  }
+  .ttt-logo{
+      width: 100px;
+      height: auto;
+  }
+  
+  .ttt-title{
+      font-size: 30px;
+      color: #5B9BD5;
+  }
+  
+  .itssar-logo {
+      width: 100px;
+      height: auto;
+  }
+  
+  .itssar-p{
+      font-size: 14px;
+  }
+  
+  .font-color-blue {
+      color: #5B9BD5;
+  }
+  
+  .cert-image{
+      width:400px;
+  }
+  
+  .cert-desc {
+      width:90%;
+      font-size: 13px;
+  }
+  
+  .cert-details{
+      font-size: 13px;
+  }
+  
+  .cert-details-p{
+      text-align: right;
+      margin: 0;
+      white-space: nowrap;
+  }
+  
+  .signature {
+      width: 150px;
+      height: auto;
+  }
+  
+  .itssar-text{
+      width:85%;
+      font-size: 13px;
+  }
+  
+  .ttt-name {
+      font-size: 18px;
+      margin-bottom:0;
+  }
+  
+  .footer {
+      color: #2E74B5;
+  }
+  
+  .footer-margin {
+      margin-bottom:0;
+  }

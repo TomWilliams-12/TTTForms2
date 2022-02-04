@@ -8,7 +8,10 @@ from jsignature.fields import JSignatureField
 
 class Cbr(models.Model):
     def __str__(self):
-            return 'CB/R'
+            return 'cbr'
+
+    def course_type(self):
+        return 'CB/R'
 
     completed = models.BooleanField(default=False)
     audit_Notes = models.CharField(max_length=500, blank=True, null=True)

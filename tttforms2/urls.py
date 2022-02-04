@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('courses.urls')),
     path('', include('forms.urls')),
     path('', include('form_apps.cbr.urls')),
+    path('', include('form_apps.mewp.urls')),
     path('', include('customers.urls')),
     path('', include('api.urls')),
     path('', include('audit.urls')),

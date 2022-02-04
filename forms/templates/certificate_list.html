@@ -1,0 +1,54 @@
+{% extends 'includes/base.html' %}
+{% block title %}View Customers{% endblock %}
+{% block body %}
+{% load crispy_forms_tags %}
+
+<div class="container mt-3">
+  <h1 class="text-center mb-3">View Certificates</h1>
+  <div class="row mt-4">
+  <table class="table-responsive">
+      <thead>
+        <tr>
+            <th>Candidate Name</th>
+            <th>Course Type</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Certificate No</th>
+            <th>Company</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cert in object_list %}
+            <tr>
+                <td><a href="{% url 'certificate' cert.id %}" target="_blank">{{cert.form_type.candidate_Name}}</a></td>
+                <td>{{cert.form_type.course_type}}</td>
+                <td>{{cert.form_type.start_Date}}</td>
+                <td>{{cert.form_type.finish_Date}}</td>
+                <td>{{cert.certificateNumber}}</td>
+                <td>{{cert.form_type.company_Name}}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+  </div>
+  <div class="pagination mt-3">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+
+
+{% endblock %}

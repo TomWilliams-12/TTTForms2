@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load jsignature_filters %}
+    <meta charset="UTF-8">
+    <title>Certificate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <!-- <style>
+        body {
+        background: rgb(204,204,204);
+        }
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+        }
+        page[size="A4"] {
+            width: 21cm;
+            height: 29.7cm;
+        }
+        .border-main{
+            border: 3px solid #2E74B5;
+        }
+        
+        .border-sec{
+            border: 2px solid #2E74B5;
+            padding: 10px;
+            margin: 3px;
+        }
+        .ttt-logo{
+            width: 100px;
+            height: auto;
+        }
+        
+        .ttt-title{
+            font-size: 30px;
+            color: #5B9BD5;
+        }
+        
+        .itssar-logo {
+            width: 100px;
+            height: auto;
+        }
+        
+        .itssar-p{
+            font-size: 14px;
+        }
+        
+        .font-color-blue {
+            color: #5B9BD5;
+        }
+        
+        .cert-image{
+            width:400px;
+        }
+        
+        .cert-desc {
+            width:90%;
+            font-size: 13px;
+        }
+        
+        .cert-details{
+            font-size: 13px;
+        }
+        
+        .cert-details-p{
+            text-align: right;
+            margin: 0;
+            white-space: nowrap;
+        }
+        
+        .signature {
+            width: 150px;
+            height: auto;
+        }
+        
+        .itssar-text{
+            width:85%;
+            font-size: 13px;
+        }
+        
+        .ttt-name {
+            font-size: 18px;
+            margin-bottom:0;
+        }
+        table {
+            -pdf-keep-in-frame-mode: overflow;
+        }
+        
+        .footer {
+            color: #2E74B5;
+        }
+        
+        .footer-margin {
+            margin-bottom:0;
+        }
+    </style> -->
+</head>
+<body>
+        <page class="container" size="A4">
+        </br>
+        <div class="border-main">
+            <div class="border-sec">
+            <div class="flex-row d-flex w-100">
+                <div class="d-flex align-items-end justify-content-center">
+                    <img src="/static/img/TTT_Logo.jpg" class="ttt-logo" />
+                </div>
+                <div class="d-flex w-100 align-items-end justify-content-center">
+                    <h4 class="ttt-title">THOMAS TRUCK TRAINING LTD</h4>
+                </div>
+                <div class="d-flex align-items-end justify-content-center">
+                    <img class="itssar-logo" src="/static/img/itssar-logo.jpg">
+                </div>
+            </div>
+            <div class="flex-row w-100 mt-3 text-center">
+                <p class="itssar-p">AN <span class="font-color-blue">ITSSAR</span> ACCREDITED LIFT TRUCK TRAINING ORGANISATION</p>
+            </div>
+            <div class="flex-row d-flex justify-content-center">
+                <img style="height:200px" class="cert-image" src="{% static 'img/'|add:certificate.form_type.machine_Group|add:'.jpg' %}" />
+    {#            <img class="cert-image" src="/static/img/{{ certificate.form_type.machine_Group }}.jpg" />#}
+            </div>
+            <div class="text-center">
+                <p>This is to certify that</p>
+                <h5>{{ certificate.form_type.candidate_Name }} {% if certificate.form_type.company_Name %} of {{ certificate.form_type.company_Name}}{% endif %}</h5>
+            </div>
+            <div class="cert-desc text-center mx-auto">
+                <p>Has completed a {{ certificate.form_type.machine_Type }}
+                    {% if certificate.form_type.courseTypeN == 1 %}(Novice)
+                    {% elif certificate.form_type.courseTypeE == 1 %}(Experienced)
+                    {% elif certificate.form_type.courseTypeC == 1 %}(Conversion)
+                    {% elif certificate.form_type.courseTypeSF == 1 %}(Refresher)
+                    {% endif %}
+                    Operators Course and has passed a practical test
+                of Basic Operating Skills as published by ITSSAR and as recognised by the Accrediting Bodies
+                Association Workplace Transport 2012</p>
+            </div>
+            <div class="flex-row d-flex justify-content-center">
+                <table class="cert-details">
+                    <tr>
+                        <td class="cert-details-p"><b>Machine Type:</b></td>
+                        <td>{{ certificate.form_type.machine_Type }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Make:</b></td>
+                        <td>{{certificate.form_type.machine_Make_Model }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Power:</b></td>
+                        <td>{{ certificate.form_type.machine_Motive_Power }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Lifting Capacity:</b></td>
+                        <td>{{ certificate.form_type.machine_Capacity }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Lift Truck Group:</b></td>
+                        <td>{{ certificate.form_type.machine_Group }}</td>
+                    </tr>
+                    {% if certificate.form_type.machine_Test_Lift_Height %}
+                        <tr>
+                            <td class="cert-details-p"><b>Lift height used in test:</b></td>
+                            <td>{{ certificate.form_type.machine_Test_Lift_Height }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td class="cert-details-p"><b>Dates and duration of training:</b></td>
+                      <td>{{ certificate.form_type.start_Date }} ({{ duration }}  {% if duration == 1 %} Day{% else %} Days{% endif %})</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Number of candidates on the course:</b></td>
+                        <td>{{ certificate.form_type.course_Number.candidate_number }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Test Date:</b></td>
+                        <td>{{ certificate.form_type.finish_Date }}</td>
+                    </tr>
+    
+                </table>
+            </div>
+            <div class="flex-row d-flex justify-content-center mt-3">
+                <table class="cert-details w-75">
+                    <tr>
+                        <td class="cert-details-p"><b>Instructors name:</b></td>
+                        <td>{{ certificate.form_type.instructor }}</td>
+                        <td class="cert-details-p"><b>Reg. Number:</b></td>
+                        <td>{{ certificate.form_type.instructor.reg }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Examiners name:</b></td>
+                        <td>{{ certificate.form_type.instructor }}</td>
+                        <td class="cert-details-p"><b>Reg. Number:</b></td>
+                        <td>{{ certificate.form_type.instructor.reg }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Authorised by:</b></td>
+                        <td>{{ george }}</td>
+                        <td class="cert-details-p"><b>Signature:</b></td>
+                        <td><img src="{{ george.signature|signature_base64 }}" class="signature" style="width: 80px;"></td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>ITSSAR company reg. number:</b></td>
+                        <td>3:10143</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Certificate Number:</b></td>
+                        <td>{{ certificate.certificateNumber }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p"><b>Tops scheme number:</b></td>
+                        <td>{{ certificate.form_type.candidateTopsId }}</td>
+                    </tr>
+                    <tr>
+                        <td class="cert-details-p" style="vertical-align: top"><b>Company Address:</b></td>
+                        <td colspan="3" >Forklift Training Centre, Unit 8, Road One, Winsford Industrial Estate, Winsford,
+                            Cheshire, CW7 3RQ</td>
+                    </tr>
+                </table>
+            </div>
+                <div class="itssar-text text-center mx-auto mt-3">
+                    <p>ITSSAR is a founder member of the ABA Workplace Transport 2012 Accreditation Scheme.
+                        This training confirms to the requirements of The Approved Code of Practice and Supplementary
+                        Guidance Rider Operated Lift Trucks &#45; Operator Training L117</p>
+                </div>
+    
+            <div class="flex-row d-flex text-center mt-5">
+                <div class="col">
+                    <p>Phone 01606 55 67 55</p>
+                </div>
+                <div class="col footer">
+                    <p class="ttt-name"><b>Thomas Truck Training Ltd</b></p>
+                    <p class="footer-margin"><b>www.tttltd.co.uk</b></p>
+                </div>
+                <div class="col">
+                    <p>office@tttltd.co.uk</p>
+                </div>
+            </div>
+            </div>
+            </div>
+        </page>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+</body>
+</html>

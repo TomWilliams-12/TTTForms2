@@ -1,0 +1,164 @@
+import datetime
+from django.shortcuts import render, redirect
+from django.views import View
+from django.views.generic.edit import UpdateView
+from .forms import MewpForm
+from .models import Mewp
+from forms.models import Forms
+
+test = {
+    '1': {'num': '101', 't': True, 'crit': 'Operator Safety & Observation', 'pen': '0'},
+    '2': {'num': '1', 't': False, 'crit': 'Mounts/dismounts incorrectly', 'pen': '3'},
+    '3': {'num': '2', 't': False, 'crit': 'Fails to secure fall protection correctly', 'pen': '5'},
+    '4': {'num': '3', 't': False, 'crit': 'Limbs outside carrier during manoeuvring', 'pen': '5'},
+    '5': {'num': '4', 't': False, 'crit': 'Fails to make all around checks', 'pen': '3'},
+    '6': {'num': '5', 't': False, 'crit': 'Fails to look in direction of travel', 'pen': '5'},
+    '7': {'num': '6', 't': False, 'crit': 'Misinterpretation of banksman signalling', 'pen': '3'},
+    '8': {'num': '7', 't': False, 'crit': 'Access gates not fully closed/engaged', 'pen': '3'},
+    '9': {'num': '102', 't': True, 'crit': 'Manoeuvring', 'pen': '0'},
+    '10': {'num': '8', 't': False, 'crit': 'Touches Course', 'pen': '3'},
+    '11': {'num': '9', 't': False, 'crit': 'Shunts in chicane/bay areas', 'pen': '1*'},
+    '12': {'num': '10', 't': False, 'crit': 'Activates wrong direction control', 'pen': '5'},
+    '13': {'num': '11', 't': False, 'crit': 'Steers erratically', 'pen': '5'},
+    '14': {'num': '12', 't': False, 'crit': 'Brakes harshly/erratically', 'pen': '3'},
+    '15': {'num': '13', 't': False, 'crit': 'Erratic change of direction', 'pen': '5'},
+    '16': {'num': '103', 't': True, 'crit': 'Lifting Operations', 'pen': '0'},
+    '17': {'num': '14', 't': False, 'crit': 'Failts to position equipment accurately', 'pen': '3'},
+    '18': {'num': '15', 't': False, 'crit': 'Fails to cordon off area', 'pen': '3'},
+    '19': {'num': '16', 't': False, 'crit': 'Fails to check stabiliser engagement', 'pen': '5'},
+    '20': {'num': '17', 't': False, 'crit': 'Fails to level equipment correctly', 'pen': '5'},
+    '21': {'num': '18', 't': False, 'crit': 'Fails to lock stabilisers', 'pen': '5'},
+}
+test2 = {
+    '1': {'num': '19', 't': False, 'crit': 'Selects wrong hydraulic control', 'pen': '3'},
+    '2': {'num': '20', 't': False, 'crit': 'Rough use of hydraulic controls', 'pen': '3'},
+    '3': {'num': '21', 't': False, 'crit': 'Excessive use of hydraulic controls', 'pen': '1*'},
+    '4': {'num': '22', 't': False, 'crit': 'Operates too close to hazards', 'pen': '3'},
+    '5': {'num': '23', 't': False, 'crit': 'Touches structure', 'pen': '3'},
+    '6': {'num': '24', 't': False, 'crit': 'Uses toe-plates/railings to gain height', 'pen': '5'},
+    '7': {'num': '25', 't': False, 'crit': 'Fails to lock platform extensions', 'pen': '5'},
+    '8': {'num': '26', 't': False, 'crit': 'Fails to check below before lowering', 'pen': '3'},
+    '9': {'num': '27', 't': False, 'crit': 'Fails to re-configfure for travelling', 'pen': '5'},
+    '10': {'num': '202', 't': True, 'crit': 'Parking and Shut Down', 'pen': '0'},
+    '11': {'num': '28', 't': False, 'crit': 'fails to position correctly', 'pen': '3'},
+    '12': {'num': '29', 't': False, 'crit': 'Fails to switch off and isolate', 'pen': '5'},
+    '13': {'num': '30', 't': False, 'crit': 'Fails to remove key', 'pen': '3'},
+    '14': {'num': '31', 't': False, 'crit': 'Fails to complete post-stop checks', 'pen': '5'},
+}
+carry_forward = 18
+review_choices = (
+    ('1','1'),
+    ('2','2'),
+    ('3','3'),
+    ('4','4'),
+    ('5','5'),
+)
+eval = [
+    'Did you feel you had professional training?',
+    'Did you feel the trainer had adequate enthusiasm?',
+    'Did the trainer effectively communicate with you?',
+    'Did you have the oppurtunity to ask questions?',
+    'Was the course well structured?',
+    'Did you find the course content easy to understand?',
+    'Was there adequate balance between theory and practical?',
+    'Was the course manual easy to read and informative?',
+    'Were you satisfied with the facilities provided to you?',
+]
+operatorContent = {
+    'Job Safety/Knowledge': 'JS',
+    'Skill and Dexterity': 'SD',
+    'Learning Capacity': 'LC',
+    'Motivation': 'M',
+    'Safety Attitude': 'SA'
+}
+md = [
+    'Incomplete pre-use/function check',
+    'Unsafe operator practices',
+    'Operates dangerously',
+    'Violent collision',
+    'Fails to use stabilisers correctly',
+    'Fails to complete lifting criteria',
+    'Failts theoretical test (see separate marking/test sheet)'
+]
+checks = [
+    'Engine oil/coolant/hyd. oil levels',
+    'Battery/batteries/charging system', 
+    'Engine Compartment', 
+    'All pivot pins/retaining clips', 
+    'Hydraulic/engine system for leaks', 
+    'Wheels/tyres/tracks', 
+    'Steps/handrails/access points', 
+    'Carrier condition/anchorage points', 
+    'All guarding/covers secure', 
+    'Warning decals/control symbols', 
+    'SWL identified', 
+    'Overall condition', 
+    'Greasing', 
+    'Harness/lanyard inspected', 
+    'Power source', 
+    'Emergency lowering system', 
+    'Overload/tilt proection systems', 
+    'Access gates function/lock correctly', 
+    'Electrical system', 
+    'Audible warning systems', 
+    'Hydraulic/motive control function', 
+    'Brakes/steering', 
+    'Limit switches', 
+    'Carrier levelling system', 
+    'Stabiliser/outrigger locking system', 
+    'Extending platform system', 
+    'Power take off', 
+    'Emergency stop control', 
+    'Manufacturers manual', 
+    'Fault reporting procedure', 
+    ]
+
+class MewpPage(View):
+    def get(self, request):
+        instructor = request.user
+        form = MewpForm(initial={'start_Date': datetime.datetime.today(), 'instructor': instructor})
+        return render(request, 'mewp.html', {
+            'form': form,
+            'operatorContent': operatorContent,
+            'test': test,
+            'test2': test2,
+            'carry_forward': carry_forward,
+            'md': md,
+            'checks': checks,
+            'eval': eval,
+            'instructor': instructor,
+            })
+    
+    def post(self, request):
+        cbrForm = MewpForm(request.POST)
+        if cbrForm.is_valid():
+            cbrForm.save()
+            last_form = Mewp.objects.last()
+            form = Forms(form_type=last_form)
+            form.save()
+            return redirect('/')
+
+class EditMewp(UpdateView):
+    model = Mewp
+    form_class = MewpForm
+    template_name = 'mewp.html'
+    success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(EditMewp, self).get_context_data(**kwargs)
+        form = MewpForm(instance=self.object)
+        instructor = self.object.instructor
+        instructor_2 = self.object.instructor_2
+        ctx = {
+            'form': form,
+            'operatorContent': operatorContent,
+            'test': test,
+            'test2': test2,
+            'carry_forward': carry_forward,
+            'md': md,
+            'checks': checks,
+            'eval': eval,
+            'instructor': instructor,
+            'instructor_2': instructor_2,
+        }
+        return ctx
