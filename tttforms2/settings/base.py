@@ -4,11 +4,6 @@ import os
 # The most important thing is to be build relative path
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-INSTALLED_APPS = []
-
-#...other environmentally independent settings 
-# (TEMPLATES, WSGI_APPLICATION, TIME_ZONE, STATIC_ROOT etc.)
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -60,11 +55,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'tttforms2.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
