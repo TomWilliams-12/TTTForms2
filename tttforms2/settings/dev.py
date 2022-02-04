@@ -25,14 +25,14 @@ ALLOWED_HOSTS = ['tttforms-dev.eu-west-2.elasticbeanstalk.com']
 if 'RDS_HOSTNAME' in os.environ:
      DATABASES = {
          'default': {
-         '    ENGINE': 'django.db.backends.mysql',
-              'NAME': os.environ['RDS_DB_NAME'],
-              'USER': os.environ['RDS_USERNAME'],
-              'PASSWORD': os.environ['RDS_PASSWORD'],
-              'HOST': os.environ['RDS_HOSTNAME'],
-              'PORT': os.environ['RDS_PORT'],
-     }
- }
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+    }
+}
 else:
     env_vars = get_environ_vars()
     DATABASES = {
