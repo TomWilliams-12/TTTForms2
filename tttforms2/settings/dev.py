@@ -2,9 +2,6 @@ from .base import *
 import subprocess
 import ast
 
-
-
-
 def get_environ_vars():
     completed_process = subprocess.run(
         ['/opt/elasticbeanstalk/bin/get-config', 'environment'],
