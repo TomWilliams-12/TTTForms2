@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from form_apps.cbr.models import Cbr
+<<<<<<< HEAD
 from forms.models import Forms
+=======
+>>>>>>> main
 # Create your views here.
 
 class Home(View):
