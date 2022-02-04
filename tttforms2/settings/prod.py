@@ -15,10 +15,6 @@ def get_environ_vars():
 
     return ast.literal_eval(completed_process.stdout)
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 SECRET_KEY = 'django-insecure-#f=@yl29ey9hv2!$m438rj#*z^nzmr0%*qck=_^$y^ss(db$ab'
 
 # SECURITY WARNING: don't run with debug turned on in production!
