@@ -5,6 +5,10 @@ venv
 __pycache__
 data
 /static
+Dockerfile
+docker-compose.yml
+.dockerignore
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
