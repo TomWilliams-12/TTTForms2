@@ -18,7 +18,7 @@ class Home(View):
                 create_certificates = Forms.objects.filter(object_id__in=all_certs).filter(certificate=False)
                 return render(request, 'index.html', {'forms': forms, 'create_certificates': create_certificates})
             else:
-                cbr_ids = list(Cbr.objects.filter(audit_Completed=False).values_list('pk', flat=True))
+                cbr_ids = list(Cbr.objects.filter(instructor=user.id).filter(completed=False).values_list('pk', flat=True))
                 forms = Forms.objects.filter(object_id__in=cbr_ids)
                 return render(request, 'index.html', {'forms': forms})
         else:
