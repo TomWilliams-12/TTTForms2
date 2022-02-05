@@ -5,12 +5,71 @@
     {% load my_filters %}
     {% load jsignature_filters %}
     <form method="post">
+        <div class="container-xl mt-5 mb-3">
         {% csrf_token %}
         {% include 'induction.html' with induction=form %}
+            <div class="row mt-4">
+                <div class="col-sm-6">
+                    <h6 class="text-center">Candidate</h6>
+                    <label for="candidate_name" class="">Name</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control candidate_Name" id="candidate_name" disabled>
+                    </div>
+
+                </div>
+            </div>
         {% include 'practical_test.html' with form=form %}
         {% include 'theory_test.html' with theory=form %}
         {% include 'review.html' with form=form %}
+        <div class="d-flex row">
+            <div class="col-sm-1">
+                <h6 class="align-self-center">Completed:</h6>
+            </div>
+            <div class="col-sm-1">
+                {{ form.completed }}
+            </div>
+            <div class="col-sm-2">
+                <h6 class="align-self-center">Audit Notes:</h6>
+            </div>
+            <div class="col-sm-8">
+                {{ form.audit_Notes }}
+            </div>
+        </div>
+        {% if request.user.is_auditor %}
+        <div class="d-flex row">
+            <div class="col-sm-1">
+                <h6 class="align-self-center">Audit Completed:</h6>
+            </div>
+            <div class="col-sm-1">
+                {{ form.audit_Completed }}
+            </div>
+            <div class="col-sm-1">
+                <h6 class="align-self-center">Certificate:</h6>
+            </div>
+            <div class="col-sm-1">
+                {{ form.has_Certificate }}
+            </div>
+        </div>
+        {% endif %}
 
         <input type="submit" class="btn btn-outline-secondary mt-5 mb-5" value="Submit" />
+    </div>
     </form>
+
+
+    {% if form.instance.id %}
+    <script> 
+        window.addEventListener('load', (event) => {
+            onload();
+            get_customer(); 
+    });
+    </script> 
+    {% else %}
+    <script> 
+        window.addEventListener('load', (event) => {
+            onload();  
+    });
+    </script>
+    {% endif %}
+    <script src="{% static 'mewp/main.js' %}"></script>
     {% endblock %}

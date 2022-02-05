@@ -10,10 +10,7 @@ def register(request):
         profile_form = ProfileForm(request.POST)
 
         if profile_form.is_valid():
-            signature_c = profile_form.cleaned_data.get('signature')
-            if signature_c:
-                signature = draw_signature(signature_c)
-                profile_form.save()
+            profile_form.save()
 
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/')

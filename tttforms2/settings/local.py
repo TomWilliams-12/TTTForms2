@@ -8,11 +8,7 @@ ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ttt-forms',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'db',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'tttforms',
     }
 }
