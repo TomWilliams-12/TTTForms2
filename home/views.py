@@ -9,7 +9,7 @@ class Home(View):
         user = request.user
         if request.user.is_authenticated:
             if user.is_auditor:
-                cbr_ids = list(Cbr.objects.filter(audit_Completed=False).values_list('pk', flat=True))
+                cbr_ids = list(Cbr.objects.filter(audit_Completed=False).filter(completed=True).values_list('pk', flat=True))
                 all_ids = cbr_ids
                 forms = Forms.objects.filter(object_id__in=all_ids)
 
