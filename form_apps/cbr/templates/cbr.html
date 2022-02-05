@@ -6,8 +6,8 @@
     {% load jsignature_filters %}
     <form method="post">
         {% csrf_token %}
+        <div class="container-xl mt-5 mb-3">
     {% include 'induction.html' with induction=form %}
-    <div class="container-xl mt-5 mb-3">
         <div class="row">
             <h5 class="mt-4 col-sm-12 text-center"> ITSSAR Course Paperwork Booklet Pages 1-3 Counterbalance, Reach & Container Handling Trucks B1, B2, B3, B4, D1, D2, D3 &amp; G2</h5>
         </div>
@@ -563,6 +563,7 @@
     {% endif %}
     
     <input type="submit" class="btn btn-outline-secondary mt-5 mb-5" value="Submit" />
+    </div>
 </form>
     {% if form.instance.id %}
     <script> 
