@@ -156,13 +156,14 @@ class MewpPage(View):
             })
     
     def post(self, request):
-        cbrForm = MewpForm(request.POST)
-        if cbrForm.is_valid():
-            cbrForm.save()
+        mewpForm = MewpForm(request.POST)
+        if mewpForm.is_valid():
+            mewpForm.save()
             last_form = Mewp.objects.last()
             form = Forms(form_type=last_form)
             form.save()
             return redirect('/')
+
 
 class EditMewp(UpdateView):
     model = Mewp
