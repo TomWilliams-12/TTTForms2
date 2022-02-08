@@ -157,6 +157,7 @@ class MewpPage(View):
     
     def post(self, request):
         mewpForm = MewpForm(request.POST)
+        print (mewpForm.errors)
         if mewpForm.is_valid():
             mewpForm.save()
             last_form = Mewp.objects.last()

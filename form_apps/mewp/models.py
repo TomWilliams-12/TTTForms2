@@ -8,7 +8,7 @@ from jsignature.fields import JSignatureField
 
 class Mewp(models.Model):
     def __str__(self):
-            return 'cbr'
+            return 'mewp'
 
     def course_type(self):
         return 'MEWP'
@@ -111,7 +111,7 @@ for i in range(25):
         Mewp.add_to_class('question_' + str(i + 1), models.CharField(max_length=300, blank=True, null=True))
 
 for i in range(31):
-    Mewp.add_to_class('preUseEM_' + str(i + 1), models.CharField(max_length=3, blank=True, null=True))
+    Mewp.add_to_class('preUseEM_' + str(i + 1), models.CharField(max_length=10, blank=True, null=True))
 
 for i in range(24):
     Mewp.add_to_class('BO_D' + str(i + 1), models.DateField(blank=True, null=True))
