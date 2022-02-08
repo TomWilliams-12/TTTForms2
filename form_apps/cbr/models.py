@@ -62,7 +62,7 @@ class Cbr(models.Model):
     start_Time = models.TimeField(blank=True, null=True)
     finish_Time = models.TimeField(blank=True, null=True)
     restriction_Detail = models.CharField(max_length=500, blank=True, null=True)
-    testPaperReference = models.CharField(max_length=10, blank=True, null=True)
+    theory_Paper_Number = models.CharField(max_length=10, blank=True, null=True)
     ot_12_L = models.BooleanField()
     ot_12_M = models.BooleanField()
     ot_12_H = models.BooleanField()

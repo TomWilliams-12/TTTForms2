@@ -112,7 +112,32 @@ checks = [
     'Manufacturers manual', 
     'Fault reporting procedure', 
     ]
-
+operator_training = {
+    '1': {'num': '1', 'crit': 'Course induction', 'ref': 'N/E/SR'},
+    '2': {'num': '2', 'crit': 'The need and reasons to training & statutory requirements (HASAWA 1974 etc.)', 'ref': 'N/E/SR'},
+    '3': {'num': '3', 'crit': 'Introduction to equipment/control familiarisation/principles of operation', 'ref': 'N/E/SR'},
+    '4': {'num': '4', 'crit': 'Identification/use/adjustment of stabilizers, outriggers/extended platforms', 'ref': 'N/E'},
+    '5': {'num': '5', 'crit': 'Recommended mount and dismount/ground access/step access', 'ref': 'N/E/SR'},
+    '6': {'num': '6', 'crit': 'Introduction to motive, steering controls & practice', 'ref': 'N'},
+    '7': {'num': '7', 'crit': 'Basic steering exercises - simple courses', 'ref': 'N'},
+    '8': {'num': '8', 'crit': 'Advanced steering exercises - figure of 8/chicane/90\N{DEGREE SIGN} approaches/reverse orientation', 'ref': 'N/E'},
+    '9': {'num': '9', 'crit': 'Battery changing procedures/maintenance', 'ref': 'N/E/SR'},
+    '10': {'num': '10', 'crit': 'Operator safety code and relevant handout', 'ref': 'N/E/SR'},
+    '11': {'num': '11', 'crit': 'Daily pre-use inspections/refueling procedures', 'ref': 'N/E/SR'},
+    '12': {'num': '12', 'crit': 'Engineering principles/rated capacity/stability', 'ref': 'N/E/SR'},
+    '13': {'num': '13', 'crit': 'Simple hydraulics (theory) Introduction to hydraulic controls', 'ref': 'N'},
+    '14': {'num': '14', 'crit': 'Safety harness awareness', 'ref': 'N'},
+    '15': {'num': '15', 'crit': 'Anchor points*', 'ref': 'N/E/SR'},
+    '16': {'num': '16', 'crit': 'Elevating at low/medium/high level', 'ref': 'N/E/SR'},
+    '17': {'num': '17', 'crit': 'Operating at low/medium/high level', 'ref': 'N/E/SR'},
+    '18': {'num': '18', 'crit': 'Maneuvering/ramps & inclines*', 'ref': 'N/E'},
+    '19': {'num': '19', 'crit': 'Relevant safety film', 'ref': 'N/E/SR'},
+    '20': {'num': '20', 'crit': 'Emergency lowering', 'ref': 'N/E'},
+    '21': {'num': '21', 'crit': 'Safety decals', 'ref': 'N/E'},
+    '22': {'num': '22', 'crit': 'Multi choice theory test', 'ref': 'N/E/SR'},
+    '23': {'num': '23', 'crit': 'Pre-use inspection test', 'ref': 'N/E/SR'},
+    '24': {'num': '24', 'crit': 'Practical skills test', 'ref': 'N/E/SR'},
+}
 class MewpPage(View):
     def get(self, request):
         instructor = request.user
@@ -127,6 +152,7 @@ class MewpPage(View):
             'checks': checks,
             'eval': eval,
             'instructor': instructor,
+            'operator_training': operator_training,
             })
     
     def post(self, request):
@@ -160,5 +186,6 @@ class EditMewp(UpdateView):
             'eval': eval,
             'instructor': instructor,
             'instructor_2': instructor_2,
+            'operator_training': operator_training,
         }
         return ctx

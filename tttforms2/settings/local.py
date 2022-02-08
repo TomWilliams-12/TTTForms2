@@ -9,6 +9,6 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'tttforms',
+        'NAME': 'tttforms.db',
     }
 }

@@ -221,14 +221,18 @@ function getExcess(){
 
 // SHOW/HIDE INSTRUCTOR SIGNATURE
 function instructorSign(){
-    let signatures = document.querySelectorAll('.otSig');
-    let selects = document.querySelectorAll('.otSelect');
+    let instructorSig = document.querySelectorAll('.instructorSigs');
+    let candidateSig = document.querySelectorAll('.candidateSigs');
+    let sigDate = document.querySelectorAll('.sigDate');
 
-    for(let i =0; i < signatures.length; i++){
-        if (selects[i].value == 'tick'){
-            signatures[i].classList.remove('d-none');
-        } else {
-            signatures[i].classList.add('d-none');
+    for(let i =0; i < instructorSig.length; i++){
+        if (sigDate[i].value){
+            instructorSig[i].classList.remove('d-none');
+            candidateSig[i].classList.remove('d-none');
+        }
+        else {
+            instructorSig[i].classList.add('d-none');
+            candidateSig[i].classList.add('d-none');
         }
     }
 }
@@ -288,6 +292,11 @@ async function get_customer(){
     const response = await fetch(url);
     let data = await response.json();
 
+    let companyName = document.querySelectorAll('.company_name')
+    for(let i = 0; i < companyName.length; i++){
+        companyName[i].value = data.company_name;
+    }
+
     let contact = document.querySelectorAll('.company_contact')
     for(let i = 0; i < contact.length; i++){
         contact[i].value = data.company_contact;
@@ -298,6 +307,50 @@ async function get_customer(){
         address[i].value = data.company_address;
     }
 }
+
+function capacityAutofill(){
+    let capacity = document.querySelector('.capacity').value;
+    let capacityFill = document.querySelectorAll('.capacityFill');
+
+    for (let i = 0; i < capacityFill.length; i++){
+        capacityFill[i].value = capacity;
+    }
+}
+
+function liftHeightAutofill() {
+    let testHeight = document.querySelector('.testHeight').value;
+    let testHeightFill = document.querySelectorAll('.testHeightFill');
+
+    for (let i = 0; i < testHeightFill.length; i++){
+        testHeightFill[i].value = testHeight;
+    }
+}
+
+function motiveAutofill(){
+    let motive = document.querySelector('.motive').value;
+    let motiveAutofill = document.querySelectorAll('.motiveAuto');
+    for (let i = 0; i < motiveAutofill.length; i++){
+        motiveAutofill[i].value = motive;
+    }
+}
+
+function updateTruck(){
+    let truckType = document.querySelector('.truckType').value;
+    let truckFill = document.querySelectorAll('.truckFill');
+
+    for (let i = 0; i < truckFill.length; i++) {
+        truckFill[i].value = truckType;
+    }
+}
+function updateModel(){
+    let modelType = document.querySelector('.truckModel').value;
+    let modelFill = document.querySelectorAll('.modelFill');
+
+    for (let i = 0; i < modelFill.length; i++) {
+        modelFill[i].value = modelType;
+    }
+}
+
 
 function onload(){
     startDateAutofill();
@@ -310,4 +363,7 @@ function onload(){
     calculateDuration();
     instructorSign();
     percentageCalculator();
+    capacityAutofill();
+    liftHeightAutofill();
+    motiveAutofill();
 }

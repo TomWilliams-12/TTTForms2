@@ -8,7 +8,7 @@ data
 Dockerfile
 docker-compose.yml
 .dockerignore
-tttforms
+tttforms.db
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
