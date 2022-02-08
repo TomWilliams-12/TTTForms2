@@ -88,7 +88,7 @@
                     {% for form in forms %}
                     <tr>
                         <td>{{ form.form_type.course_type }}</td>
-                        <td><a href="{{ form.form_type }}/{{ form.id }}">{{ form.form_type.candidate_Name }}</a></td>
+                        <td><a href="{{ form.form_type }}/{{ form.form_type.id }}">{{ form.form_type.candidate_Name }}</a></td>
                         <td>{{ form.form_type.start_Date }}</td>
                         <td>{{ form.form_type.finish_Date }}</td>
                     </tr>
