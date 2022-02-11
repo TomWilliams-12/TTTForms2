@@ -33,7 +33,7 @@ class Certificate(View):
         certificate = Forms.objects.get(pk=pk)
         startDate = certificate.form_type.start_Date
         endDate = certificate.form_type.finish_Date
-        george = Profile.objects.get(user_name='george')
+        george = Profile.objects.get(first_name='George')
         diff = endDate - startDate
         duration = diff.days + 1
         if duration == 0:

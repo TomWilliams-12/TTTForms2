@@ -9,6 +9,7 @@
   <table class="table-responsive">
       <thead>
         <tr>
+            <th>ID</th>
             <th>Candidate Name</th>
             <th>Course Type</th>
             <th>Start Date</th>
@@ -20,6 +21,7 @@
       <tbody>
         {% for cert in object_list %}
             <tr>
+                <td>{{cert.id}} {{cert.form_type.id}}</td>
                 <td><a href="{% url 'certificate' cert.id %}" target="_blank">{{cert.form_type.candidate_Name}}</a></td>
                 <td>{{cert.form_type.course_type}}</td>
                 <td>{{cert.form_type.start_Date}}</td>
