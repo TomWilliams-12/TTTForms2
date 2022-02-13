@@ -78,7 +78,7 @@ class Ohc(models.Model):
     preUseEM_CRP = models.BooleanField()
     preUseEM_CRR = models.BooleanField()
     preUseEM_CRTD = models.DateField(blank=True, null=True)
-    instructor_2 = models.ForeignKey(Profile, related_name='ohcInstructor2', on_delete=models.SET_NULL, null=True)
+    instructor_2 = models.ForeignKey(Profile, related_name='ohcInstructor2', on_delete=models.SET_NULL, null=True, blank=True)
     BO_attachments = models.CharField(max_length=30, blank=True, null=True)
     training_Ratio = models.CharField(max_length=30, blank=True, null=True)
     course_Timing = models.CharField(max_length=30, blank=True, null=True)
