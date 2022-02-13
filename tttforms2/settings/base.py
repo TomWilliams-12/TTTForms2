@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'customers',
     'form_apps.cbr',
     'form_apps.mewp',
+    'form_apps.ohc',
     'audit',
     'xhtml2pdf',
 ]
