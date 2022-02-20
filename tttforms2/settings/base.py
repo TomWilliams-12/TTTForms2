@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'form_apps.cbr',
     'form_apps.mewp',
     'form_apps.ohc',
+    'form_apps.aw',
+    'form_apps.ppt',
     'audit',
     'xhtml2pdf',
 ]

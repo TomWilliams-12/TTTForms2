@@ -1,0 +1,145 @@
+from django.contrib.contenttypes.fields import GenericRelation
+from django.db import models
+from courses.models import Courses
+from forms.models import Forms
+from accounts.models import Profile
+from customers.models import Customers
+from jsignature.fields import JSignatureField
+
+class Ppt(models.Model):
+    def __str__(self):
+            return 'ppt'
+
+    def course_type(self):
+        return 'PPT'
+    completed = models.BooleanField(default=False)
+    audit_Notes = models.CharField(max_length=500, blank=True, null=True)
+    audit_Completed = models.BooleanField(default=False)
+    has_Certificate = models.BooleanField(default=False)
+    form = GenericRelation(Forms)
+    courseTypeN = models.BooleanField(default=False)
+    courseTypeE = models.BooleanField(default=False)
+    courseTypeC = models.BooleanField(default=False)
+    courseTypeSF = models.BooleanField(default=False)
+    candidateTopsId = models.CharField(max_length=30, blank=True, null=True)
+    candidate_Name = models.CharField(max_length=50, blank=True, null=True)
+    course_Type = models.CharField(max_length=50, blank=True, null=True)
+    course_Number = models.ForeignKey(Courses, related_name='pptCourse', on_delete=models.SET_NULL, null=True)
+    venue = models.CharField(max_length=30, blank=True, null=True)
+    start_Date = models.DateField(blank=True, null=True)
+    finish_Date = models.DateField(blank=True, null=True)
+    instructor = models.ForeignKey(Profile, related_name='pptInstructor', on_delete=models.SET_NULL, null=True)
+    candidate_Initial = models.CharField(max_length=5, blank=True, null=True)
+    candidate_Checkbox = models.BooleanField()
+    signature = JSignatureField(blank=True, null=True)
+    machineGroup = models.CharField(max_length=50, blank=True, null=True)
+    machineCapacity = models.CharField(max_length=50, blank=True, null=True)
+    loadCentre = models.CharField(max_length=50, blank=True, null=True)
+    height = models.CharField(max_length=50, blank=True, null=True)
+    attachments = models.CharField(max_length=50, blank=True, null=True)
+    platformY = models.BooleanField()
+    platformN = models.BooleanField()
+    setTime = models.IntegerField(blank=True, null=True)
+    startTime = models.TimeField(blank=True, null=True)
+    finishTime = models.TimeField(blank=True, null=True)
+    testPass = models.BooleanField()
+    testFail = models.BooleanField()
+    testDate = models.DateField(blank=True, null=True)
+    preUsePass = models.BooleanField()
+    preUseRefer = models.BooleanField()
+    preUseDate = models.DateField(blank=True, null=True)
+    akPass = models.BooleanField()
+    akRefer = models.BooleanField()
+    akDate = models.DateField(blank=True, null=True)
+    candidateDOB = models.DateField(blank=True, null=True)
+    topsId = models.CharField(max_length=20, blank=True, null=True)
+    company_Name = models.ForeignKey(Customers, related_name='pptCustomer', on_delete=models.SET_NULL, null=True, blank=True)
+    courseTitle = models.CharField(max_length=50, blank=True, null=True)
+    courseDuration = models.CharField(max_length=20, blank=True, null=True)
+    machineType = models.CharField(max_length=50, blank=True, null=True)
+    liftHeightCapacity = models.CharField(max_length=50, blank=True, null=True)
+    liftHeightCapacity2 = models.CharField(max_length=50, blank=True, null=True)
+    group = models.CharField(max_length=15, blank=True, null=True)
+    machineMotivePower = models.CharField(max_length=20, blank=True, null=True)
+    riderPedestrian = models.CharField(max_length=15, blank=True, null=True)
+    attachments2 = models.CharField(max_length=20, blank=True, null=True)
+    basicSkills = models.DateField(blank=True, null=True)
+    specificJob = models.DateField(blank=True, null=True)
+    refresherTest = models.DateField(blank=True, null=True)
+    familiarisation = models.DateField(blank=True, null=True)
+    theory = models.DateField(blank=True, null=True)
+    preShift = models.DateField(blank=True, null=True)
+    manoeuvring = models.CharField(max_length=5, blank=True, null=True)
+    chicane = models.CharField(max_length=5, blank=True, null=True)
+    lowLevel = models.CharField(max_length=5, blank=True, null=True)
+    eyeLevel = models.CharField(max_length=5, blank=True, null=True)
+    highLevel = models.CharField(max_length=5, blank=True, null=True)
+    vertFace = models.CharField(max_length=5, blank=True, null=True)
+    sop = models.CharField(max_length=5, blank=True, null=True)
+    fts = models.CharField(max_length=5, blank=True, null=True)
+    vehicle_Loading = models.CharField(max_length=5, blank=True, null=True)
+    ramps = models.CharField(max_length=5, blank=True, null=True)
+    attachments_Initial = models.CharField(max_length=5, blank=True, null=True)
+    special_Application = models.CharField(max_length=5, blank=True, null=True)
+    preUse_Points = models.CharField(max_length=5, blank=True, null=True)
+    final_Grading = models.CharField(max_length=1, blank=True, null=True)
+    instructorComments = models.CharField(max_length=1000, blank=True, null=True)
+    theory_Test_Date = models.DateField(blank=True, null=True)
+    theory_Paper_Number = models.CharField(max_length=10, blank=True, null=True)
+    e_testDate = models.DateField(blank=True, null=True)
+    e_truckType = models.CharField(max_length=30, blank=True, null=True)
+    e_model = models.CharField(max_length=30, blank=True, null=True)
+    machine_Make_Model = models.CharField(max_length=30, blank=True, null=True)
+    e_abaCategory = models.CharField(max_length=30, blank=True, null=True)
+    e_motivePower = models.CharField(max_length=30, blank=True, null=True)
+    preUseEM_CRP = models.BooleanField()
+    preUseEM_CRR = models.BooleanField()
+    preUseEM_CRTD = models.DateField(blank=True, null=True)
+    BO_testDate = models.DateField(blank=True, null=True)
+    instructor_2 = models.ForeignKey(Profile, related_name='pptInstructor2', on_delete=models.SET_NULL, null=True)
+    BO_truckType = models.CharField(max_length=30, blank=True, null=True)
+    BO_truckModel = models.CharField(max_length=30, blank=True, null=True)
+    BO_liftHeight = models.CharField(max_length=30, blank=True, null=True)
+    BO_capacity = models.CharField(max_length=30, blank=True, null=True)
+    BO_attachments = models.CharField(max_length=30, blank=True, null=True)
+    training_Ratio = models.CharField(max_length=30, blank=True, null=True)
+    course_Timing = models.CharField(max_length=30, blank=True, null=True)
+    instructorAdditionalComments = models.CharField(max_length=3000, blank=True, null=True)
+
+for i in range(7):
+    Ppt.add_to_class('md_' + str(i + 1), models.BooleanField())
+for i in range(32):
+    Ppt.add_to_class('penalty_' + str(i + 1), models.IntegerField(blank=True, null=True))
+
+for i in range(5):
+    Ppt.add_to_class('d' + str(i + 1) + '_JS', models.CharField(max_length=1, blank=True, null=True))
+    Ppt.add_to_class('d' + str(i + 1) + '_SD', models.CharField(max_length=1, blank=True, null=True))
+    Ppt.add_to_class('d' + str(i + 1) + '_LC', models.CharField(max_length=1, blank=True, null=True))
+    Ppt.add_to_class('d' + str(i + 1) + '_M', models.CharField(max_length=1, blank=True, null=True))
+    Ppt.add_to_class('d' + str(i + 1) + '_SA', models.CharField(max_length=1, blank=True, null=True))
+
+for i in range(25):
+    Ppt.add_to_class('mark_' + str(i + 1), models.CharField(max_length=3, blank=True, null=True))
+    if i + 1 < 21:
+        Ppt.add_to_class('question_' + str(i + 1), models.CharField(max_length=3, blank=True, null=True))
+    else:
+        Ppt.add_to_class('question_' + str(i + 1), models.CharField(max_length=300, blank=True, null=True))
+
+for i in range(24):
+    Ppt.add_to_class('preUseEM_' + str(i + 1), models.CharField(max_length=10, blank=True, null=True))
+
+for i in range(25):
+    Ppt.add_to_class('BO_D' + str(i + 1), models.DateField(blank=True, null=True))
+
+review_choices = [
+    ('review_1','1'),
+    ('review_2','2'),
+    ('review_3','3'),
+    ('review_4','4'),
+    ('review_5','5'),
+]
+for i in range(12):
+    if i < 9:
+        Ppt.add_to_class('eval_' + str(i + 1), models.CharField(choices=review_choices, max_length=10, blank=False, null=True, default=0))
+    else:
+        Ppt.add_to_class('eval_' + str(i + 1), models.CharField(max_length=300, blank=True, null=True))
