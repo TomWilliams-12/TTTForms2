@@ -9,6 +9,737 @@
         {% csrf_token %}
         {% include 'induction.html' with induction=form %}
 
+        <div class="row mt-4 mb-4">
+            <div class="col-sm-3">
+                <h6 class="">Candidate Details</h6>
+                <label for="candidate_name" class="">Name</label>
+                <div class="col-sm-12">
+                    <input type="text" maxlength="20" class="textinput textInput form-control candidate_Name" id="candidate_name" disabled>
+                </div>
+                <div class="col-sm-12 mt-2">
+                    {{ form.company_Name | as_crispy_field }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h6 class="">Truck Type</h6>
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{ form.machine_Group | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-3">
+                    {{ form.machine_Capacity | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ form.load_Centre | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form.machine_Test_Lift_Height | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ form.attachments | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-12 row mt-1">
+                        <h6>Fold Down Platform</h6>
+                        <div class="col-sm-3">
+                            {{ form.platformY | as_crispy_field }}
+                        </div>
+                        <div class="col-sm-3">
+                            {{ form.platformN | as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% include 'practical_test.html' with form=form %}
+
+    <div class="row mt-4 mb-4">
+        <div class="col-sm-3">
+            <p>Practical</p>
+        </div>
+        <div class="col-sm-3">
+            {{ form.test_Pass | as_crispy_field }}
+        </div>
+        <div class="col-sm-3">
+            {{ form.test_Fail | as_crispy_field }}
+        </div>
+        <div class="col-sm-3">
+            {{ form.test_Date | as_crispy_field }}
+        </div>
+    </div>
+    <div class="row mt-4 mb-4">
+        <div class="col-sm-3">
+            <p>Pre-Use Check</p>
+        </div>
+        <div class="col-sm-3">
+            {{ form.preUsePass | as_crispy_field }}
+        </div>
+        <div class="col-sm-3">
+            {{ form.preUseFail | as_crispy_field }}
+        </div>
+        <div class="col-sm-3">
+            {{ form.preUseDate | as_crispy_field }}
+        </div>
+    </div>
+    <div class="row mt-4 mb-4">
+        <div class="col-sm-3">
+            <p>Associated Knowledge</p>
+        </div>
+        <div class="col-sm-3">
+            {{ form.akPass | as_crispy_field }}
+        </div>
+        <div class="col-sm-3">
+            {{ form.akFail | as_crispy_field }}
+        </div>
+        <div class="col-sm-3">
+            {{ form.akDate | as_crispy_field }}
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-sm-2">
+            <b>Examiner Name:</b>
+        </div>
+        <div class="instructorName col-sm-2">
+            {{ instructor.first_name }} {{ instructor.last_name }}
+        </div>
+        <div class="col-sm-2">
+            <b>Examiner Signature:</b>
+        </div>
+        <div class="instructorSig col-sm-2">
+            <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
+        </div>
+        <div class="col-sm-1">
+            <b>Reg No:</b>
+        </div>
+        <div class="instructorReg col-sm-2">
+            {{ instructor.reg }}
+        </div>
+    </div>
+    <div class="row mt-4 mb-4">
+        <div class="col-sm-2">
+            <b>Candidate Signature:</b>
+        </div>
+        <div class="candidateSig col-sm-2">
+            <!-- INSERT CANDIDATE SIGNATURE HERE -->
+            {% if form.instance.signature %}
+                <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+            {% endif %}
+        </div>
+    </div>
+
+    <h5 class="text-center">Confidential Operator Training Assessment Report</h5>
+        <div class="row mb-3">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="candidate_name" class="">Name</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control candidate_Name" id="candidate_name" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                {{ form.candidate_DOB | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="candidate_name" class="">Company</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control company_name" id="company_name" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="company_contact" class="">Company Contact</label>
+                    <div class="">
+                        <input type="text" name="company_contact" class="textinput textInput form-control company_contact" id="company_contact" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="company_address" class="">Company Address</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control company_address" id="company_address" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                {{ form.course_Title | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.course_Duration | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="venue_1" class="">Venue</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control venueAutofill" id="venue_1" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-1">
+                <p></p>
+                <div>Dates:</div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="startdate" class="">Start Date</label>
+                    <div class="">
+                        <input type="date" class="textinput textInput form-control start_Date">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="enddate" class="">End Date</label>
+                    <div class="">
+                        <input type="date" class="textinput textInput form-control end_Date">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-3">
+                {{ form.courseTypeN | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.courseTypeE | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.courseTypeC | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.courseTypeSF | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-3">
+                {{ form.machine_Type | as_crispy_field }}
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="lift_height" class="">Lift Height</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control testHeightFill" id="lift_height" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="capacity" class="">Capacity</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control capacityFill" id="capacity" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="group" class="">Group</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control groupFill" id="group" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                {{ form.motive_Power | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.rider_Pedestrian | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="attachments" class="">Attachments</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control attachmentsFill" id="attachments" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-12 mt-3 mb-2 border-bottom border-dark">
+                <h6 class="text-center">Test/Examination Types & Dates</h6>
+            </div>
+            <div class="col-sm-4">
+                {{ form.basic_Skills | as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.specific_Job | as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.refresher_Test | as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.familiarisation | as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.theory | as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.pre_Shift | as_crispy_field }}
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <p>Where, due to restrictions modified training/test is applied, please specify elements by initialing</p>
+            <div class="col-sm-3">
+                {{ form.manoeuvring | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.chicane | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.low_Level | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.eye_Level | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.high_Level | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.vert_Face | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.sop | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.fts | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.vehicle_Loading | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.ramps | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.attachments_Initial | as_crispy_field }}
+            </div>
+            <div class="col-sm-6">
+                {{ form.special_Application | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <p class="text-center"><b>N.B.</b>Penalty points as identified on test sheets. *Safe Operating Practices **MEWP Stability</p>
+            <div class="row mt-4">
+                <div class="col-sm-12 mt-3 mb-2 border-bottom border-dark">
+                    <h6 class="text-center">Test/Courses Results (Pass or Referral)</h6>
+                </div>
+                <div class="col-sm-2">
+                    Basic Skills
+                </div>
+                <div class="col-sm-1" id="totalPenaltiesCopy">
+    
+                </div>
+                <div class="col-sm-1">
+                    Theory
+                </div>
+                <div class="col-sm-1 percentageCalculator">
+    
+                </div>
+                <div class="col-sm-1">
+                    Pre-use
+                </div>
+                <div class="col-sm-2">
+                    {{ form.pre_Use_Test | as_crispy_field }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-sm-12 mt-3 mb-2 border-bottom border-dark">
+                <h6 class="text-center">Candidate Progressive Assessment - (A = Excellent, B = Above Average, C = Average, D = Below Average, E = Unsuitable)</h6>
+            </div>
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Content</th>
+                        <th>Day 1</th>
+                        <th>Day 2</th>
+                        <th>Day 3</th>
+                        <th>Day 4</th>
+                        <th>Day 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k, v in operatorContent.items %}
+                        <tr>
+                        <td>{{ k }}</td>
+                        {% for i in 5|times %}
+                            <td>
+                                {% with i|add:1|stringformat:"s" as x %}
+                                {% with 'd'|add:x|add:'_'|add:v as y %}
+                                {{ form|get_form_field:y }}
+                                {% endwith %}
+                                {% endwith %}
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>Final Grading</td>
+                        <td>
+                            {{ form.final_Grading }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-sm-12 mt-2">
+                <h6 class="text-center">Instructor Comments (significant strengths and development areas identified during the course/testing):</h6>
+            </div>
+            {{ form.instructor_Comments | as_crispy_field  }}
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-2">
+                <b>Examiner Name:</b>
+            </div>
+            <div class="instructorName col-sm-2">
+                {{ instructor.first_name }} {{ instructor.last_name }}
+            </div>
+            <div class="col-sm-2">
+                <b>Examiner Signature:</b>
+            </div>
+            <div class="instructorSig col-sm-2">
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
+            </div>
+            <div class="col-sm-1">
+                <b>Reg No:</b>
+            </div>
+            <div class="instructorReg col-sm-2">
+                {{ instructor.reg }}
+            </div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-sm-2">
+                <b>Candidate Signature:</b>
+            </div>
+            <div class="candidateSig col-sm-2">
+                <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.signature %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
+            </div>
+        </div>
+
+        {% include 'theory_test.html' with theory=form %}
+
+        <div class="row mt-4">
+            <div class="col-sm-2">
+                <b>Examiner Name:</b>
+            </div>
+            <div class="instructorName col-sm-2">
+                {{ instructor.first_name }} {{ instructor.last_name }}
+            </div>
+            <div class="col-sm-2">
+                <b>Examiner Signature:</b>
+            </div>
+            <div class="instructorSig col-sm-2">
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
+            </div>
+            <div class="col-sm-1">
+                <b>Reg No:</b>
+            </div>
+            <div class="instructorReg col-sm-2">
+                {{ instructor.reg }}
+            </div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-sm-2">
+                <b>Candidate Signature:</b>
+            </div>
+            <div class="candidateSig col-sm-2">
+                <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.signature %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-sm-12 mt-3 mb-2 border-bottom border-dark">
+                <h6 class="text-center">Pre Use Check Record Marking Sheet Mobile Elevating Work Platform</h6>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label for="candidate_name" class="">Name</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control candidate_Name" id="candidate_name" disabled>
+                    </div>
+                </div>
+            </div>
+                <div class="col-sm-5">
+                    {{ form.e_testDate | as_crispy_field }}
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="truck_Type" class="">Truck Type</label>
+                        <div class="">
+                            <input type="text" maxlength="20" class="textinput textInput form-control truckFill" id="truck_Type" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="truck_Model" class="">Model</label>
+                        <div class="">
+                            <input type="text" maxlength="20" class="textinput textInput form-control modelFill" id="truck_Model" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    {{ form.machine_Make_Model | as_crispy_field }}
+                </div>
+                <div class="col-sm-3">
+                    {{ form.e_abaCategory | as_crispy_field }}
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="motivePower" class="">Motive Power</label>
+                        <div class="">
+                            <input type="text" maxlength="20" class="textinput textInput form-control motivePowerFill" id="motivePower" disabled>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <table class="table-responsive mt-3">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>N/A/Completed/Referred</th>
+                </tr>
+                <tr>
+                    <th colspan="2">Delegate To Confirm Thorough Examination In Date</th>
+                </tr>
+                <tr>
+                    <th colspan="2">Item</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in checks %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td><select name="preUseEM_{{ forloop.counter }}">
+                            <option disabled selected value="0"></option>
+                            <option value="N/A">N/A</option>
+                            <option value="CC">Check Completed</option>
+                            <option value="CR">Check Referred</option>
+                        </select></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="row mt-3">
+            <p class="col-sm-3">Candidate Result</p>
+            <div class="col-sm-3">
+                {{ form.preUseEM_CRP | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.preUseEM_CRR | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.preUseEM_CRTD | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-2">
+                <b>Examiner Signature:</b>
+            </div>
+            <div class="instructorSig col-sm-2">
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
+            </div>
+            <div class="col-sm-2">
+                <b>Candidate Signature:</b>
+            </div>
+            <div class="candidateSig col-sm-2">
+                <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.signature %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-12 mt-3 mb-2 border-bottom border-dark">
+                <h6 class="text-center">Basic Operator Training Record</h6>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="candidate_name" class="">Name</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control candidate_Name" id="candidate_name" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="candidate_name" class="">Company</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control company_name" id="company_name" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="startdate" class="">Start Date</label>
+                    <div class="">
+                        <input type="date" class="textinput textInput form-control start_Date">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="testDate" class="">Test Date</label>
+                    <div class="">
+                        <input type="date" class="textinput textInput form-control test_Date">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col-sm-2">
+                <b>Examiner Name:</b>
+            </div>
+            <div class="instructorName col-sm-3">
+                {{ instructor.first_name }} {{ instructor.last_name }}
+            </div>
+            <div class="col-sm-2">
+                <b>Examiner Reg:</b>
+            </div>
+            <div class="instructorReg col-sm-3">
+                {{ instructor.reg }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-2">
+                <b>Examiner(2) Name:</b>
+            </div>
+            <div class="col-sm-3">
+                {{ form.instructor_2 }}
+            </div>
+            <div class="col-sm-2">
+                <b>Examiner Reg:</b>
+            </div>
+            <div class="instructor2Reg col-sm-3">
+                {% if form.instance.id %}
+                    {{ instructor_2.reg }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label for="truck_Type" class="">Truck Type</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control truckFill" id="truck_Type" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label for="truck_Model" class="">Model</label>
+                    <div class="">
+                        <input type="text" maxlength="20" class="textinput textInput form-control modelFill" id="truck_Model" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="lift_height" class="">Lift Height</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control testHeightFill" id="lift_height" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="capacity" class="">Capacity</label>
+                    <div class="">
+                        <input type="text" class="textinput textInput form-control capacityFill" id="capacity" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                {{ form.BO_attachments | as_crispy_field }}
+            </div>
+        </div>
+
+        <table class="table-responsive mt-4">
+            <thead>
+                <tr>
+                    <th>Subject Covered</th>
+                    <th>Date</th>
+                    <th>Candidate Signature</th>
+                    <th>Instructor Signature</th>
+                    <th>Course Ref</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for k, v in operator_training.items %}
+                {% with forloop.counter|stringformat:"s" as x %}
+                    <tr>
+                        <td>{{ v.crit }}</td>
+                        {% with 'bo_d'|add:x as field %}
+                            <td>{{ form|get_form_field:field }}</td>
+                        {% endwith %}
+                        <td>
+                            {% if form.instance.signature %}
+                            <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSigs otSig d-none" style="width: 100px;" />
+                            {% else %}
+                                <img src="" class="candidateSigs otSig d-none" style="width: 100px;" />
+                            {% endif %}
+                        </td>
+                        <td><img src="{{ instructor.signature|signature_base64 }}" class="instructorSigs otSig d-none" style="width: 100px;" /></td>
+                        <td>{{ v.ref }}</td>
+                    </tr>
+                {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+        
+
+        <div class="row mt-3">
+            <div class="col-sm-4">
+                {{ form.training_Ratio | as_crispy_field }}
+            </div>
+            <div class="col-sm-4">
+                {{ form.course_Timing | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-2">
+                <b>Examiner Signature:</b>
+            </div>
+            <div class="instructorSig col-sm-2">
+                <img src="{{ instructor.signature|signature_base64 }}" class="instructorSignature" style="width: 100px;" />
+            </div>
+            <div class="col-sm-2">
+                <b>Candidate Signature:</b>
+            </div>
+            <div class="candidateSig col-sm-2">
+                <!-- INSERT CANDIDATE SIGNATURE HERE -->
+                {% if form.instance.signature %}
+                    <img src="{{ form.instance.signature|signature_base64 }}" class="candidateSignature" style="width: 100px;" />
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <h6 class="text-center mb-1 col-sm-12">N = Novice E = Experienced SR = Safety Refresher &amp; test</h6>
+            <p class="mb-0 col-sm-12">* To be covered where relevant to operation or facilities permit</p>
+            <p class="col-sm-12">Items covered on a conversion course should be countersigned in line with the course program delivered.
+            This form should be completed as training progresses in line with relevant course program</p>
+
+            <div class="col-sm-12">
+                {{ form.instructorAdditionalComments | as_crispy_field }}
+            </div>
+        </div>
+
         {% include 'review.html' with form=form %}
         <div class="d-flex row">
             <div class="col-sm-1">

@@ -76,7 +76,7 @@ class Aw(models.Model):
     preUseEM_CRR = models.BooleanField()
     preUseEM_CRTD = models.DateField(blank=True, null=True)
     BO_testDate = models.DateField(blank=True, null=True)
-    instructor_2 = models.ForeignKey(Profile, related_name='awInstructor2', on_delete=models.SET_NULL, null=True)
+    instructor_2 = models.ForeignKey(Profile, related_name='awInstructor2', on_delete=models.SET_NULL, null=True, blank=True)
     BO_Type1 = models.CharField(max_length=30, blank=True, null=True)
     BO_Model1 = models.CharField(max_length=30, blank=True, null=True)
     BO_Speed1 = models.CharField(max_length=30, blank=True, null=True)
