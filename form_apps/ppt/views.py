@@ -175,7 +175,7 @@ class EditPpt(UpdateView):
     success_url = "/"
 
     def get_context_data(self, **kwargs):
-        ctx = super(PptForm, self).get_context_data(**kwargs)
+        ctx = super(EditPpt, self).get_context_data(**kwargs)
         form = PptForm(instance=self.object)
         instructor = self.object.instructor
         instructor_2 = self.object.instructor_2
