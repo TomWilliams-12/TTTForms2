@@ -5,7 +5,9 @@ venv
 __pycache__
 data
 /static
-/tttforms2
+/settings
+.tttforms2
+tttforms2
 Dockerfile
 docker-compose.yml
 .dockerignore
