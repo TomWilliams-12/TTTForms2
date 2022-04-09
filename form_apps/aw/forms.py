@@ -44,7 +44,7 @@ class AwForm(ModelForm):
             'eMachineMakeModel': 'Hand Electric Grinder',
             'eMachineGroup': 'Make/Model',
             'bMachineMakeModel': 'Bench Grinder',
-            'bMachineGroup': 'Make/Model',
+            'machine_Group': 'Make/Model',
             'sop': '*S.O.P',
             'mewpS': '** MEWP.S',
             'special_Application': 'Special Application (Please Specify)',

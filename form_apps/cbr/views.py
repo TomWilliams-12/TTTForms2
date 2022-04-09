@@ -138,7 +138,7 @@ operator_training = {
 class CbrPage(View):
     def get(self, request):
         instructor = request.user
-        form = CbrForm(initial={'start_Date': datetime.datetime.today(), 'instructor': instructor})
+        form = CbrForm(initial={'start_Date': datetime.datetime.today(), 'instructor': instructor}, instructor=instructor)
         return render(request, 'cbr.html', {
             'form': form,
             'operatorContent': operatorContent,
@@ -160,6 +160,8 @@ class CbrPage(View):
             last_form = Cbr.objects.last()
             form = Forms(form_type=last_form)
             form.save()
+            return redirect('/')
+        else:
             return redirect('/')
 
 

@@ -56,7 +56,7 @@ class Ppt(models.Model):
     course_Title = models.CharField(max_length=50, blank=True, null=True)
     course_Duration = models.CharField(max_length=20, blank=True, null=True)
     machine_Type = models.CharField(max_length=50, blank=True, null=True)
-    motive_Power = models.CharField(max_length=20, blank=True, null=True)
+    machine_Motive_Power = models.CharField(max_length=20, blank=True, null=True)
     rider_Pedestrian = models.CharField(max_length=15, blank=True, null=True)
     basic_Skills = models.DateField(blank=True, null=True)
     specific_Job = models.DateField(blank=True, null=True)

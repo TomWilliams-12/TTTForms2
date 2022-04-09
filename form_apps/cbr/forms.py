@@ -1,12 +1,13 @@
+from urllib import request
 from django import forms
 from django.forms import widgets, ModelForm, IntegerField
 from .models import Cbr 
 from crispy_forms.helper import FormHelper
-from jsignature.forms import JSignatureField
-from jsignature.widgets import JSignatureWidget
+from courses.models import Courses
 
 class CbrForm(ModelForm):
     def __init__(self, *args, **kwargs):
+        instructor = kwargs.pop('instructor', None)
         super(CbrForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.fields['eval_1'].required = False
@@ -18,6 +19,7 @@ class CbrForm(ModelForm):
         self.fields['eval_7'].required = False
         self.fields['eval_8'].required = False
         self.fields['eval_9'].required = False
+        self.fields['course_Number'].queryset = Courses.objects.filter(instructor=instructor).order_by('-id')
 
     class Meta:
         model = Cbr
@@ -267,15 +269,15 @@ class CbrForm(ModelForm):
         models = [('',''), ('Jungheinrich EFGDF16','Jungheinrich EFGDF16'), ('YALE ERP16 ATF','YALE ERP16 ATF'), 
             ('Jungheinrich ETM14','Jungheinrich ETM14'), ('CAT NR14K','CAT NR14K')]
         motive_power = [('',''), ('Electric', 'Electric'), ('Diesel', 'Diesel'), ('LPG', 'LPG')]
-        training_ratio = [('',''), ('1-1-1', '1-1-1'), ('2-1-1', '2-1-1'), ('3-1-1', '3-1-1')]
-        course_duration = [('',''), ('5','5'), ('6','6'), ('7.5','7.5'), ('15','15'), ('22.5','22.5'), ('30','30'), ('37.5','37.5')]
+        training_ratio = [('0',''), ('1-1-1', '1-1-1'), ('2-1-1', '2-1-1'), ('3-1-1', '3-1-1')]
+        course_duration = [('0',''), ('5','5'), ('6','6'), ('7.5','7.5'), ('15','15'), ('22.5','22.5'), ('30','30'), ('37.5','37.5')]
         operator_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D'), ('E', 'E')]
         test_results = [('',''), ('Pass', 'Pass'), ('Referral', 'Referral')]
         check_choices = [('',''), ('tick', u'\u2713'), ('X', 'X'), ('N/A', 'N/A')]
         ot_choices = [('',''), ('tick', u'\u2713'), ('N/A', 'N/A')]
         question_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D')]
-        mark_choices = [('0',''), ('0', '0'), ('4', '4')]
-        mark_choices1 = [('0',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
+        mark_choices = [('0', '0'), ('4', '4')]
+        mark_choices1 = [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
         
         widgets = {
             'completed': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),

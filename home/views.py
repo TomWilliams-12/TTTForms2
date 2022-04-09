@@ -8,6 +8,7 @@ from form_apps.ppt.models import Ppt
 from django.db.models import Q
 from itertools import chain
 from forms.models import Forms
+from django.contrib.contenttypes.models import ContentType
 # Create your views here.
 
 class Home(View):
@@ -27,8 +28,15 @@ class Home(View):
                 ohc_certs = Ohc.objects.filter(Q(has_Certificate=True))
                 aw_certs = Aw.objects.filter(Q(has_Certificate=True))
                 ppt_certs = Ppt.objects.filter(Q(has_Certificate=True))
-                create_certificates = chain(cbr_certs, mewp_certs, ohc_certs, aw_certs, ppt_certs)  
-                return render(request, 'index.html', {'forms': forms, 'create_certificates': create_certificates})
+                query = list(chain(cbr_certs, mewp_certs, ohc_certs, aw_certs, ppt_certs))
+                form_certs = Forms.objects.filter(Q(certificate=False))
+                create_certificates = list()
+                for form in query:
+                    for x in form_certs:
+                        if x.content_type_id==ContentType.objects.get(model=form).id and x.object_id==form.id and x.certificate == False:
+                            create_certificates.append(x)
+
+                return render(request, 'index.html', {'forms': forms, 'create_certificates': create_certificates, 'query':query})
             else:
                 cbr_ids = Cbr.objects.filter(Q(instructor=user.id),Q(completed=False))
                 mewp_ids = Mewp.objects.filter(Q(instructor=user.id),Q(completed=False))

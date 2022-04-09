@@ -51,12 +51,13 @@
                     <th>Company Name</th>
                     <th>Create Certificate</th>
                 </tr>
+
                 {% for form in create_certificates %}
                     <tr>
-                        <td><a href="{{ form }}/{{ form.id }}">{{ form.candidate_Name }}</a></td>
-                        <td>{{ form.course_type }}</td>
-                        <td>{{ form.instructor }}</td>
-                        <td>{{ form.company_Name }}</td>
+                        <td><a href="{{ form.form_type }}/{{ form.form_type.id }}">{{ form.form_type.candidate_Name }}</a></td>
+                        <td>{{ form.form_type.candidate_Name }}</td>
+                        <td>{{ form.form_type.instructor }}</td>
+                        <td>{{ form.form_type.company_Name }}</td>
                         <td>
                             <form method="post" action="/create-certificate/">
                                 <input type="text" class='d-none' value="{{ form.id }}" name="form_id" />

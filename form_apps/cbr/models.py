@@ -46,7 +46,7 @@ class Cbr(models.Model):
     courseTypeC = models.BooleanField()
     courseTypeSF = models.BooleanField()
     training_Ratio = models.CharField(max_length=10, blank=True, null=True)
-    course_Duration = models.FloatField(blank=True, null=True)
+    course_Duration = models.CharField(max_length=10, blank=True, null=True)
     basic_Skills = models.DateField(blank=True, null=True)
     theory = models.DateField(blank=True, null=True)
     pre_Use = models.DateField(blank=True, null=True)
