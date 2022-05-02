@@ -208,12 +208,12 @@ async function get_customer(){
 
     let contact = document.querySelectorAll('.company_contact')
     for(let i = 0; i < contact.length; i++){
-        contact[i].value = data.company_contact;
+        contact[i].value = data.company_contact_first_name + ' ' + data.company_contact_last_name;
     }
 
     let address = document.querySelectorAll('.company_address')
     for(let i = 0; i < address.length; i++){
-        address[i].value = data.company_address;
+        address[i].value = data.company_address_line_1;
     }
 }
 

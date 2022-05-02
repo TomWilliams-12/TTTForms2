@@ -366,4 +366,6 @@ function onload(){
     capacityAutofill();
     liftHeightAutofill();
     motiveAutofill();
+    updateModel();
+    updateTruck();
 }

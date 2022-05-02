@@ -522,12 +522,11 @@
                 {% for item in checks %}
                     <tr>
                         <td>{{ item }}</td>
-                        <td><select name="preUseEM_{{ forloop.counter }}">
-                            <option disabled selected value="0"></option>
-                            <option value="N/A">N/A</option>
-                            <option value="CC">Check Completed</option>
-                            <option value="CR">Check Referred</option>
-                        </select></td>
+                        {% with forloop.counter|stringformat:"s" as x %}
+                            {% with 'preUseEM_'|add:x as field %}
+                        <td>{{ form|get_form_field:field }}</td>
+                        {% endwith %}
+                        {% endwith %}
                     </tr>
                 {% endfor %}
             </tbody>

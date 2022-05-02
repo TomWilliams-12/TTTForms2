@@ -23,6 +23,13 @@ class Home(View):
                 ppt_ids = Ppt.objects.filter(Q(audit_Completed=False),Q(completed=True))
                 forms = chain(cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids)
 
+                self_cbr_ids = Cbr.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_mewp_ids = Mewp.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_ohc_ids = Ohc.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_aw_ids = Aw.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_ppt_ids = Ppt.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_forms = chain(self_cbr_ids, self_mewp_ids, self_ohc_ids, self_aw_ids, self_ppt_ids)
+
                 cbr_certs = Cbr.objects.filter(Q(has_Certificate=True))
                 mewp_certs = Mewp.objects.filter(Q(has_Certificate=True))
                 ohc_certs = Ohc.objects.filter(Q(has_Certificate=True))
@@ -36,7 +43,7 @@ class Home(View):
                         if x.content_type_id==ContentType.objects.get(model=form).id and x.object_id==form.id and x.certificate == False:
                             create_certificates.append(x)
 
-                return render(request, 'index.html', {'forms': forms, 'create_certificates': create_certificates, 'query':query})
+                return render(request, 'index.html', {'forms': forms, 'create_certificates': create_certificates, 'query': query, 'self_forms': self_forms})
             else:
                 cbr_ids = Cbr.objects.filter(Q(instructor=user.id),Q(completed=False))
                 mewp_ids = Mewp.objects.filter(Q(instructor=user.id),Q(completed=False))
