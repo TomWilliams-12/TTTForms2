@@ -413,7 +413,7 @@ class OhcForm(ModelForm):
             'question_23': forms.Textarea(attrs={'rows':3}),
             'question_24': forms.Textarea(attrs={'rows':3}),
             'question_25': forms.Textarea(attrs={'rows':3}),
-            'e_testDate': widgets.DateInput(attrs={'type': 'date'}),
+            'e_testDate': widgets.DateInput(attrs={'type': 'date', 'onchange' : "testDateAutofill();"}),
             'preUseEM_CRP': widgets.CheckboxInput(attrs={'style':'width:20px;height:20px;float:none;'}),
             'preUseEM_CRR': widgets.CheckboxInput(attrs={'style':'width:20px;height:20px;float:none;'}),
             'preUseEM_CRTD': widgets.DateInput(attrs={'type': 'date'}),

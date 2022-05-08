@@ -483,15 +483,10 @@
                     </div>
                 </div>
                 <div class="col-sm-5">
-                    <div class="form-group">
-                        <label for="truck_Model" class="">Model</label>
-                        <div class="">
-                            <input type="text" maxlength="20" class="textinput textInput form-control modelFill" id="truck_Model" disabled>
-                        </div>
-                    </div>
+                    {{ form.machine_Model | as_crispy_field }}
                 </div>
                 <div class="col-sm-3">
-                    {{ form.machine_Make_Model | as_crispy_field }}
+                    {{ form.machine_Make | as_crispy_field }}
                 </div>
                 <div class="col-sm-3">
                     {{ form.e_abaCategory | as_crispy_field }}
@@ -589,12 +584,7 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <div class="form-group">
-                    <label for="testDate" class="">Test Date</label>
-                    <div class="">
-                        <input type="date" class="textinput textInput form-control test_Date">
-                    </div>
-                </div>
+                {{ form.BO_testDate | as_crispy_field }}
             </div>
         </div>
         
@@ -791,4 +781,5 @@
     </script>
     {% endif %}
     <script src="{% static 'ppt/main.js' %}"></script>
+    <script src="{% static 'api.js' %}"></script>
     {% endblock %}

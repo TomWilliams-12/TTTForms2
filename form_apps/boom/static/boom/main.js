@@ -117,97 +117,6 @@ function calculateDuration(){
         updateTimePenalties(excess);
 }
 
-// Functions and Variables to calculate the penalty points on practical test
-let plusBtns = document.querySelectorAll('.plusBtn');
-let minusBtns = document.querySelectorAll('.minusBtn');
-let fault = document.querySelectorAll('.faults');
-let award = document.querySelectorAll('.award');
-let penalty = document.querySelectorAll('.penalty');
-let pen1 = document.querySelectorAll('.pen1');
-let cft = document.getElementById('carryForwardTotal');
-let tp = document.getElementById('totalPenalties');
-let tpc = document.getElementById('totalPenaltiesCopy');
-let awardTotal = 0;
-let forwardTotal = 0;
-let totalPenalties = 0;
-let carryForwardDyn = document.querySelector('#carryForwardDyn').innerHTML;
-
-
-for(let i = 0; i < plusBtns.length; i++) {
-    plusBtns[i].addEventListener('click', function () {
-        fault[i].innerHTML += 'x ';
-        awardTotal = parseInt(penalty[i].innerHTML) * (fault[i].innerHTML.length / 2);
-        award[i].value = awardTotal;
-
-        if (i < carryForwardDyn) {
-            forwardTotal += parseInt(pen1[i].innerHTML);
-            cft.innerHTML = forwardTotal;
-        }
-        updateTotalPenalties('+', i);
-    })
-
-    minusBtns[i].addEventListener('click', function () {
-        if( award[i].value <= 0){
-
-        } else {
-            fault[i].innerHTML = fault[i].innerHTML.slice(0, -1);
-            fault[i].innerHTML = fault[i].innerHTML.slice(0, -1);
-            awardTotal = parseInt(penalty[i].innerHTML) * (fault[i].innerHTML.length / 2);
-            award[i].value = awardTotal;
-            if (i < carryForwardDyn) {
-                forwardTotal -= parseInt(penalty[i].innerHTML);
-                cft.innerHTML = forwardTotal;
-        }
-        updateTotalPenalties('-', i);
-        }
-
-    })
-}
-
-function updateTimePenalties(excess){
-    if (excess <= 0){
-        document.getElementById('timePenalties').innerHTML = '0';
-        updateTotalPenalties('time', 0);
-    } else {
-        document.getElementById('timePenalties').innerHTML = excess + '';
-        updateTotalPenalties('time', excess);
-    }
-}
-
-function updateTotalPenalties(mod, i){
-        if(mod === '-') {
-            totalPenalties -= parseInt(penalty[i].innerHTML);
-            let excess = getExcess();
-            tp.innerHTML = totalPenalties + excess;
-            tpc.innerHTML = totalPenalties + excess;
-            if (parseInt(tp.innerHTML) <= 0) {
-                totalPenalties = 0;
-                tp.innerHTML = totalPenalties + excess;
-                tpc.innerHTML = totalPenalties + excess;
-            }
-        } else if (mod === '+'){
-            totalPenalties += parseInt(penalty[i].innerHTML);
-            let excess = getExcess();
-            tp.innerHTML = totalPenalties + excess;
-            tpc.innerHTML = totalPenalties + excess;
-        } else if(mod === 'time'){
-            tp.innerHTML = totalPenalties + i;
-            tpc.innerHTML = totalPenalties + i;
-        }
-    }
-
-    function onLoadUpdateTotalPenalties(){
-    let award = document.querySelectorAll('.award');
-    let excess = getExcess();
-    for(let i = 0; i < award.length; i++) {
-        if(award[i].value == ''){
-           award[i].value = 0;
-        }
-        totalPenalties += parseInt(award[i].value);
-    }
-    tp.innerHTML = parseInt(totalPenalties) + excess;
-    tpc.innerHTML = parseInt(totalPenalties) + excess;
-}
 
 
 function getExcess(){
@@ -221,15 +130,108 @@ function getExcess(){
 
 // SHOW/HIDE INSTRUCTOR SIGNATURE
 function instructorSign(){
-    let signatures = document.querySelectorAll('.otSig');
-    let selects = document.querySelectorAll('.otSelect');
+    let instructorSig = document.querySelectorAll('.instructorSigs');
+    let candidateSig = document.querySelectorAll('.candidateSigs');
+    let sigDate = document.querySelectorAll('.sigDate');
 
-    for(let i =0; i < signatures.length; i++){
-        if (selects[i].value == 'tick'){
-            signatures[i].classList.remove('d-none');
-        } else {
-            signatures[i].classList.add('d-none');
+    for(let i =0; i < instructorSig.length; i++){
+        if (sigDate[i].value){
+            instructorSig[i].classList.remove('d-none');
+            candidateSig[i].classList.remove('d-none');
         }
+        else {
+            instructorSig[i].classList.add('d-none');
+            candidateSig[i].classList.add('d-none');
+        }
+    }
+}
+
+
+async function instructorCall(){
+    let name = document.getElementById('id_instructor').value;
+    console.log(name)
+    let url = 'http://127.0.0.1:8000/getinstructor/' + name;
+    const response = await fetch(url);
+    let data = await response.json();
+    console.log(data)
+
+    let instructorName = document.querySelectorAll('.instructorName');
+    for(let i = 0; i < instructorName.length; i++){
+        instructorName[i].innerHTML = data.first_name + ' ' + data.last_name;
+    }
+
+    let signature = document.querySelectorAll('.instructorSignature');
+    for(let i = 0; i < signature.length; i++){  
+        signature.value = data.signature;
+        // signature[i].src = "data:image/png;base64," + encoded ;
+    }
+
+    let reg = document.querySelectorAll('.instructorReg');
+    for(let i = 0; i < reg.length; i++){
+        reg[i].innerHTML = data.reg;
+    }
+}
+
+async function instructor2Call(){
+    let name = document.getElementById('id_instructor_2').value;
+    let url = 'http://127.0.0.1:8000/getinstructor/' + name;
+    const response = await fetch(url);
+    let data = await response.json();
+
+    let instructorName = document.querySelectorAll('.instructor2Name');
+    for(let i = 0; i < instructorName.length; i++){
+        instructorName[i].innerHTML = data.name;
+    }
+
+    let signature = document.querySelectorAll('.instructor2Signature');
+    for(let i = 0; i < signature.length; i++){
+        signature[i].src = data.signature;
+    }
+
+    let reg = document.querySelectorAll('.instructor2Reg');
+    for(let i = 0; i < reg.length; i++){
+        reg[i].innerHTML = data.reg;
+    }
+}
+
+
+async function get_customer(){
+    let name = document.getElementById('id_company_Name').value;
+    let url = 'http://127.0.0.1:8000/getcustomer/' + name;
+    const response = await fetch(url);
+    let data = await response.json();
+
+    let companyName = document.querySelectorAll('.company_name')
+    for(let i = 0; i < companyName.length; i++){
+        companyName[i].value = data.company_name;
+    }
+
+    let contact = document.querySelectorAll('.company_contact')
+    for(let i = 0; i < contact.length; i++){
+        contact[i].value = data.company_contact_first_name + ' ' + data.company_contact_last_name;
+    }
+
+    let address = document.querySelectorAll('.company_address')
+    for(let i = 0; i < address.length; i++){
+        address[i].value = data.company_address_line_1;
+    }
+}
+
+
+function updateTruck(){
+    let truckType = document.querySelector('.truckType').value;
+    let truckFill = document.querySelectorAll('.truckFill');
+
+    for (let i = 0; i < truckFill.length; i++) {
+        truckFill[i].value = truckType;
+    }
+}
+function updateModel(){
+    let modelType = document.querySelector('.truckModel').value;
+    let modelFill = document.querySelectorAll('.modelFill');
+
+    for (let i = 0; i < modelFill.length; i++) {
+        modelFill[i].value = modelType;
     }
 }
 
@@ -240,7 +242,6 @@ function onload(){
     initialAll();
     updateTopsID();
     updateCandidateName();
-    onLoadUpdateTotalPenalties();
     venueAutofill();
     calculateDuration();
     instructorSign();

@@ -442,20 +442,10 @@
                 </div>
             </div>
                 <div class="col-sm-5">
-                    <div class="form-group">
-                        <label for="truck_Type" class="">Machine Type</label>
-                        <div class="">
-                            <input type="text" maxlength="20" class="textinput textInput form-control truckFill" id="truck_Type" disabled>
-                        </div>
-                    </div>
+                    {{ form.e_truckType | as_crispy_field }}
                 </div>
                 <div class="col-sm-5">
-                    <div class="form-group">
-                        <label for="truck_Model" class="">Model</label>
-                        <div class="">
-                            <input type="text" maxlength="20" class="textinput textInput form-control modelFill" id="truck_Model" disabled>
-                        </div>
-                    </div>
+                    {{ form.e_model | as_crispy_field }}
                 </div>
         </div>
         <table class="table-responsive mt-3">
@@ -476,28 +466,28 @@
                     <td><b>Electrical Machines</b></td>
                 </tr>
                 {% for item in checks %}
-                    <tr>
-                        <td>{{ item }}</td>
-                        <td><select name="preUseEM_{{ forloop.counter }}">
-                            <option disabled selected value="0"></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select></td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td>{{ item }}</td>
+                    {% with forloop.counter|stringformat:"s" as x %}
+                        {% with 'preUseEM_'|add:x as field %}
+                    <td>{{ form|get_form_field:field }}</td>
+                    {% endwith %}
+                    {% endwith %}
+                </tr>
+            {% endfor %}
                 <tr>
                     <td><b>Petrol (ICE) Machines</b></td>
                 </tr>
                 {% for item in checks2 %}
-                    <tr>
-                        <td>{{ item }}</td>
-                        <td><select name="preUseEM_{{ forloop.counter|add:13 }}">
-                            <option disabled selected value="0"></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select></td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td>{{ item }}</td>
+                    {% with forloop.counter|add:13|stringformat:"s" as x %}
+                        {% with 'preUseEM_'|add:x as field %}
+                    <td>{{ form|get_form_field:field }}</td>
+                    {% endwith %}
+                    {% endwith %}
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
         <div class="row mt-3">
@@ -745,4 +735,5 @@
     </script>
     {% endif %}
     <script src="{% static 'aw/main.js' %}"></script>
+    <script src="{% static 'api.js' %}"></script>
     {% endblock %}

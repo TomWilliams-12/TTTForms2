@@ -182,10 +182,39 @@ class AwForm(ModelForm):
             'question_24': 'question_24',
             'question_25': 'question_25',
             'e_testDate': 'Test Date',
+            'e_truckType': 'Type',
+            'e_model': 'Model',
             'course_Timing': 'Overall Timing Of Course',
             'preUseEM_CRP': 'Pass',
             'preUseEM_CRR': 'Refer',
             'preUseEM_CRTD': 'Re-Test Date',
+            'preUseEM_1': 'preuseem_1',
+            'preUseEM_2': 'preuseem_2',
+            'preUseEM_3': 'preuseem_3',
+            'preUseEM_4': 'preuseem_4',
+            'preUseEM_5': 'preuseem_5',
+            'preUseEM_6': 'preuseem_6',
+            'preUseEM_7': 'preuseem_7',
+            'preUseEM_8': 'preuseem_8',
+            'preUseEM_9': 'preuseem_9',
+            'preUseEM_10': 'preuseem_10',
+            'preUseEM_11': 'preuseem_11',
+            'preUseEM_12': 'preuseem_12',
+            'preUseEM_13': 'preuseem_13',
+            'preUseEM_14': 'preuseem_14',
+            'preUseEM_15': 'preuseem_15',
+            'preUseEM_16': 'preuseem_16',
+            'preUseEM_17': 'preuseem_17',
+            'preUseEM_18': 'preuseem_18',
+            'preUseEM_19': 'preuseem_19',
+            'preUseEM_20': 'preuseem_20',
+            'preUseEM_21': 'preuseem_21',
+            'preUseEM_22': 'preuseem_22',
+            'preUseEM_23': 'preuseem_23',
+            'preUseEM_24': 'preuseem_24',
+            'preUseEM_25': 'preuseem_25',
+            'preUseEM_26': 'preuseem_26',
+            'preUseEM_27': 'preuseem_27',
             'instructor_2': ' ',
             'BO_Type1': 'Type',
             'BO_Type2': 'Type',
@@ -237,13 +266,11 @@ class AwForm(ModelForm):
         
         operator_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D'), ('E', 'E')]
         test_results = [('',''), ('Pass', 'Pass'), ('Referral', 'Referral')]
-        check_choices = [('',''), ('N/A', 'N/A'), ('cc', 'Check Completed'), ('cr', 'Check Referred'),]
+        check_choices = [('',''), ('yes', 'Yes'), ('no', 'No')]
         question_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D')]
         mark_choices = [('0',''), ('0', '0'), ('4', '4')]
         mark_choices1 = [('0',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
         type = [('',''), ('Mobile Scissors','Mobile Scissors'), ('Static Scissors','Static Scissors'), ('Mobile VPP','Mobile VPP'), ('Static VPP','Static VPP'),]
-        group1 = [('',''), ('2WD','2WD'), ('4WD', '4WD')]
-        group2 = [('',''), ('2WS','2WS'), ('4WS', '4WS')]
         mobileStatic = [('',''), ('Mobile', 'Mobile'), ('Static', 'Static')]
         widgets = {
             'completed': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),
@@ -301,13 +328,11 @@ class AwForm(ModelForm):
             'machine_Type': forms.Select(choices=type, attrs={'class':'truckType', 'onchange': 'updateTruck()'}),
             'testPass': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'testFail': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
-            'testDate': widgets.DateInput(attrs={'type': 'date'}),
+            'testDate': widgets.DateInput(attrs={'type': 'date', 'onchange' : "testDateAutofill();"}),
             'courseTypeN': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'courseTypeE': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'courseTypeC': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'courseTypeSF': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
-            'group1': forms.Select(choices=group1),
-            'group2': forms.Select(choices=group2),
             'mobileStatic': forms.Select(choices=mobileStatic),
             'platform2': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'axles': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
@@ -357,6 +382,10 @@ class AwForm(ModelForm):
             'preUseEM_21': forms.Select(choices=check_choices),
             'preUseEM_22': forms.Select(choices=check_choices),
             'preUseEM_23': forms.Select(choices=check_choices),
+            'preUseEM_24': forms.Select(choices=check_choices),
+            'preUseEM_25': forms.Select(choices=check_choices),
+            'preUseEM_26': forms.Select(choices=check_choices),
+            'preUseEM_27': forms.Select(choices=check_choices),
             'mark_1': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
             'mark_2': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
             'mark_3': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
