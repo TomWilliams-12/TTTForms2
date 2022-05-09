@@ -50,7 +50,7 @@ class Home(View):
                 ohc_ids = Ohc.objects.filter(Q(instructor=user.id),Q(completed=False))
                 aw_ids = Aw.objects.filter(Q(instructor=user.id),Q(completed=False))
                 ppt_ids = Ppt.objects.filter(Q(instructor=user.id),Q(completed=False))
-                forms = chain(cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids)
+                self_forms = chain(cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids)
                 return render(request, 'index.html', {'self_forms': self_forms})
         else:
             return redirect('login')
