@@ -12,4 +12,4 @@ class Courses(models.Model):
     venue = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
-        return self.course_number
+        return self.course_number + ' ' + self.instructor.first_name

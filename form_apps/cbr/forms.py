@@ -19,7 +19,6 @@ class CbrForm(ModelForm):
         self.fields['eval_7'].required = False
         self.fields['eval_8'].required = False
         self.fields['eval_9'].required = False
-        self.fields['course_Number'].queryset = Courses.objects.filter(instructor=instructor).order_by('-id')
 
     class Meta:
         model = Cbr

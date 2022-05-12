@@ -5,6 +5,7 @@ from django.views.generic.edit import UpdateView
 from .forms import CbrForm
 from .models import Cbr
 from forms.models import Forms
+from courses.models import Courses
 
 test = {
     '1': {'num': '101', 't': True, 'crit': 'Operator Safety & Observation', 'pen': '0'},
@@ -177,6 +178,7 @@ class EditCbr(UpdateView):
         form = CbrForm(instance=self.object)
         instructor = self.object.instructor
         instructor_2 = self.object.instructor_2
+        
         test = {
             '1': {'num': '101', 't': True, 'crit': 'Operator Safety & Observation', 'pen': '0'},
             '2': {'num': '1', 't': False, 'crit': 'Mounts/dismounts incorrectly', 'pen': '3'},
@@ -225,13 +227,6 @@ class EditCbr(UpdateView):
             '21': {'num': '37', 't': False, 'crit': 'Travels with reach extended', 'pen': '5'},
         }
         carry_forward = 19
-        review_choices = (
-            ('1','1'),
-            ('2','2'),
-            ('3','3'),
-            ('4','4'),
-            ('5','5'),
-        )
         eval = [
             'Did you feel you had professional training?',
             'Did you feel the trainer had adequate enthusiasm?',
