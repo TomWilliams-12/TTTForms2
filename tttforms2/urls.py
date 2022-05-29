@@ -12,6 +12,8 @@ urlpatterns = [
     path('', include('form_apps.ohc.urls')),
     path('', include('form_apps.aw.urls')),
     path('', include('form_apps.ppt.urls')),
+    path('', include('form_apps.boom.urls')),
+    path('', include('form_apps.pivot_steer.urls')),
     path('', include('customers.urls')),
     path('', include('api.urls')),
     path('', include('audit.urls')),

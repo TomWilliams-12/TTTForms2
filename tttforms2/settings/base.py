@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'form_apps.aw',
     'form_apps.ppt',
     'form_apps.boom',
+    'form_apps.pivot_steer',
     'audit',
     'xhtml2pdf',
 ]

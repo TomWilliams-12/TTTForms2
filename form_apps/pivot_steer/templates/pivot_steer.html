@@ -28,17 +28,17 @@
                         <div class="col-sm-3">
                         {{ form.machine_Type | as_crispy_field }}
                         </div>
-                        <div class="col-sm-3">
-                            {{ form.tracked_Wheeled | as_crispy_field }}
-                        </div>
-                        <div class="col-sm-3">
-                            {{ form.machine_Motive_Power | as_crispy_field }}
-                        </div>
                         <div class="col-sm-4">
                             {{ form.machine_Test_Lift_Height | as_crispy_field }}
                         </div>
+                        <div class="col-sm-4">
+                            {{ form.machine_Test_Load_Centre | as_crispy_field }}
+                        </div>
                         <div class="col-sm-3">
                             {{ form.machine_Capacity | as_crispy_field }}
+                        </div>
+                        <div class="col-sm-3">
+                            {{ form.attachments | as_crispy_field }}
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-sm-3">
-                {{ form.equipment_Type | as_crispy_field }}
+                {{ form.machine_Type | as_crispy_field }}
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
@@ -197,35 +197,13 @@
             <div class="col-sm-2">
                 {{ form.machine_Group | as_crispy_field }}
             </div>
-            <div class="col-sm-1">
-                {{ form.group1 | as_crispy_field }}
+            <div class="col-sm-3">
+                {{ form.machine_Motive_Power | as_crispy_field }}
             </div>
-            <div class="col-sm-1">
-                {{ form.group2 | as_crispy_field }}
+            <div class="col-sm-3">
+                {{ form.rider_Pedestrian | as_crispy_field }}
             </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label for="motive_power" class="">Motive Power</label>
-                    <div class="">
-                        <input type="text" class="textinput textInput form-control motiveAuto" id="motive_power" disabled>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-1">
-                {{ form.mobileStatic | as_crispy_field }}
-            </div>
-            <div class="col-sm-5 row mb-1">
-                <p>Ext:</p>
-                <div class="col-sm-4">
-                    {{ form.platform2 | as_crispy_field}}
-                </div>
-                <div class="col-sm-4">
-                    {{ form.axles | as_crispy_field}}
-                </div>
-                <div class="col-sm-4">
-                    {{ form.stabilisers | as_crispy_field}}
-                </div>
-            </div>
+           
         </div>
         <div class="row mt-4">
             <div class="col-sm-12 mt-3 mb-2 border-bottom border-dark">
@@ -260,22 +238,31 @@
                 {{ form.chicane | as_crispy_field }}
             </div>
             <div class="col-sm-3">
-                {{ form.park_Bays | as_crispy_field }}
+                {{ form.low_Level | as_crispy_field }}
             </div>
             <div class="col-sm-3">
-                {{ form.side_Mid_Level | as_crispy_field }}
+                {{ form.eye_Level | as_crispy_field }}
             </div>
             <div class="col-sm-3">
                 {{ form.high_Level | as_crispy_field }}
             </div>
             <div class="col-sm-3">
+                {{ form.vert_Face | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
                 {{ form.sop | as_crispy_field }}
             </div>
             <div class="col-sm-3">
-                {{ form.mewpS | as_crispy_field }}
+                {{ form.fts | as_crispy_field }}
             </div>
             <div class="col-sm-3">
-                {{ form.highway | as_crispy_field }}
+                {{ form.vehicle_Loading | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.ramps | as_crispy_field }}
+            </div>
+            <div class="col-sm-3">
+                {{ form.attachments_Init | as_crispy_field }}
             </div>
             <div class="col-sm-6">
                 {{ form.special_Application | as_crispy_field }}
@@ -738,7 +725,7 @@
     });
     </script>
     {% endif %}
-    <script src="{% static 'boom/main.js' %}"></script>
+    <script src="{% static 'pivot_steer/main.js' %}"></script>
     <script src="{% static 'api.js' %}"></script>
 
     {% endblock %}

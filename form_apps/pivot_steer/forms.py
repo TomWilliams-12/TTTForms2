@@ -1,14 +1,14 @@
 from django import forms
 from django.forms import widgets, ModelForm, IntegerField
-from .models import Boom 
+from .models import Pivot 
 from crispy_forms.helper import FormHelper
 from jsignature.forms import JSignatureField
 from jsignature.widgets import JSignatureWidget
 
 
-class BoomForm(ModelForm):
+class PivotForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        super(BoomForm, self).__init__(*args, **kwargs)
+        super(PivotForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.fields['eval_1'].required = False
         self.fields['eval_2'].required = False
@@ -21,7 +21,7 @@ class BoomForm(ModelForm):
         self.fields['eval_9'].required = False
 
     class Meta:
-        model = Boom
+        model = Pivot
         fields = '__all__'
         labels = {
             'candidate_Initial': '',
@@ -33,9 +33,8 @@ class BoomForm(ModelForm):
             'machine_Make_Model': 'Make/Model',
             'machine_Motive_Power': 'Motive Power',
             'machine_Capacity': 'Capacity in Kgs',
-            'machine_Load_Centre': 'Load Centre in mm',
+            'machine_Test_Load_Centre': 'Load Centre in mm',
             'machine_Test_Lift_Height': 'Test lift height in mm',
-            'tracked_Wheeled': 'Tracked/Wheeled',
             'testPass': 'Pass',
             'testFail': 'Fail (Over 40 penalty points)',
             'testDate': 'Test Date:',
@@ -43,12 +42,11 @@ class BoomForm(ModelForm):
             'courseTypeE': 'Experienced',
             'courseTypeC': 'Conversion',
             'courseTypeSF': 'Safety Refresher',
-            'group1': '2WD/4WD',
-            'group2': '2WS/4WS',
             'mobileStatic': 'Mobile/Static',
-            'platform2': 'Platform',
+            'rider_Pedestrian': 'Rider/Pedestrian',
             'sop': '*S.O.P',
-            'mewpS': '** MEWP.S',
+            'fts': '** F.T.S',
+            'attachments_Init': 'Attachments',
             'special_Application': 'Special Application (Please Specify)',
             'd1_JS': 'd1_js',
             'd2_JS': 'd2_js',
@@ -115,6 +113,8 @@ class BoomForm(ModelForm):
             'penalty_34': 'penalty_34',
             'penalty_35': 'penalty_35',
             'penalty_36': 'penalty_36',
+            'penalty_37': 'penalty_37',
+            'penalty_38': 'penalty_38',
             'md_1': 'md_1',
             'md_2': 'md_2',
             'md_3': 'md_3',
@@ -122,9 +122,6 @@ class BoomForm(ModelForm):
             'md_5': 'md_5',
             'md_6': 'md_6',
             'md_7': 'md_7',
-            'md_8': 'md_8',
-            'md_9': 'md_9',
-            'md_10': 'md_10',
             'restriction_Detail': '',
             'mark_1': 'mark_1',
             'mark_2': 'mark_2',
@@ -205,15 +202,6 @@ class BoomForm(ModelForm):
             'preUseEM_20': 'preuseem_20',
             'preUseEM_21': 'preuseem_21',
             'preUseEM_22': 'preuseem_22',
-            'preUseEM_23': 'preuseem_23',
-            'preUseEM_24': 'preuseem_24',
-            'preUseEM_25': 'preuseem_25',
-            'preUseEM_26': 'preuseem_26',
-            'preUseEM_27': 'preuseem_27',
-            'preUseEM_28': 'preuseem_28',
-            'preUseEM_29': 'preuseem_29',
-            'preUseEM_30': 'preuseem_30',
-            'preUseEM_31': 'preuseem_31',
             'BO_D1': 'bo_d1',
             'BO_D2': 'bo_d2',
             'BO_D3': 'bo_d3',
@@ -271,9 +259,8 @@ class BoomForm(ModelForm):
         question_choices = [('',''), ('A','A'), ('B','B'), ('C','C'), ('D','D')]
         mark_choices = [('0',''), ('0', '0'), ('4', '4')]
         mark_choices1 = [('0',''), ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4')]
-        type = [('',''), ('Artic','Artic'), ('Boom','Boom'), ('Spider','Spider')]
-        group1 = [('',''), ('2WD','2WD'), ('4WD', '4WD')]
-        group2 = [('',''), ('2WS','2WS'), ('4WS', '4WS')]
+        type = [('',''), ('Mobile Scissors','Mobile Scissors'), ('Static Scissors','Static Scissors'), ('Mobile VPP','Mobile VPP'), ('Static VPP','Static VPP'),]
+        rider_pedestrian = [('',''), ('Rider','Rider'), ('Pedestrian', 'Pedestrian')]
         mobileStatic = [('',''), ('Mobile', 'Mobile'), ('Static', 'Static')]
         widgets = {
             'completed': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;', 'class': 'align-self-center'}),
@@ -283,6 +270,7 @@ class BoomForm(ModelForm):
             'candidate_Name': forms.TextInput(attrs = {'onchange' : "updateCandidateName();"}),
             'candidate_Initial': forms.TextInput(attrs = {'placeholder':'Initials' ,'onchange' : "initialAll();"}),
             'candidateTopsId': forms.TextInput(attrs = {'onchange' : "updateTopsID();"}),
+            'course_Type': forms.Select(choices=choices),
             'instructor': forms.Select(attrs={'onchange' : "instructorCall();"}),
             'instructor_2': forms.Select(attrs={'onchange' : "instructor2Call();"}),
             'company_Name': forms.Select(attrs={'onchange' : "get_customer();"}),
@@ -326,12 +314,14 @@ class BoomForm(ModelForm):
             'penalty_34': widgets.NumberInput(attrs={'class': 'award'}),
             'penalty_35': widgets.NumberInput(attrs={'class': 'award'}),
             'penalty_36': widgets.NumberInput(attrs={'class': 'award'}),
+            'penalty_37': widgets.NumberInput(attrs={'class': 'award'}),
+            'penalty_38': widgets.NumberInput(attrs={'class': 'award'}),
             'venue': forms.Select(choices=(('',''), ('TTT','TTT'), ('On-Site','On-Site')), attrs = {'onchange' : "venueAutofill();"}),
-            'tracked_Wheeled': forms.Select(choices=(('',''), ('Tracked','Tracked'), ('Wheeled','Wheeled'))),
             'candidate_Checkbox': widgets.CheckboxInput(attrs={'style':'width:40px;height:40px;float:none;'}),
             'candidate_DOB': widgets.DateInput(attrs={'type': 'date'}),
             'machine_Make_Model': forms.TextInput(attrs={'class':'truckModel', 'onchange': 'updateModel()'}),
             'machine_Type': forms.Select(choices=type, attrs={'class':'truckType', 'onchange': 'updateTruck()'}),
+            'machine_Group': forms.Select(choices=group),
             'machine_Motive_Power': forms.Select(choices=motive_power, attrs={'class': 'motive', 'onchange': 'motiveAutofill()'}),
             'testPass': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'testFail': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
@@ -340,12 +330,8 @@ class BoomForm(ModelForm):
             'courseTypeE': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'courseTypeC': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'courseTypeSF': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
-            'group1': forms.Select(choices=group1),
-            'group2': forms.Select(choices=group2),
+            'rider_Pedestrian': forms.Select(choices=rider_pedestrian),
             'mobileStatic': forms.Select(choices=mobileStatic),
-            'platform2': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
-            'axles': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
-            'stabilisers': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'basic_Skills': widgets.DateInput(attrs={'type':'date'}),
             'theory': widgets.DateInput(attrs={'type':'date'}),
             'pre_Shift': widgets.DateInput(attrs={'type':'date'}),
@@ -389,9 +375,6 @@ class BoomForm(ModelForm):
             'md_5': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'md_6': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'md_7': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
-            'md_8': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
-            'md_9': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
-            'md_10': widgets.CheckboxInput(attrs={'style':'width:30px;height:30px;float:none;'}),
             'preUseEM_1': forms.Select(choices=check_choices),
             'preUseEM_2': forms.Select(choices=check_choices),
             'preUseEM_3': forms.Select(choices=check_choices),
@@ -414,15 +397,6 @@ class BoomForm(ModelForm):
             'preUseEM_20': forms.Select(choices=check_choices),
             'preUseEM_21': forms.Select(choices=check_choices),
             'preUseEM_22': forms.Select(choices=check_choices),
-            'preUseEM_23': forms.Select(choices=check_choices),
-            'preUseEM_24': forms.Select(choices=check_choices),
-            'preUseEM_25': forms.Select(choices=check_choices),
-            'preUseEM_26': forms.Select(choices=check_choices),
-            'preUseEM_27': forms.Select(choices=check_choices),
-            'preUseEM_28': forms.Select(choices=check_choices),
-            'preUseEM_29': forms.Select(choices=check_choices),
-            'preUseEM_30': forms.Select(choices=check_choices),
-            'preUseEM_31': forms.Select(choices=check_choices),
             'mark_1': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
             'mark_2': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
             'mark_3': forms.Select(choices=mark_choices, attrs={'class': 'atMark'}),
