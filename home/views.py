@@ -9,6 +9,7 @@ from form_apps.boom.models import Boom
 from form_apps.pivot_steer.models import Pivot
 from django.db.models import Q
 from itertools import chain
+from form_apps.threesixty.models import Threesixty
 from forms.models import Forms
 from django.contrib.contenttypes.models import ContentType
 # Create your views here.
@@ -25,7 +26,8 @@ class Home(View):
                 ppt_ids = Ppt.objects.filter(Q(audit_Completed=False),Q(completed=True))
                 boom_ids = Boom.objects.filter(Q(audit_Completed=False),Q(completed=True))
                 pivot_ids = Pivot.objects.filter(Q(audit_Completed=False),Q(completed=True))
-                forms = chain(cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids)
+                threesixty_ids = Threesixty.objects.filter(Q(audit_Completed=False),Q(completed=True))
+                forms = chain(cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids, threesixty_ids)
 
                 self_cbr_ids = Cbr.objects.filter(Q(instructor=user.id),Q(completed=False))
                 self_mewp_ids = Mewp.objects.filter(Q(instructor=user.id),Q(completed=False))
@@ -34,7 +36,8 @@ class Home(View):
                 self_ppt_ids = Ppt.objects.filter(Q(instructor=user.id),Q(completed=False))
                 self_boom_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
                 self_pivot_ids = Pivot.objects.filter(Q(instructor=user.id),Q(completed=False))
-                self_forms = chain(self_cbr_ids, self_mewp_ids, self_ohc_ids, self_aw_ids, self_ppt_ids, self_boom_ids, self_pivot_ids)
+                self_three_ids = Threesixty.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_forms = chain(self_three_ids,self_cbr_ids, self_mewp_ids, self_ohc_ids, self_aw_ids, self_ppt_ids, self_boom_ids, self_pivot_ids)
 
                 cbr_certs = Cbr.objects.filter(Q(has_Certificate=True))
                 mewp_certs = Mewp.objects.filter(Q(has_Certificate=True))
@@ -43,7 +46,8 @@ class Home(View):
                 ppt_certs = Ppt.objects.filter(Q(has_Certificate=True))
                 boom_certs = Boom.objects.filter(Q(has_Certificate=True))
                 pivot_certs = Pivot.objects.filter(Q(has_Certificate=True))
-                query = list(chain(cbr_certs, mewp_certs, ohc_certs, aw_certs, ppt_certs, boom_certs, pivot_certs))
+                three_certs = Pivot.objects.filter(Q(has_Certificate=True))
+                query = list(chain(three_certs, cbr_certs, mewp_certs, ohc_certs, aw_certs, ppt_certs, boom_certs, pivot_certs))
                 form_certs = Forms.objects.filter(Q(certificate=False))
                 create_certificates = list()
                 for form in query:
@@ -61,7 +65,8 @@ class Home(View):
                 ppt_ids = Ppt.objects.filter(Q(instructor=user.id),Q(completed=False))
                 boom_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
                 pivot_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
-                self_forms = chain(cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids)
+                threesixty_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_forms = chain(threesixty_ids, cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids)
                 return render(request, 'index.html', {'self_forms': self_forms})
         else:
             return redirect('login')

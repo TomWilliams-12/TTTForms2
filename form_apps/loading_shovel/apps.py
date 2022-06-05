@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ThreesixtyConfig(AppConfig):
+class LoadingShovelConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'form_apps.threesixty'
+    name = 'loading_shovel'
