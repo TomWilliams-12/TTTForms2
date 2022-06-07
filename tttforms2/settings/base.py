@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'form_apps.boom',
     'form_apps.pivot_steer',
     'form_apps.threesixty',
+    'form_apps.loading_shovel',
     'audit',
     'xhtml2pdf',
 ]

@@ -7,6 +7,7 @@ from form_apps.aw.models import Aw
 from form_apps.ppt.models import Ppt
 from form_apps.boom.models import Boom
 from form_apps.pivot_steer.models import Pivot
+from form_apps.loading_shovel.models import Shovel
 from django.db.models import Q
 from itertools import chain
 from form_apps.threesixty.models import Threesixty
@@ -27,7 +28,8 @@ class Home(View):
                 boom_ids = Boom.objects.filter(Q(audit_Completed=False),Q(completed=True))
                 pivot_ids = Pivot.objects.filter(Q(audit_Completed=False),Q(completed=True))
                 threesixty_ids = Threesixty.objects.filter(Q(audit_Completed=False),Q(completed=True))
-                forms = chain(cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids, threesixty_ids)
+                shovel_ids = Shovel.objects.filter(Q(audit_Completed=False),Q(completed=True))
+                forms = chain(shovel_ids, cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids, threesixty_ids)
 
                 self_cbr_ids = Cbr.objects.filter(Q(instructor=user.id),Q(completed=False))
                 self_mewp_ids = Mewp.objects.filter(Q(instructor=user.id),Q(completed=False))
@@ -37,7 +39,8 @@ class Home(View):
                 self_boom_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
                 self_pivot_ids = Pivot.objects.filter(Q(instructor=user.id),Q(completed=False))
                 self_three_ids = Threesixty.objects.filter(Q(instructor=user.id),Q(completed=False))
-                self_forms = chain(self_three_ids,self_cbr_ids, self_mewp_ids, self_ohc_ids, self_aw_ids, self_ppt_ids, self_boom_ids, self_pivot_ids)
+                self_shovel_ids = Shovel.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_forms = chain(self_shovel_ids, self_three_ids,self_cbr_ids, self_mewp_ids, self_ohc_ids, self_aw_ids, self_ppt_ids, self_boom_ids, self_pivot_ids)
 
                 cbr_certs = Cbr.objects.filter(Q(has_Certificate=True))
                 mewp_certs = Mewp.objects.filter(Q(has_Certificate=True))
@@ -46,8 +49,9 @@ class Home(View):
                 ppt_certs = Ppt.objects.filter(Q(has_Certificate=True))
                 boom_certs = Boom.objects.filter(Q(has_Certificate=True))
                 pivot_certs = Pivot.objects.filter(Q(has_Certificate=True))
-                three_certs = Pivot.objects.filter(Q(has_Certificate=True))
-                query = list(chain(three_certs, cbr_certs, mewp_certs, ohc_certs, aw_certs, ppt_certs, boom_certs, pivot_certs))
+                three_certs = Threesixty.objects.filter(Q(has_Certificate=True))
+                shovel_certs = Shovel.objects.filter(Q(has_Certificate=True))
+                query = list(chain(shovel_certs, three_certs, cbr_certs, mewp_certs, ohc_certs, aw_certs, ppt_certs, boom_certs, pivot_certs))
                 form_certs = Forms.objects.filter(Q(certificate=False))
                 create_certificates = list()
                 for form in query:
@@ -62,11 +66,11 @@ class Home(View):
                 ohc_ids = Ohc.objects.filter(Q(instructor=user.id),Q(completed=False))
                 aw_ids = Aw.objects.filter(Q(instructor=user.id),Q(completed=False))
                 ppt_ids = Ppt.objects.filter(Q(instructor=user.id),Q(completed=False))
-                ppt_ids = Ppt.objects.filter(Q(instructor=user.id),Q(completed=False))
                 boom_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
-                pivot_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
-                threesixty_ids = Boom.objects.filter(Q(instructor=user.id),Q(completed=False))
-                self_forms = chain(threesixty_ids, cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids)
+                pivot_ids = Pivot.objects.filter(Q(instructor=user.id),Q(completed=False))
+                threesixty_ids = Threesixty.objects.filter(Q(instructor=user.id),Q(completed=False))
+                shovel_ids = Shovel.objects.filter(Q(instructor=user.id),Q(completed=False))
+                self_forms = chain(shovel_ids, threesixty_ids, cbr_ids, mewp_ids, ohc_ids, aw_ids, ppt_ids, boom_ids, pivot_ids)
                 return render(request, 'index.html', {'self_forms': self_forms})
         else:
             return redirect('login')
