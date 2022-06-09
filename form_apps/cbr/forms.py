@@ -335,7 +335,7 @@ class CbrForm(ModelForm):
             'candidate_DOB': widgets.DateInput(attrs={'type': 'date'}),
             'machine_Type': forms.Select(choices=(('',''), ('Counterbalance', 'Counterbalance'), ('Reach', 'Reach'))),
             'machine_Group': forms.Select(choices=group),
-            'machine_Make_Model': forms.Select(choices=models),
+            'machine_Make_Model': forms.TextInput(attrs={'list':'trucks'}),
             'machine_Motive_Power': forms.Select(choices=motive_power),
             'courseTypeN': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),
             'courseTypeE': widgets.CheckboxInput(attrs={'style':'width:15px;height:15px;float:none;'}),

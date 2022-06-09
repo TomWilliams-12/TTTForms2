@@ -50,6 +50,13 @@
             </div>
             <div class="col-sm-3">
                 {{ form.machine_Make_Model | as_crispy_field }}
+                <datalist id="trucks">
+                    <option disabled selected input></option>
+                    <option value="Jungheinrich EFGDF16">Jungheinrich EFGDF16</option>
+                    <option value="YALE ERP16 ATF">YALE ERP16 ATF</option>
+                    <option value="Jungheinrich ETM14">Jungheinrich ETM14</option>
+                    <option value="CAT NR14K">CAT NR14K</option>
+                </datalist>
             </div>
             <div class="col-sm-3">
                 {{ form.machine_Capacity | as_crispy_field }}
